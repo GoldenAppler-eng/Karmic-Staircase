@@ -1,0 +1,16 @@
+extends Brain
+
+func wants_movement() -> bool:
+	return false
+
+func wants_sprint() -> bool:
+	return false
+
+func wants_attack() -> bool:
+	return false
+
+func wants_interact() -> bool:
+	return false
+
+func get_movement_vector() -> Vector2:
+	return Vector2(0, 0)

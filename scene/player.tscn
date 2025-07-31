@@ -1,0 +1,87 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdmckyq563mja"]
+
+[ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/IdleState.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/MoveState.gd" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://dgcyi6lkgvs6g" path="res://script/state/AttackState.gd" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="6_2hs0m"]
+[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/SprintState.gd" id="7_b26j0"]
+[ext_resource type="Script" uid="uid://bj2fo22m487fj" path="res://script/brain/InputBrain.gd" id="8_dw050"]
+[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/InteractState.gd" id="8_ivps1"]
+[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="11_dk1vr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
+radius = 45.0444
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_1jxqw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.15256e-07, 0.999998)
+scale = Vector2(0.15625, 0.203125)
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_onrkg")
+
+[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_onrkg")]
+unique_name_in_owner = true
+initial_state = NodePath("idle_state")
+
+[node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state", "interact_state")]
+script = ExtResource("3_i3pqv")
+move_state = NodePath("../move_state")
+attack_state = NodePath("../atttack_state")
+interact_state = NodePath("../interact_state")
+
+[node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state", "sprint_state", "interact_state")]
+script = ExtResource("4_hqtel")
+idle_state = NodePath("../idle_state")
+attack_state = NodePath("../atttack_state")
+sprint_state = NodePath("../sprint_state")
+interact_state = NodePath("../interact_state")
+
+[node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("5_sweqy")
+idle_state = NodePath("../idle_state")
+move_state = NodePath("../move_state")
+
+[node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "interact_state")]
+script = ExtResource("7_b26j0")
+move_state = NodePath("../move_state")
+idle_state = NodePath("../idle_state")
+attack_state = NodePath("../atttack_state")
+interact_state = NodePath("../interact_state")
+
+[node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("8_ivps1")
+idle_state = NodePath("../idle_state")
+move_state = NodePath("../move_state")
+
+[node name="movement_component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_2hs0m")
+speed = 5.0
+sprint_multiplier = 2.0
+metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
+
+[node name="input_brain" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_dw050")
+
+[node name="interacter_component" parent="." instance=ExtResource("11_dk1vr")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
+shape = SubResource("CircleShape2D_34jf3")
+
+[node name="speech_text" parent="." instance=ExtResource("10_n7ghd")]
+offset_left = -40.0
+offset_top = -39.0
+offset_right = -40.0
+offset_bottom = -39.0

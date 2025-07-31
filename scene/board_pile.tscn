@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://3hmeuxy5sim4"]
+
+[ext_resource type="Script" uid="uid://dgd24t6bcgwrv" path="res://script/BoardPile.gd" id="1_k3fit"]
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_kcdmm"]
+[ext_resource type="PackedScene" uid="uid://b7w6a4axms7al" path="res://scene/interactable_component.tscn" id="2_hocp4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hocp4"]
+radius = 22.0907
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hocp4"]
+size = Vector2(44, 43.5)
+
+[node name="board_pile" type="RigidBody2D"]
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+script = ExtResource("1_k3fit")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.694118, 0, 1)
+position = Vector2(0, 0.999998)
+scale = Vector2(0.34375, 0.34375)
+texture = ExtResource("1_kcdmm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hocp4")
+
+[node name="interactable_component" parent="." instance=ExtResource("2_hocp4")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+shape = SubResource("RectangleShape2D_hocp4")
