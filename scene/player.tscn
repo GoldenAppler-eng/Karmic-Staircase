@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=21 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
 [ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="14_u7b46"]
 [ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="17_4ja17"]
+[ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="18_v4iqv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
@@ -118,3 +119,12 @@ unique_name_in_owner = true
 [node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
 script = ExtResource("17_4ja17")
 target_brain = NodePath("../input_brain")
+
+[node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
+unique_name_in_owner = true
+script = ExtResource("18_v4iqv")
+hunger_degeneration_timer = NodePath("hunger_degen_timer")
+
+[node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
+wait_time = 2.0
+autostart = true

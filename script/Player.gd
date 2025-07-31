@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var interacter_component: InteracterComponent = %interacter_component
 @onready var rotation_tracker_component: RotationTrackerComponent = %rotation_tracker_component
 @onready var pickup_item_component: PickupItemComponent = %pickup_item_component
+@onready var stat_data_component: StatDataComponent = %stat_data_component
 
 @onready var speech_text: SpeechText = %speech_text
 
@@ -17,12 +18,14 @@ func _ready() -> void:
 	interacter_component.init(self)
 	rotation_tracker_component.init(self, origin_node)
 	pickup_item_component.init(self)
-	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component)
+	stat_data_component.init()
+	
+	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component, stat_data_component)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 	
-	speech_text.set_text(str(rotation_tracker_component.psuedo_vertical_coordinate))
+	speech_text.set_text(str(stat_data_component.data.hunger))
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)

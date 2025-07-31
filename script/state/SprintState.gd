@@ -12,9 +12,11 @@ func extra_init() -> void:
 	
 func enter() -> void:
 	movement_component.set_sprinting(true)
+	stat_data_component.speed_up_hunger_degeneration_time(2)
 	
 func exit() -> void:
 	movement_component.set_sprinting(false)
+	stat_data_component.speed_up_hunger_degeneration_time(1)
 	
 func process_physics(delta : float) -> State:
 	if  not pickup_item_component.is_not_holding_item() and pickup_item_component.can_be_used_for_attack() and brain.wants_attack():
