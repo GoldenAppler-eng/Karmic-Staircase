@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PickupableItemData" load_steps=3 format=3 uid="uid://fry6ncngyn0d"]
+
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_338oo"]
+[ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="1_q4x3w"]
+
+[resource]
+script = ExtResource("1_q4x3w")
+name = "CakePiece"
+can_use_to_attack = false
+hold_sprite = ExtResource("1_338oo")
+world_sprite = ExtResource("1_338oo")
+hold_offset = Vector2(60, 0)
+scale = Vector2(0.01, 0.01)
+metadata/_custom_type_script = "uid://dpsdxig7vq6hu"

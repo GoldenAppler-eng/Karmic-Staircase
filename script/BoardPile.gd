@@ -8,9 +8,7 @@ func _ready() -> void:
 	interactable_component.interact = interact
 	board_pickupable_item.use = board_use_function
 	
-func interact(interacter : Node2D) -> void:
-	print(interacter.name)
-	
+func interact(interacter : Node2D) -> void:	
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
 	
 	if interacter.has_meta(pickup_meta_name):

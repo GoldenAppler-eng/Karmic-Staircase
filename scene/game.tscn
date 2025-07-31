@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=7 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
-[ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="2_dbls1"]
+[ext_resource type="PackedScene" uid="uid://uw4m24pq2ena" path="res://scene/cake.tscn" id="3_33cqm"]
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="4_p1ry8"]
+[ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_xlg7c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbls1"]
 radius = 40.1123
+
+[sub_resource type="Resource" id="Resource_p1ry8"]
+script = ExtResource("5_xlg7c")
+name = "CakePiece"
+can_use_to_attack = false
+hold_sprite = ExtResource("4_p1ry8")
+world_sprite = ExtResource("4_p1ry8")
+hold_offset = Vector2(60, 0)
+scale = Vector2(0.1, 0.1)
+metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
 [node name="game" type="Node2D"]
 
@@ -16,11 +28,12 @@ origin_node = NodePath("../origin")
 position = Vector2(3, 4)
 zoom = Vector2(3.895, 3.895)
 
-[node name="board_pile" parent="." instance=ExtResource("2_dbls1")]
-position = Vector2(105, 48)
-
 [node name="origin" type="RigidBody2D" parent="."]
 gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="origin"]
 shape = SubResource("CircleShape2D_dbls1")
+
+[node name="cake" parent="." instance=ExtResource("3_33cqm")]
+position = Vector2(136, -29)
+cake_pickupable_item = SubResource("Resource_p1ry8")

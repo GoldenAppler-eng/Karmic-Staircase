@@ -13,7 +13,12 @@ func init(p_item_user : Node2D) -> void:
 
 func use_item() -> void:
 	current_item.use.call(item_user)
+
+func remove_item() -> void:
+	current_item = null
 	
+	sprite_2d.texture = null
+
 func pickup_item(item : PickupableItemData) -> void:
 	current_item = item
 	
@@ -22,9 +27,7 @@ func pickup_item(item : PickupableItemData) -> void:
 	sprite_2d.scale = current_item.scale
 
 func drop_item() -> void:
-	current_item = null
-	
-	sprite_2d.texture = null
+	remove_item()
 
 func is_not_holding_item() -> bool:
 	return not current_item

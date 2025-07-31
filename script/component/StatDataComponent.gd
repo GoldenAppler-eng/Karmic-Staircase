@@ -17,6 +17,9 @@ func init() -> void:
 	
 	hunger_degeneration_timer.timeout.connect(_on_hunger_degeneration_timer_timeout)
 	
+func change_hunger(net_change : float) -> void:
+	data.change_hunger(net_change)
+	
 func _on_hunger_degeneration_timer_timeout() -> void:
 	data.change_hunger(-hunger_degeneration_amount)
 
