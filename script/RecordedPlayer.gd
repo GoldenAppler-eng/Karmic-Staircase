@@ -14,11 +14,12 @@ extends CharacterBody2D
 @onready var speech_text: SpeechText = %speech_text
 
 func _ready() -> void:
-	movement_component.init(self)
+	stat_data_component.init()	
+
+	movement_component.init(self, stat_data_component)
 	interacter_component.init(self)
 	rotation_tracker_component.init(self, origin_node)
 	pickup_item_component.init(self)
-	stat_data_component.init()
 	
 	state_machine.init(recorded_brain, movement_component, interacter_component, pickup_item_component, stat_data_component)
 

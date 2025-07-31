@@ -20,6 +20,8 @@ metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
 [node name="game" type="Node2D"]
 
+[node name="staircase_level_manager" type="Node" parent="."]
+
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
 position = Vector2(52, 0)
 origin_node = NodePath("../origin")
