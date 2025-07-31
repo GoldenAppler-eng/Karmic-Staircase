@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PickupableItemData" load_steps=3 format=3 uid="uid://g5ww72lwrh1"]
+
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_k2mf6"]
+[ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="1_qq5iu"]
+
+[resource]
+script = ExtResource("1_qq5iu")
+name = "Board"
+can_use_to_attack = true
+hold_sprite = ExtResource("1_k2mf6")
+world_sprite = ExtResource("1_k2mf6")
+hold_offset = Vector2(50, -40)
+scale = Vector2(0.2, 0.2)
+metadata/_custom_type_script = "uid://dpsdxig7vq6hu"

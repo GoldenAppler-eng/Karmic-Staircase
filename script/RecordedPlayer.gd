@@ -1,9 +1,9 @@
-class_name Player
+class_name RecordedPlayer
 extends CharacterBody2D
 
 @export var origin_node : Node2D
 
-@onready var input_brain: Brain = %input_brain
+@onready var recorded_brain: RecordedBrain = %recorded_brain
 @onready var movement_component: MovementComponent = %movement_component
 @onready var state_machine: StateMachine = %state_machine
 @onready var interacter_component: InteracterComponent = %interacter_component
@@ -17,7 +17,7 @@ func _ready() -> void:
 	interacter_component.init(self)
 	rotation_tracker_component.init(self, origin_node)
 	pickup_item_component.init(self)
-	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component)
+	state_machine.init(recorded_brain, movement_component, interacter_component, pickup_item_component)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)

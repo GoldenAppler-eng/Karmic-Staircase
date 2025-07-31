@@ -12,6 +12,15 @@ func wants_attack() -> bool:
 
 func wants_interact() -> bool:
 	return false
+	
+func wants_use() -> bool:
+	return false
+	
+func wants_pickup() -> bool:
+	return false
+	
+func wants_drop() -> bool:
+	return false
 
 func get_movement_vector() -> Vector2:
 	return Vector2(0, 0)

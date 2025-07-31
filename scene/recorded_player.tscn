@@ -1,45 +1,44 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=19 format=3 uid="uid://byxipsvhnnyec"]
 
-[ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/IdleState.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://dlwylnp3l1144" path="res://script/state/DropState.gd" id="4_bup7g"]
-[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/MoveState.gd" id="4_hqtel"]
-[ext_resource type="Script" uid="uid://dgcyi6lkgvs6g" path="res://script/state/AttackState.gd" id="5_sweqy"]
-[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="6_2hs0m"]
-[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/SprintState.gd" id="7_b26j0"]
-[ext_resource type="Script" uid="uid://bj2fo22m487fj" path="res://script/brain/InputBrain.gd" id="8_dw050"]
-[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/InteractState.gd" id="8_ivps1"]
-[ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/UseState.gd" id="9_j4wxg"]
-[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
-[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="11_dk1vr"]
-[ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
-[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="14_u7b46"]
-[ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="17_4ja17"]
+[ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="2_b05ef"]
+[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="3_p4hug"]
+[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/IdleState.gd" id="4_cercp"]
+[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/MoveState.gd" id="5_6hp1k"]
+[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/SprintState.gd" id="6_isn2n"]
+[ext_resource type="Script" uid="uid://dgcyi6lkgvs6g" path="res://script/state/AttackState.gd" id="7_llrc2"]
+[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/InteractState.gd" id="8_wyros"]
+[ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/UseState.gd" id="9_exdkq"]
+[ext_resource type="Script" uid="uid://dlwylnp3l1144" path="res://script/state/DropState.gd" id="10_7uqe1"]
+[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="11_2ycxl"]
+[ext_resource type="Script" uid="uid://dkqq41o5lv5pl" path="res://script/brain/RecordedBrain.gd" id="12_ce7el"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="13_xcl4y"]
+[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="14_tt30e"]
+[ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="15_pq381"]
+[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="16_xc1lj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
 radius = 45.0444
 
-[node name="player" type="CharacterBody2D"]
-script = ExtResource("1_1jxqw")
+[node name="recorded_player" type="CharacterBody2D"]
+script = ExtResource("1_vx2og")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(7.15256e-07, 0.999998)
 scale = Vector2(0.15625, 0.203125)
-texture = ExtResource("1_4flbx")
+texture = ExtResource("2_b05ef")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_onrkg")
 
-[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_onrkg")]
+[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_p4hug")]
 unique_name_in_owner = true
 initial_state = NodePath("idle_state")
 
 [node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state", "interact_state", "use_state", "drop_state")]
-script = ExtResource("3_i3pqv")
+script = ExtResource("4_cercp")
 move_state = NodePath("../move_state")
 attack_state = NodePath("../atttack_state")
 interact_state = NodePath("../interact_state")
@@ -47,7 +46,7 @@ use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
 
 [node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state", "sprint_state", "interact_state", "use_state", "drop_state")]
-script = ExtResource("4_hqtel")
+script = ExtResource("5_6hp1k")
 idle_state = NodePath("../idle_state")
 attack_state = NodePath("../atttack_state")
 sprint_state = NodePath("../sprint_state")
@@ -56,7 +55,7 @@ use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
 
 [node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "interact_state", "use_state", "drop_state")]
-script = ExtResource("7_b26j0")
+script = ExtResource("6_isn2n")
 move_state = NodePath("../move_state")
 idle_state = NodePath("../idle_state")
 attack_state = NodePath("../atttack_state")
@@ -65,43 +64,43 @@ use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
 
 [node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("5_sweqy")
+script = ExtResource("7_llrc2")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("8_ivps1")
+script = ExtResource("8_wyros")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="use_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("9_j4wxg")
+script = ExtResource("9_exdkq")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="drop_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("4_bup7g")
+script = ExtResource("10_7uqe1")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="movement_component" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("6_2hs0m")
+script = ExtResource("11_2ycxl")
 speed = 5.0
 sprint_multiplier = 2.0
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
 
-[node name="input_brain" type="Node" parent="."]
+[node name="recorded_brain" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("8_dw050")
+script = ExtResource("12_ce7el")
 
-[node name="interacter_component" parent="." instance=ExtResource("11_dk1vr")]
+[node name="interacter_component" parent="." instance=ExtResource("13_xcl4y")]
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
 shape = SubResource("CircleShape2D_34jf3")
 
-[node name="speech_text" parent="." instance=ExtResource("10_n7ghd")]
+[node name="speech_text" parent="." instance=ExtResource("14_tt30e")]
 unique_name_in_owner = true
 offset_left = -40.0
 offset_top = -39.0
@@ -110,11 +109,7 @@ offset_bottom = -39.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("13_34jf3")
+script = ExtResource("15_pq381")
 
-[node name="pickup_item_component" parent="." instance=ExtResource("14_u7b46")]
+[node name="pickup_item_component" parent="." instance=ExtResource("16_xc1lj")]
 unique_name_in_owner = true
-
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
-script = ExtResource("17_4ja17")
-target_brain = NodePath("../input_brain")

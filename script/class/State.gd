@@ -4,11 +4,13 @@ extends Node
 var brain : Brain
 var movement_component : MovementComponent
 var interacter_component : InteracterComponent
+var pickup_item_component : PickupItemComponent
 
-func init(p_brain : Brain, p_movement_component : MovementComponent, p_interacter_component : InteracterComponent) -> void:
+func init(p_brain : Brain, p_movement_component : MovementComponent, p_interacter_component : InteracterComponent, p_pickup_item_component : PickupItemComponent) -> void:
 	brain = p_brain
 	movement_component = p_movement_component
 	interacter_component = p_interacter_component
+	pickup_item_component = p_pickup_item_component
 	
 	extra_init()
 	

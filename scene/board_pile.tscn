@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://3hmeuxy5sim4"]
+[gd_scene load_steps=7 format=3 uid="uid://3hmeuxy5sim4"]
 
 [ext_resource type="Script" uid="uid://dgd24t6bcgwrv" path="res://script/BoardPile.gd" id="1_k3fit"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_kcdmm"]
+[ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_3p4ou"]
 [ext_resource type="PackedScene" uid="uid://b7w6a4axms7al" path="res://scene/interactable_component.tscn" id="2_hocp4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hocp4"]
@@ -15,6 +16,7 @@ gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 script = ExtResource("1_k3fit")
+board_pickupable_item = ExtResource("2_3p4ou")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.694118, 0, 1)
