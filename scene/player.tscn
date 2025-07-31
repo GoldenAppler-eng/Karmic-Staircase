@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=16 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/InteractState.gd" id="8_ivps1"]
 [ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="11_dk1vr"]
+[ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
@@ -81,7 +82,12 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_34jf3")
 
 [node name="speech_text" parent="." instance=ExtResource("10_n7ghd")]
+unique_name_in_owner = true
 offset_left = -40.0
 offset_top = -39.0
 offset_right = -40.0
 offset_bottom = -39.0
+
+[node name="rotation_tracker_component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("13_34jf3")
