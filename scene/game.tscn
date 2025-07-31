@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=8 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
+[ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
 [ext_resource type="PackedScene" uid="uid://uw4m24pq2ena" path="res://scene/cake.tscn" id="3_33cqm"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="4_p1ry8"]
 [ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_xlg7c"]
@@ -20,8 +21,6 @@ metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
 [node name="game" type="Node2D"]
 
-[node name="staircase_level_manager" type="Node" parent="."]
-
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
 position = Vector2(52, 0)
 origin_node = NodePath("../origin")
@@ -39,3 +38,14 @@ shape = SubResource("CircleShape2D_dbls1")
 [node name="cake" parent="." instance=ExtResource("3_33cqm")]
 position = Vector2(136, -29)
 cake_pickupable_item = SubResource("Resource_p1ry8")
+
+[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("1_p1ry8")
+player = NodePath("../player")
+
+[node name="Label" type="Label" parent="staircase_level_manager"]
+offset_left = -139.0
+offset_top = -77.0
+offset_right = -44.0
+offset_bottom = -54.0
+text = "Sample Text"

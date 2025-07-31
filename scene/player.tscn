@@ -109,12 +109,12 @@ offset_top = -39.0
 offset_right = -40.0
 offset_bottom = -39.0
 
+[node name="pickup_item_component" parent="." instance=ExtResource("14_u7b46")]
+unique_name_in_owner = true
+
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("13_34jf3")
-
-[node name="pickup_item_component" parent="." instance=ExtResource("14_u7b46")]
-unique_name_in_owner = true
 
 [node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
 script = ExtResource("17_4ja17")
