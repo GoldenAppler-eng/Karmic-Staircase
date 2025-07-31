@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const INITIAL_NUMBER_OF_PIECES = 10
+const INITIAL_NUMBER_OF_PIECES = 1
 
 var cake_hunger_regen_amount : float = 30
 

@@ -115,9 +115,10 @@ script = ExtResource("15_pq381")
 [node name="pickup_item_component" parent="." instance=ExtResource("16_xc1lj")]
 unique_name_in_owner = true
 
-[node name="stat_data_component" type="Node" parent="."]
+[node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
 unique_name_in_owner = true
 script = ExtResource("17_ce7el")
+hunger_degeneration_timer = NodePath("hunger_degen_timer")
 metadata/_custom_type_script = "uid://dcdbliakm3u3e"
 
 [node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
