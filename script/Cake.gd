@@ -1,6 +1,7 @@
+class_name Cake
 extends RigidBody2D
 
-const INITIAL_NUMBER_OF_PIECES = 1
+const INITIAL_CAKE_LEFT = 1
 
 var cake_hunger_regen_amount : float = 30
 
@@ -8,7 +9,7 @@ var cake_hunger_regen_amount : float = 30
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 
-var num_of_pieces = INITIAL_NUMBER_OF_PIECES
+var cake_left = INITIAL_CAKE_LEFT
 
 func _ready() -> void:
 	interactable_component.interact = interact
@@ -21,11 +22,11 @@ func interact(interacter : Node2D) -> void:
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
 		pickup_item_component.pickup_item(cake_pickupable_item)
 		
-		num_of_pieces -= 1
+		cake_left -= 1
 		_check_for_empty()
 
 func _check_for_empty() -> void:
-	if num_of_pieces <= 0:
+	if cake_left <= 0:
 		visible = false
 		interactable_component.set_enabled(false)
 

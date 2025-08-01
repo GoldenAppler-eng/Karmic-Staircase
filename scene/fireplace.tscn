@@ -51,7 +51,7 @@ scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("1_myu72")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-amount = 10
+amount = 20
 explosiveness = 0.15
 process_material = SubResource("ParticleProcessMaterial_fdvmc")
 

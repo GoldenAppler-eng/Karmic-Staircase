@@ -133,10 +133,6 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 script = ExtResource("13_34jf3")
 
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
-script = ExtResource("17_4ja17")
-target_brain = NodePath("../input_brain")
-
 [node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
 unique_name_in_owner = true
 script = ExtResource("18_v4iqv")
@@ -158,3 +154,8 @@ shape = SubResource("RectangleShape2D_iuf2t")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damager_component"]
 position = Vector2(20, 0)
 shape = SubResource("CircleShape2D_jrjdb")
+
+[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
+unique_name_in_owner = true
+script = ExtResource("17_4ja17")
+target_brain = NodePath("../input_brain")

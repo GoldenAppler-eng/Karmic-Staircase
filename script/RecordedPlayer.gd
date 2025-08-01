@@ -33,3 +33,9 @@ func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
+
+func set_vertical_coordinate(vertical_coordinate : float) -> void:
+	rotation_tracker_component.psuedo_vertical_coordinate = vertical_coordinate
+	
+func set_recorded_brain_data(data : Array[BrainFrameData]) -> void:
+	recorded_brain.recorded_brain_data = data

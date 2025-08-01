@@ -1,10 +1,14 @@
+class_name BoardPile
 extends RigidBody2D
 
 const BOARD_FUEL_VALUE : float = 50
+const INITIAL_BOARDS_LEFT : int = 5
 
 @export var board_pickupable_item : PickupableItemData
 
 @onready var interactable_component: InteractableComponent = %interactable_component
+
+var boards_left : int = INITIAL_BOARDS_LEFT
 
 func _ready() -> void:
 	interactable_component.interact = interact
