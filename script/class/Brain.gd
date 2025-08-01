@@ -24,3 +24,6 @@ func wants_drop() -> bool:
 
 func get_movement_vector() -> Vector2:
 	return Vector2(0, 0)
+	
+func shut_off() -> void:
+	pass

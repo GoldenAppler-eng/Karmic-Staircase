@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=9 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
 [ext_resource type="PackedScene" uid="uid://uw4m24pq2ena" path="res://scene/cake.tscn" id="3_33cqm"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="4_p1ry8"]
 [ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_xlg7c"]
+[ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="6_xlg7c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbls1"]
 radius = 40.1123
@@ -31,6 +32,8 @@ zoom = Vector2(3.895, 3.895)
 
 [node name="origin" type="RigidBody2D" parent="."]
 gravity_scale = 0.0
+lock_rotation = true
+freeze = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="origin"]
 shape = SubResource("CircleShape2D_dbls1")
@@ -49,3 +52,6 @@ offset_top = -77.0
 offset_right = -44.0
 offset_bottom = -54.0
 text = "Sample Text"
+
+[node name="board_pile" parent="." instance=ExtResource("6_xlg7c")]
+position = Vector2(-14, 73)

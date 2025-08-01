@@ -4,7 +4,12 @@ extends Brain
 var recorded_brain_data : Array[BrainFrameData]
 var current_frame = 0
 
+var _stop_play_recording : bool = false
+
 func _physics_process(delta: float) -> void:
+	if _stop_play_recording:
+		return
+
 	current_frame += 1
 	
 func wants_movement() -> bool:
@@ -30,3 +35,6 @@ func wants_drop() -> bool:
 
 func get_movement_vector() -> Vector2:
 	return recorded_brain_data[current_frame].movement_vector
+
+func shut_off() -> void:
+	_stop_play_recording = true

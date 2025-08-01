@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://djox8a46od6wh"]
+
+[ext_resource type="Script" uid="uid://bs42y3ogdmysu" path="res://script/component/DamagerComponent.gd" id="1_7dya4"]
+
+[node name="damager_component" type="Area2D"]
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+script = ExtResource("1_7dya4")

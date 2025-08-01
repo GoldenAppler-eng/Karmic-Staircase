@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var rotation_tracker_component: RotationTrackerComponent = %rotation_tracker_component
 @onready var pickup_item_component: PickupItemComponent = %pickup_item_component
 @onready var stat_data_component: StatDataComponent = %stat_data_component
+@onready var hurtbox_component: HurtboxComponent = %hurtbox_component
 
 @onready var speech_text: SpeechText = %speech_text
 
@@ -20,8 +21,9 @@ func _ready() -> void:
 	interacter_component.init(self)
 	rotation_tracker_component.init(self, origin_node)
 	pickup_item_component.init(self)
+	hurtbox_component.init()
 	
-	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component, stat_data_component)
+	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)

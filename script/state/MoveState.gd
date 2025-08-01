@@ -6,6 +6,7 @@ extends State
 @export var interact_state : State
 @export var use_state : State
 @export var drop_state : State
+@export var dead_state : State
 
 func extra_init() -> void:
 	pass
@@ -17,6 +18,9 @@ func exit() -> void:
 	movement_component.stop_movement()	
 	
 func process_physics(delta : float) -> State:
+	if hurtbox_component.is_hurt():
+		return dead_state
+	
 	if  not pickup_item_component.is_not_holding_item() and pickup_item_component.can_be_used_for_attack() and brain.wants_attack():
 		return attack_state
 	

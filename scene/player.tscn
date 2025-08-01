@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=26 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
@@ -14,15 +14,24 @@
 [ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/UseState.gd" id="9_j4wxg"]
 [ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="11_dk1vr"]
+[ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/DeadState.gd" id="11_iuf2t"]
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
 [ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="14_u7b46"]
 [ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="17_4ja17"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="18_v4iqv"]
+[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/hurtbox_component.tscn" id="19_42h83"]
+[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/damager_component.tscn" id="21_jrjdb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
 radius = 45.0444
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuf2t"]
+size = Vector2(20, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrjdb"]
+radius = 13.0384
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_1jxqw")
@@ -39,15 +48,16 @@ shape = SubResource("CapsuleShape2D_onrkg")
 unique_name_in_owner = true
 initial_state = NodePath("idle_state")
 
-[node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state", "interact_state", "use_state", "drop_state")]
+[node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state", "interact_state", "use_state", "drop_state", "dead_state")]
 script = ExtResource("3_i3pqv")
 move_state = NodePath("../move_state")
 attack_state = NodePath("../atttack_state")
 interact_state = NodePath("../interact_state")
 use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
+dead_state = NodePath("../dead_state")
 
-[node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state", "sprint_state", "interact_state", "use_state", "drop_state")]
+[node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state", "sprint_state", "interact_state", "use_state", "drop_state", "dead_state")]
 script = ExtResource("4_hqtel")
 idle_state = NodePath("../idle_state")
 attack_state = NodePath("../atttack_state")
@@ -55,8 +65,9 @@ sprint_state = NodePath("../sprint_state")
 interact_state = NodePath("../interact_state")
 use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
+dead_state = NodePath("../dead_state")
 
-[node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "interact_state", "use_state", "drop_state")]
+[node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "interact_state", "use_state", "drop_state", "dead_state")]
 script = ExtResource("7_b26j0")
 move_state = NodePath("../move_state")
 idle_state = NodePath("../idle_state")
@@ -64,11 +75,14 @@ attack_state = NodePath("../atttack_state")
 interact_state = NodePath("../interact_state")
 use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
+dead_state = NodePath("../dead_state")
 
-[node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
+[node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "dead_state", "damager_component")]
 script = ExtResource("5_sweqy")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
+dead_state = NodePath("../dead_state")
+damager_component = NodePath("../../damager_component")
 
 [node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
 script = ExtResource("8_ivps1")
@@ -84,6 +98,9 @@ move_state = NodePath("../move_state")
 script = ExtResource("4_bup7g")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
+
+[node name="dead_state" type="Node" parent="state_machine"]
+script = ExtResource("11_iuf2t")
 
 [node name="movement_component" type="Node" parent="."]
 unique_name_in_owner = true
@@ -128,3 +145,16 @@ hunger_degeneration_timer = NodePath("hunger_degen_timer")
 [node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
 wait_time = 2.0
 autostart = true
+
+[node name="hurtbox_component" parent="." instance=ExtResource("19_42h83")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_iuf2t")
+
+[node name="damager_component" parent="." instance=ExtResource("21_jrjdb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damager_component"]
+position = Vector2(20, 0)
+shape = SubResource("CircleShape2D_jrjdb")
