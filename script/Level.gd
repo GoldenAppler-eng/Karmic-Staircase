@@ -17,9 +17,8 @@ func _init() -> void:
 	disable()
 
 func intialize_first_level_data(player : Player) -> void:
-	level_data.initial_player_positions.append(player.global_position)
-	level_data.initial_player_vertical_coordinates.append(player.get_vertical_coordinate())
-
+	hold_data(player)
+	
 	level_data.initial_boards_left = board_pile.boards_left
 	level_data.initial_cake_left = cake.cake_left
 	level_data.initial_fuel_level = fireplace.fuel
@@ -28,10 +27,17 @@ func initialize_data(player : Player) -> void:
 	level_data.initial_player_positions.append(player.global_position)
 	level_data.initial_player_vertical_coordinates.append(player.get_vertical_coordinate())
 	
+func hold_data(player : Player) -> void:
+	level_data.held_initial_player_position = player.global_position
+	level_data.held_initial_vertical_coordinate = player.get_vertical_coordinate()
+	
 func save_data(player : Player) -> LevelData:
 	level_data.final_boards_left = board_pile.boards_left
 	level_data.final_cake_left = cake.cake_left
 	level_data.final_fuel_level = fireplace.fuel
+	
+	level_data.initial_player_positions.append(level_data.held_initial_player_position)
+	level_data.initial_player_vertical_coordinates.append(level_data.held_initial_vertical_coordinate)
 	
 	#level_data.players_recorded_steps = []
 	

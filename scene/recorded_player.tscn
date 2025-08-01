@@ -30,6 +30,7 @@ radius = 45.0444
 size = Vector2(22, 29)
 
 [node name="recorded_player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_vx2og")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

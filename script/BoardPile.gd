@@ -8,11 +8,16 @@ const INITIAL_BOARDS_LEFT : int = 5
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 
-var boards_left : int = INITIAL_BOARDS_LEFT
+var boards_left : int:
+	set(value):
+		boards_left = value
+		_check_for_empty()
 
 func _ready() -> void:
 	interactable_component.interact = interact
 	board_pickupable_item.use = board_use_function
+	
+	boards_left = INITIAL_BOARDS_LEFT
 	
 func interact(interacter : Node2D) -> void:	
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
@@ -20,6 +25,16 @@ func interact(interacter : Node2D) -> void:
 	if interacter.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
 		pickup_item_component.pickup_item(board_pickupable_item)
+		
+		boards_left = boards_left - 1
+		
+func _check_for_empty() -> void:
+	if boards_left <= 0:
+		visible = false
+		interactable_component.set_enabled(false)
+	else:
+		visible = true
+		interactable_component.set_enabled(true)
 
 func board_use_function(user : Node2D) -> void:
 	var interacter_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.INTERACTER)

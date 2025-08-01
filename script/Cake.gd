@@ -9,11 +9,16 @@ var cake_hunger_regen_amount : float = 30
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 
-var cake_left = INITIAL_CAKE_LEFT
+var cake_left : int:
+	set(value):
+		cake_left = value
+		_check_for_empty()
 
 func _ready() -> void:
 	interactable_component.interact = interact
 	cake_pickupable_item.use = cake_use_function
+	
+	cake_left = INITIAL_CAKE_LEFT
 	
 func interact(interacter : Node2D) -> void:	
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
@@ -22,13 +27,15 @@ func interact(interacter : Node2D) -> void:
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
 		pickup_item_component.pickup_item(cake_pickupable_item)
 		
-		cake_left -= 1
-		_check_for_empty()
+		cake_left = cake_left - 1
 
 func _check_for_empty() -> void:
 	if cake_left <= 0:
 		visible = false
 		interactable_component.set_enabled(false)
+	else:
+		visible = true
+		interactable_component.set_enabled(true)
 
 func cake_use_function(user : Node2D) -> void:
 	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)

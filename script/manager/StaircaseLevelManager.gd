@@ -32,8 +32,10 @@ func load_next_level(level_to_load : int) -> void:
 	var previous_level : int = level_to_load - 1
 	var saved_data : LevelData = level_list[previous_level].save_data(player)
 	
-	level_list[level_to_load].initialize_data(player)
+	level_list[level_to_load].hold_data(player)
+	
 	level_list[level_to_load].load_from_data(saved_data)
+	level_list[level_to_load].load_data()
 	
 	level_list[previous_level].create_recorded_players()
 	
@@ -46,7 +48,7 @@ func load_previous_level(level_to_load : int) -> void:
 	player.clear_recorded_steps()
 	
 	level_list[level_to_load].load_data()
-	level_list[level_to_load].initialize_data(player)
+	level_list[level_to_load].hold_data(player)
 	level_list[level_to_load].reset_recorded_players()
 	
 	level_list[level_to_load].enable()

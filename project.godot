@@ -80,6 +80,7 @@ debug_special_button={
 
 [layer_names]
 
+2d_physics/layer_2="player"
 2d_physics/layer_4="interactables"
 2d_physics/layer_5="hurtbox_player"
 2d_physics/layer_6="hurtbox_enemy"
