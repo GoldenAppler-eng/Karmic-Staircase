@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=24 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="2_b05ef"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="16_xc1lj"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="17_ce7el"]
 [ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/hurtbox_component.tscn" id="19_p4hug"]
+[ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="20_cercp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
@@ -144,3 +145,9 @@ collision_layer = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_p4hug")
+
+[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
+unique_name_in_owner = true
+script = ExtResource("20_cercp")
+target_brain = NodePath("../recorded_brain")
+metadata/_custom_type_script = "uid://0nqej4vc3au4"

@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=13 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
 [ext_resource type="PackedScene" uid="uid://uw4m24pq2ena" path="res://scene/cake.tscn" id="3_33cqm"]
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="4_p1ry8"]
-[ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_xlg7c"]
+[ext_resource type="Script" uid="uid://dnbkjrpno7u1e" path="res://script/class/LevelData.gd" id="3_qpk70"]
 [ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="6_xlg7c"]
 [ext_resource type="PackedScene" uid="uid://o40os8tevy7i" path="res://scene/fireplace.tscn" id="7_qpk70"]
 [ext_resource type="Script" uid="uid://c7vkkmg5qpumj" path="res://script/Level.gd" id="8_ll5lq"]
@@ -12,20 +11,34 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbls1"]
 radius = 40.1123
 
-[sub_resource type="Resource" id="Resource_p1ry8"]
-script = ExtResource("5_xlg7c")
-name = "CakePiece"
-can_use_to_attack = false
-hold_sprite = ExtResource("4_p1ry8")
-world_sprite = ExtResource("4_p1ry8")
-hold_offset = Vector2(60, 0)
-scale = Vector2(0.1, 0.1)
-metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
+[sub_resource type="Resource" id="Resource_ll5lq"]
+resource_local_to_scene = true
+script = ExtResource("3_qpk70")
+level_id = 0
+metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
+
+[sub_resource type="Resource" id="Resource_17rxn"]
+resource_local_to_scene = true
+script = ExtResource("3_qpk70")
+level_id = 1
+metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
+
+[sub_resource type="Resource" id="Resource_yq8tf"]
+resource_local_to_scene = true
+script = ExtResource("3_qpk70")
+level_id = 2
+metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
+
+[sub_resource type="Resource" id="Resource_ym5sv"]
+resource_local_to_scene = true
+script = ExtResource("3_qpk70")
+level_id = 3
+metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
 
 [node name="game" type="Node2D"]
 
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
-position = Vector2(52, 0)
+position = Vector2(0, -109)
 origin_node = NodePath("../origin")
 
 [node name="origin" type="RigidBody2D" parent="."]
@@ -38,21 +51,80 @@ shape = SubResource("CircleShape2D_dbls1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(3, 4)
-zoom = Vector2(3.895, 3.895)
+zoom = Vector2(1.6, 1.6)
 
-[node name="Level0" type="Node2D" parent="."]
+[node name="Level0" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "board_pile", "cake", "fireplace")]
 script = ExtResource("8_ll5lq")
+level_data = SubResource("Resource_ll5lq")
+origin_node = NodePath("../origin")
+board_pile = NodePath("board_pile")
+cake = NodePath("cake")
+fireplace = NodePath("fireplace")
 
-[node name="cake" parent="." instance=ExtResource("3_33cqm")]
-position = Vector2(-86, -14)
-cake_pickupable_item = SubResource("Resource_p1ry8")
+[node name="board_pile" parent="Level0" instance=ExtResource("6_xlg7c")]
+position = Vector2(213, 85)
 
-[node name="board_pile" parent="." instance=ExtResource("6_xlg7c")]
-position = Vector2(-14, 73)
+[node name="cake" parent="Level0" instance=ExtResource("3_33cqm")]
+position = Vector2(203, -43)
 
-[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="fireplace" parent="Level0" instance=ExtResource("7_qpk70")]
+position = Vector2(271, 7)
+
+[node name="Level1" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "board_pile", "cake", "fireplace")]
+script = ExtResource("8_ll5lq")
+level_data = SubResource("Resource_17rxn")
+origin_node = NodePath("../origin")
+board_pile = NodePath("board_pile")
+cake = NodePath("cake")
+fireplace = NodePath("fireplace")
+
+[node name="board_pile" parent="Level1" instance=ExtResource("6_xlg7c")]
+position = Vector2(213, 85)
+
+[node name="cake" parent="Level1" instance=ExtResource("3_33cqm")]
+position = Vector2(203, -43)
+
+[node name="fireplace" parent="Level1" instance=ExtResource("7_qpk70")]
+position = Vector2(271, 7)
+
+[node name="Level2" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "board_pile", "cake", "fireplace")]
+script = ExtResource("8_ll5lq")
+level_data = SubResource("Resource_yq8tf")
+origin_node = NodePath("../origin")
+board_pile = NodePath("board_pile")
+cake = NodePath("cake")
+fireplace = NodePath("fireplace")
+
+[node name="board_pile" parent="Level2" instance=ExtResource("6_xlg7c")]
+position = Vector2(213, 85)
+
+[node name="cake" parent="Level2" instance=ExtResource("3_33cqm")]
+position = Vector2(203, -43)
+
+[node name="fireplace" parent="Level2" instance=ExtResource("7_qpk70")]
+position = Vector2(271, 7)
+
+[node name="Level3" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "board_pile", "cake", "fireplace")]
+script = ExtResource("8_ll5lq")
+level_data = SubResource("Resource_ym5sv")
+origin_node = NodePath("../origin")
+board_pile = NodePath("board_pile")
+cake = NodePath("cake")
+fireplace = NodePath("fireplace")
+
+[node name="board_pile" parent="Level3" instance=ExtResource("6_xlg7c")]
+position = Vector2(213, 85)
+
+[node name="cake" parent="Level3" instance=ExtResource("3_33cqm")]
+position = Vector2(203, -43)
+
+[node name="fireplace" parent="Level3" instance=ExtResource("7_qpk70")]
+position = Vector2(271, 7)
+
+[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "level_list")]
 script = ExtResource("1_p1ry8")
 player = NodePath("../player")
+level_list = [NodePath("../Level0"), NodePath("../Level1"), NodePath("../Level2"), NodePath("../Level3")]
 
 [node name="Label" type="Label" parent="staircase_level_manager"]
 offset_left = -139.0
@@ -60,6 +132,3 @@ offset_top = -77.0
 offset_right = -44.0
 offset_bottom = -54.0
 text = "Sample Text"
-
-[node name="fireplace" parent="." instance=ExtResource("7_qpk70")]
-position = Vector2(144, 0)

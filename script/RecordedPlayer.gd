@@ -4,13 +4,16 @@ extends CharacterBody2D
 @export var origin_node : Node2D
 
 @onready var recorded_brain: RecordedBrain = %recorded_brain
-@onready var movement_component: MovementComponent = %movement_component
 @onready var state_machine: StateMachine = %state_machine
+
+@onready var movement_component: MovementComponent = %movement_component
 @onready var interacter_component: InteracterComponent = %interacter_component
 @onready var rotation_tracker_component: RotationTrackerComponent = %rotation_tracker_component
 @onready var pickup_item_component: PickupItemComponent = %pickup_item_component
 @onready var stat_data_component: StatDataComponent = %stat_data_component
 @onready var hurtbox_component: HurtboxComponent = %hurtbox_component
+
+@onready var step_recorder_component: StepRecorderComponent = %step_recorder_component
 
 @onready var speech_text: SpeechText = %speech_text
 
@@ -39,3 +42,9 @@ func set_vertical_coordinate(vertical_coordinate : float) -> void:
 	
 func set_recorded_brain_data(data : Array[BrainFrameData]) -> void:
 	recorded_brain.recorded_brain_data = data
+
+func get_recorded_steps() -> Array[BrainFrameData]:
+	return step_recorder_component.get_recorded_data()
+	
+func clear_recorded_steps() -> void:
+	step_recorder_component.clear()

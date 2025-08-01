@@ -10,6 +10,11 @@ func _physics_process(delta: float) -> void:
 	if _stop_play_recording:
 		return
 
+		
+	if current_frame + 1 >= recorded_brain_data.size():
+		_stop_play_recording = true
+		return
+
 	current_frame += 1
 	
 func wants_movement() -> bool:
