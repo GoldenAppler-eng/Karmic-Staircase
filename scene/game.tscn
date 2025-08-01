@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=10 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="4_p1ry8"]
 [ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_xlg7c"]
 [ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="6_xlg7c"]
+[ext_resource type="PackedScene" uid="uid://o40os8tevy7i" path="res://scene/fireplace.tscn" id="7_qpk70"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbls1"]
 radius = 40.1123
@@ -55,3 +56,6 @@ text = "Sample Text"
 
 [node name="board_pile" parent="." instance=ExtResource("6_xlg7c")]
 position = Vector2(-14, 73)
+
+[node name="fireplace" parent="." instance=ExtResource("7_qpk70")]
+position = Vector2(144, 0)

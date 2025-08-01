@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://o40os8tevy7i"]
+
+[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_myu72"]
+[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_fdvmc"]
+
+[sub_resource type="Curve" id="Curve_fdvmc"]
+_data = [Vector2(0, 1), 0.0, 0.0412526, 0, 0, Vector2(1, 0.0365853), -3.09181, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q16f2"]
+curve = SubResource("Curve_fdvmc")
+
+[sub_resource type="Curve" id="Curve_j8u3g"]
+_limits = [-30.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.572993, 1.46342), -8.22515, -8.22515, 0, 0, Vector2(1, -21.9512), -187.758, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ngobc"]
+curve = SubResource("Curve_j8u3g")
+
+[sub_resource type="Curve" id="Curve_ybq34"]
+_data = [Vector2(0, 4), 0.0, 0.0, 0, 0, Vector2(1, 0.109756), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5cndn"]
+curve = SubResource("Curve_ybq34")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fdvmc"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector3(0, -98, 0)
+scale_curve = SubResource("CurveTexture_5cndn")
+color = Color(1, 0.619608, 0, 1)
+alpha_curve = SubResource("CurveTexture_q16f2")
+emission_curve = SubResource("CurveTexture_ngobc")
+turbulence_enabled = true
+turbulence_noise_strength = 11.15
+turbulence_noise_scale = 5.99
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdvmc"]
+
+[node name="fireplace" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(0, 4.76837e-07)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("1_myu72")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 10
+explosiveness = 0.15
+process_material = SubResource("ParticleProcessMaterial_fdvmc")
+
+[node name="interactable_component" parent="." instance=ExtResource("2_fdvmc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+shape = SubResource("RectangleShape2D_fdvmc")

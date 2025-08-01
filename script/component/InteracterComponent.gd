@@ -27,4 +27,4 @@ func _on_interact_area_entered(area : Area2D) -> void:
 	
 func _on_interact_area_exited(area : Area2D) -> void:
 	if area is InteractableComponent:
-		interactables_in_range.append(area)
+		interactables_in_range.erase(area)
