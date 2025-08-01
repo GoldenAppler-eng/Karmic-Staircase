@@ -1,12 +1,13 @@
 extends Node
 
-enum COMPONENT { PICKUPITEM, STATDATA, ROTATIONTRACKER, HURTBOX }
+enum COMPONENT { PICKUPITEM, STATDATA, ROTATIONTRACKER, HURTBOX, INTERACTER }
 
 const COMPONENT_DICTIONARY : Dictionary = {
 	COMPONENT.PICKUPITEM : "pickup_item_component",
 	COMPONENT.STATDATA : "stat_data_component",
 	COMPONENT.ROTATIONTRACKER : "rotation_tracker_component",
-	COMPONENT.HURTBOX : "hurt_box_component"
+	COMPONENT.HURTBOX : "hurt_box_component",
+	COMPONENT.INTERACTER : "interacter_component"
 }
 
 func get_component_name(component : COMPONENT) -> StringName:

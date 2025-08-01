@@ -5,6 +5,8 @@ var interactables_in_range : Array[InteractableComponent] = []
 var interacter : Node2D
 
 func init(p_interacter : Node2D) -> void:
+	owner.set_meta(GlobalConstants.get_component_name(GlobalConstants.COMPONENT.INTERACTER), self)
+	
 	interacter = p_interacter
 	
 	area_entered.connect(_on_interact_area_entered)
@@ -19,6 +21,9 @@ func interact_with_interactables() -> void:
 	
 func are_interactables() -> bool:
 	return not interactables_in_range.is_empty()
+
+func get_interactables() -> Array[InteractableComponent]:
+	return interactables_in_range
 
 func _on_interact_area_entered(area : Area2D) -> void:
 	if area is InteractableComponent:

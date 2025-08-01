@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+const BOARD_FUEL_VALUE : float = 50
+
 @export var board_pickupable_item : PickupableItemData
 
 @onready var interactable_component: InteractableComponent = %interactable_component
@@ -16,4 +18,22 @@ func interact(interacter : Node2D) -> void:
 		pickup_item_component.pickup_item(board_pickupable_item)
 
 func board_use_function(user : Node2D) -> void:
-	pass
+	var interacter_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.INTERACTER)
+	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
+
+	if not user.has_meta(interacter_meta_name) or not user.has_meta(pickup_meta_name):
+		return	
+	
+	var interacter_component : InteracterComponent = user.get_meta(interacter_meta_name)
+	
+	for interactable_component in interacter_component.get_interactables():
+		if not interactable_component.owner is Fireplace:
+			continue
+		
+		var fireplace : Fireplace = interactable_component.owner as Fireplace
+		fireplace.fuel_fire(BOARD_FUEL_VALUE)
+		
+		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
+		pickup_item_component.remove_item()
+				
+		return
