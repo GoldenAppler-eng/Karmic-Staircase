@@ -14,9 +14,7 @@ func extra_init() -> void:
 func enter() -> void:
 	_attack_finished = false
 	damager_component.deal_damage()
-	
-	print("HI-YAH")
-	
+		
 	get_tree().create_timer(0.5).timeout.connect( mark_attack_finished, CONNECT_ONE_SHOT)
 	
 func exit() -> void:
