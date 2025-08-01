@@ -34,3 +34,9 @@ func is_not_holding_item() -> bool:
 	
 func can_be_used_for_attack() -> bool:
 	return current_item.can_use_to_attack
+
+func get_current_item_name() -> StringName:
+	if current_item:
+		return current_item.name
+		
+	return ""

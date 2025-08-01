@@ -42,8 +42,9 @@ func _physics_process(delta: float) -> void:
 func set_vertical_coordinate(vertical_coordinate : float) -> void:
 	rotation_tracker_component.psuedo_vertical_coordinate = vertical_coordinate
 	
-func set_recorded_brain_data(data : Array[BrainFrameData]) -> void:
-	recorded_brain.recorded_brain_data = data
+func set_recorded_brain_data(step_data : Array[BrainFrameData], item_data : Array[PickupFrameData]) -> void:
+	recorded_brain.recorded_brain_data = step_data
+	recorded_brain.recorded_item_data = item_data
 
 func reset_player() -> void:
 	global_position = initial_position

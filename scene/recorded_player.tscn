@@ -105,9 +105,10 @@ speed = 5.0
 sprint_multiplier = 2.0
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
 
-[node name="recorded_brain" type="Node" parent="."]
+[node name="recorded_brain" type="Node" parent="." node_paths=PackedStringArray("pickup_item_component")]
 unique_name_in_owner = true
 script = ExtResource("12_ce7el")
+pickup_item_component = NodePath("../pickup_item_component")
 
 [node name="interacter_component" parent="." instance=ExtResource("13_xcl4y")]
 unique_name_in_owner = true
@@ -147,8 +148,9 @@ collision_layer = 32
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_p4hug")
 
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
+[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
 unique_name_in_owner = true
 script = ExtResource("20_cercp")
 target_brain = NodePath("../recorded_brain")
+target_pickup_item_component = NodePath("../pickup_item_component")
 metadata/_custom_type_script = "uid://0nqej4vc3au4"

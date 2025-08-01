@@ -43,6 +43,9 @@ func get_vertical_coordinate() -> float:
 
 func get_recorded_steps() -> Array[BrainFrameData]:
 	return step_recorder_component.get_recorded_data()
-	
+
+func get_recorded_items() -> Array[PickupFrameData]:
+	return step_recorder_component.get_recorded_items()
+
 func clear_recorded_steps() -> void:
 	step_recorder_component.clear()

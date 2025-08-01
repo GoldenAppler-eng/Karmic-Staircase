@@ -2,14 +2,17 @@ class_name StepRecorderComponent
 extends Node
 
 @export var target_brain : Brain
+@export var target_pickup_item_component : PickupItemComponent
 
 var recorded_frames : Array[BrainFrameData]
+var recorded_items : Array[PickupFrameData]
 
 func _enter_tree() -> void:
 	var node2d : Node2D = owner as Node2D
 
 func _physics_process(delta: float) -> void:
 	recorded_frames.append(record_brain())
+	recorded_items.append(record_pickup_item())
 
 func record_brain() -> BrainFrameData:
 	var brain_frame_data : BrainFrameData = BrainFrameData.new()
@@ -25,8 +28,20 @@ func record_brain() -> BrainFrameData:
 	
 	return brain_frame_data
 
+func record_pickup_item() -> PickupFrameData:
+	var pickup_frame_data : PickupFrameData = PickupFrameData.new()
+	
+	pickup_frame_data.has_item = not target_pickup_item_component.is_not_holding_item()
+	pickup_frame_data.item_name = target_pickup_item_component.get_current_item_name()
+	
+	return pickup_frame_data
+
 func get_recorded_data() -> Array[BrainFrameData]:
 	return recorded_frames.duplicate()
-	
+
+func get_recorded_items() -> Array[PickupFrameData]:
+	return recorded_items.duplicate()
+
 func clear() -> void:
 	recorded_frames = []
+	recorded_items = []

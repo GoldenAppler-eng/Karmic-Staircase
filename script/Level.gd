@@ -38,10 +38,10 @@ func save_data(player : Player) -> LevelData:
 	
 	level_data.initial_player_positions.append(level_data.held_initial_player_position)
 	level_data.initial_player_vertical_coordinates.append(level_data.held_initial_vertical_coordinate)
-	
-	#level_data.players_recorded_steps = []
-	
+		
 	level_data.players_recorded_steps.append(player.get_recorded_steps())
+	level_data.players_recorded_items.append(player.get_recorded_items())
+	
 	player.clear_recorded_steps()
 	
 	#resave the brain of recorded players if need be
@@ -62,6 +62,7 @@ func create_recorded_players() -> void:
 		var position : Vector2 = level_data.initial_player_positions[index]
 		var vertical_coordinate : float = level_data.initial_player_vertical_coordinates[index]
 		var recorded_steps : Array[BrainFrameData] = level_data.players_recorded_steps[index]
+		var recorded_items : Array[PickupFrameData] = level_data.players_recorded_items[index]
 		
 		var recorded_player : RecordedPlayer = recorded_player_prefab.instantiate()
 		recorded_player.origin_node = origin_node
@@ -70,7 +71,7 @@ func create_recorded_players() -> void:
 		
 		recorded_player.initial_position = position
 		recorded_player.set_vertical_coordinate(vertical_coordinate)
-		recorded_player.set_recorded_brain_data(recorded_steps)
+		recorded_player.set_recorded_brain_data(recorded_steps, recorded_items)
 		
 		recorded_players.append(recorded_player)
 

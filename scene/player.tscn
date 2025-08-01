@@ -156,7 +156,8 @@ shape = SubResource("RectangleShape2D_iuf2t")
 position = Vector2(20, 0)
 shape = SubResource("CircleShape2D_jrjdb")
 
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain")]
+[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
 unique_name_in_owner = true
 script = ExtResource("17_4ja17")
 target_brain = NodePath("../input_brain")
+target_pickup_item_component = NodePath("../pickup_item_component")

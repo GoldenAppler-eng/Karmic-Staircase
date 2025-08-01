@@ -14,6 +14,7 @@ var initial_player_positions : Array[Vector2]
 var initial_player_vertical_coordinates : Array[float]
 
 var players_recorded_steps : Array
+var players_recorded_items : Array
 
 var final_fuel_level : float = 0
 var final_cake_left : float = 0
