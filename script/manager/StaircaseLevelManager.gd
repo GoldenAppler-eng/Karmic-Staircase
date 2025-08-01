@@ -43,7 +43,11 @@ func load_next_level(level_to_load : int) -> void:
 func load_previous_level(level_to_load : int) -> void:	
 	var next_level : int = level_to_load + 1
 	
+	player.clear_recorded_steps()
+	
 	level_list[level_to_load].load_data()
+	level_list[level_to_load].initialize_data(player)
+	level_list[level_to_load].reset_recorded_players()
 	
 	level_list[level_to_load].enable()
 	level_list[next_level].disable()

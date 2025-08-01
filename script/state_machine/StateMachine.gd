@@ -28,3 +28,6 @@ func process_frame(delta : float) -> void:
 	
 	if next_state:
 		change_state(next_state)
+
+func reset_state_machine() -> void:
+	change_state(initial_state)

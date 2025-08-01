@@ -17,6 +17,8 @@ extends CharacterBody2D
 
 @onready var speech_text: SpeechText = %speech_text
 
+var initial_position : Vector2
+
 func _ready() -> void:
 	stat_data_component.init()	
 
@@ -42,6 +44,12 @@ func set_vertical_coordinate(vertical_coordinate : float) -> void:
 	
 func set_recorded_brain_data(data : Array[BrainFrameData]) -> void:
 	recorded_brain.recorded_brain_data = data
+
+func reset_player() -> void:
+	global_position = initial_position
+	recorded_brain.current_frame = 0
+	
+	state_machine.reset_state_machine()
 
 func get_recorded_steps() -> Array[BrainFrameData]:
 	return step_recorder_component.get_recorded_data()
