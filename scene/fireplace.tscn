@@ -1,8 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://o40os8tevy7i"]
+[gd_scene load_steps=13 format=3 uid="uid://o40os8tevy7i"]
 
 [ext_resource type="Script" uid="uid://blskqk86x2w5m" path="res://script/Fireplace.gd" id="1_q16f2"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_fdvmc"]
 [ext_resource type="Texture2D" uid="uid://2i64sqku1s51" path="res://sprite/fireplace-Sheet.png" id="2_q16f2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q16f2"]
+radius = 14.0
+height = 48.0
 
 [sub_resource type="Curve" id="Curve_fdvmc"]
 _data = [Vector2(0, 1), 0.0, 0.0412526, 0, 0, Vector2(1, 0.0365853), -3.09181, 0.0, 0, 0]
@@ -42,13 +46,18 @@ turbulence_noise_scale = 5.99
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdvmc"]
 size = Vector2(28, 45)
 
-[node name="fireplace" type="Node2D"]
+[node name="fireplace" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
 script = ExtResource("1_q16f2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_q16f2")
 hframes = 3
 metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_q16f2")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-6, 9)
@@ -59,5 +68,6 @@ process_material = SubResource("ParticleProcessMaterial_fdvmc")
 [node name="interactable_component" parent="." instance=ExtResource("2_fdvmc")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_fdvmc")

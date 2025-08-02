@@ -1,14 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://uw4m24pq2ena"]
+[gd_scene load_steps=7 format=3 uid="uid://uw4m24pq2ena"]
 
 [ext_resource type="Script" uid="uid://cllrjayydeik" path="res://script/Cake.gd" id="1_bpxnu"]
 [ext_resource type="Resource" uid="uid://fry6ncngyn0d" path="res://resource/Cake.tres" id="2_526gx"]
 [ext_resource type="Texture2D" uid="uid://cdo2d44r34e3a" path="res://sprite/cake-Sheet.png" id="3_kob85"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="5_f41j1"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kob85"]
+radius = 8.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpivv"]
 size = Vector2(18, 15)
 
-[node name="cake" type="Node2D"]
+[node name="cake" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
 script = ExtResource("1_bpxnu")
 cake_pickupable_item = ExtResource("2_526gx")
 
@@ -16,6 +21,9 @@ cake_pickupable_item = ExtResource("2_526gx")
 texture = ExtResource("3_kob85")
 hframes = 4
 metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kob85")
 
 [node name="interactable_component" parent="." instance=ExtResource("5_f41j1")]
 unique_name_in_owner = true

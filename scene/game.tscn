@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=20 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://14tbo3pkjvqu" path="res://sprite/cake_piece.png" id="8_ve786"]
 [ext_resource type="Texture2D" uid="uid://bwiif3lm1mh17" path="res://sprite/spiral_staircase.png" id="8_yq8tf"]
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
+[ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
+[ext_resource type="PackedScene" uid="uid://dyu1r4m2jya2a" path="res://scene/HUD/desperation_hud.tscn" id="15_0lu6w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g16k"]
 radius = 33.0
@@ -52,6 +54,12 @@ metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 z_index = 30
 position = Vector2(-53, -60)
 origin_node = NodePath("../origin")
+
+[node name="background_collision" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="background_collision"]
+polygon = PackedVector2Array(-15, -86, -15, -68, 11, -53, 30, -25, 32, -15, 44, -14, 44, -28, 156, -28, 156, 48, 42, 49, 42, 14, 32, 14, 26, 34, 8, 54, -13, 68, -49, 76, -61, 77, -83, 73, -114, 59, -137, 35, -143, -1, -124, -32, -94, -52, -79, -72, -52, -78, -16, -68, -16, -86, -157, -85, -157, 93, 163, 94, 163, -86)
 
 [node name="origin" type="RigidBody2D" parent="."]
 z_index = 100
@@ -112,3 +120,17 @@ metadata/_edit_lock_ = true
 [node name="room" type="Sprite2D" parent="."]
 position = Vector2(91, 2)
 texture = ExtResource("8_17rxn")
+
+[node name="HungerHUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
+offset_left = 87.0
+offset_top = 71.0
+offset_right = 87.0
+offset_bottom = 71.0
+player = NodePath("../player")
+
+[node name="DesperationHUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
+offset_left = -144.0
+offset_top = 68.0
+offset_right = -144.0
+offset_bottom = 68.0
+player = NodePath("../player")

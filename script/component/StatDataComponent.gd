@@ -1,7 +1,7 @@
 class_name StatDataComponent
 extends Node
 
-const INITIAL_HUNGER_DEGENERATION_WAIT_TIME : float = 200000
+const INITIAL_HUNGER_DEGENERATION_WAIT_TIME : float = 20000
 
 @export var hunger_degeneration_timer : Timer
 var hunger_degeneration_amount = 10
