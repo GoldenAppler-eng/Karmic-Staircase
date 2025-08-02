@@ -3,7 +3,9 @@ extends Area2D
 
 @export var reach : float = 0.4
 
-func deal_damage() -> void:	
+func deal_damage() -> bool:	
+	var dealt_damage : bool = false
+	
 	var rotation_tracker_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.ROTATIONTRACKER)
 	
 	for area in get_overlapping_areas():
@@ -24,3 +26,6 @@ func deal_damage() -> void:
 				
 		var hurtbox_component : HurtboxComponent = area as HurtboxComponent
 		hurtbox_component.get_hurt()
+		dealt_damage = true
+	
+	return dealt_damage

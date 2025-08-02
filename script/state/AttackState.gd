@@ -7,18 +7,20 @@ extends State
 @export var damager_component : DamagerComponent
 
 var _attack_finished : bool = false
+var dealt_damage : bool = false
 
 func extra_init() -> void:
 	animation_controller.animation_finished.connect(_on_animation_finished)
 	
 func enter() -> void:
 	_attack_finished = false
-	damager_component.deal_damage()
+	dealt_damage = damager_component.deal_damage()
 	
 	animation_controller.play_animation("attack")
 	
 func exit() -> void:
-	pass	
+	if dealt_damage:
+		pickup_item_component.consume_item()	
 	
 func process_physics(delta : float) -> State:
 	if not _attack_finished:

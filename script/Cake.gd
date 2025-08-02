@@ -53,7 +53,7 @@ func cake_use_function(user : Node2D) -> void:
 		
 	if user.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
-		pickup_item_component.remove_item()
+		pickup_item_component.consume_item()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
 	sprite_2d.frame =  max_frame - float(current_value) / max_value * max_frame

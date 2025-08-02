@@ -29,6 +29,9 @@ func pickup_item(item : PickupableItemData) -> void:
 func drop_item() -> void:
 	remove_item()
 
+func consume_item() -> void:
+	remove_item()
+
 func is_not_holding_item() -> bool:
 	return not current_item
 	
