@@ -1,16 +1,21 @@
 class_name BoardPile
 extends Node2D
 
+const BOARD_MAX_FRAME : int = 5
+
 const BOARD_FUEL_VALUE : float = 50
 const INITIAL_BOARDS_LEFT : int = 5
 
 @export var board_pickupable_item : PickupableItemData
+
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 
 var boards_left : int:
 	set(value):
 		boards_left = value
+		_update_sprite_animation(boards_left, INITIAL_BOARDS_LEFT, BOARD_MAX_FRAME)
 		_check_for_empty()
 
 func _ready() -> void:
@@ -58,3 +63,6 @@ func board_use_function(user : Node2D) -> void:
 		pickup_item_component.remove_item()
 				
 		return
+
+func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
+	sprite_2d.frame =  max_frame - float(current_value) / max_value * max_frame

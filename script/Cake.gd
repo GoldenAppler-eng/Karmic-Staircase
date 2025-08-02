@@ -1,7 +1,8 @@
 class_name Cake
 extends Node2D
 
-const INITIAL_CAKE_LEFT = 1
+const CAKE_MAX_FRAME : int = 4
+const INITIAL_CAKE_LEFT : int = 4
 
 var cake_hunger_regen_amount : float = 30
 
@@ -9,9 +10,12 @@ var cake_hunger_regen_amount : float = 30
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
 var cake_left : int:
 	set(value):
 		cake_left = value
+		_update_sprite_animation(cake_left, INITIAL_CAKE_LEFT, CAKE_MAX_FRAME)
 		_check_for_empty()
 
 func _ready() -> void:
@@ -50,3 +54,6 @@ func cake_use_function(user : Node2D) -> void:
 	if user.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
 		pickup_item_component.remove_item()
+
+func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
+	sprite_2d.frame =  max_frame - float(current_value) / max_value * max_frame
