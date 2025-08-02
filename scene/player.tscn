@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_jrjdb"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/IdleState.gd" id="3_i3pqv"]
 [ext_resource type="Script" uid="uid://dlwylnp3l1144" path="res://script/state/DropState.gd" id="4_bup7g"]
@@ -23,26 +23,28 @@
 [ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/damager_component.tscn" id="21_jrjdb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+height = 22.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
-radius = 45.0444
+radius = 18.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iuf2t"]
-size = Vector2(20, 26)
+size = Vector2(11, 17)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jrjdb"]
-radius = 13.0384
+radius = 8.0
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_1jxqw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.15256e-07, 0.999998)
-scale = Vector2(0.15625, 0.203125)
-texture = ExtResource("1_4flbx")
+texture = ExtResource("2_jrjdb")
+hframes = 7
+vframes = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 6)
 shape = SubResource("CapsuleShape2D_onrkg")
 
 [node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_onrkg")]
@@ -116,6 +118,7 @@ script = ExtResource("8_dw050")
 
 [node name="interacter_component" parent="." instance=ExtResource("11_dk1vr")]
 unique_name_in_owner = true
+position = Vector2(2, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
 shape = SubResource("CircleShape2D_34jf3")
@@ -145,15 +148,15 @@ autostart = true
 
 [node name="hurtbox_component" parent="." instance=ExtResource("19_42h83")]
 unique_name_in_owner = true
+position = Vector2(2, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_iuf2t")
 
 [node name="damager_component" parent="." instance=ExtResource("21_jrjdb")]
+position = Vector2(12, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damager_component"]
-position = Vector2(20, 0)
 shape = SubResource("CircleShape2D_jrjdb")
 
 [node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]

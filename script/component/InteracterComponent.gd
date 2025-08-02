@@ -16,9 +16,14 @@ func interact_with_interactables() -> void:
 	while(are_interactables() and not interactables_in_range[0]._enabled):
 		interactables_in_range.pop_front()
 	
+	interactables_in_range.sort_custom(sort_by_priority)
+	
 	if are_interactables():
 		interactables_in_range[0].interact.call(interacter)
 	
+func sort_by_priority(a : InteractableComponent, b : InteractableComponent) -> bool:
+	return a.interact_priority > b.interact_priority
+
 func are_interactables() -> bool:
 	return not interactables_in_range.is_empty()
 

@@ -1,5 +1,5 @@
 class_name Cake
-extends RigidBody2D
+extends Node2D
 
 const INITIAL_CAKE_LEFT = 1
 
@@ -16,7 +16,6 @@ var cake_left : int:
 
 func _ready() -> void:
 	interactable_component.interact = interact
-	cake_pickupable_item.use = cake_use_function
 	
 	cake_left = INITIAL_CAKE_LEFT
 	
@@ -25,7 +24,9 @@ func interact(interacter : Node2D) -> void:
 	
 	if interacter.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
-		pickup_item_component.pickup_item(cake_pickupable_item)
+		var item : PickupableItemData = cake_pickupable_item.duplicate(true)
+		item.use = cake_use_function
+		pickup_item_component.pickup_item(item)		
 		
 		cake_left = cake_left - 1
 

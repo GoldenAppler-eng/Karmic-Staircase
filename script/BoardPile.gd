@@ -1,5 +1,5 @@
 class_name BoardPile
-extends RigidBody2D
+extends Node2D
 
 const BOARD_FUEL_VALUE : float = 50
 const INITIAL_BOARDS_LEFT : int = 5
@@ -24,7 +24,9 @@ func interact(interacter : Node2D) -> void:
 	
 	if interacter.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
-		pickup_item_component.pickup_item(board_pickupable_item)
+		var item : PickupableItemData = board_pickupable_item.duplicate(true)
+		item.use = board_use_function
+		pickup_item_component.pickup_item(item)
 		
 		boards_left = boards_left - 1
 		

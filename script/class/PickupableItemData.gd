@@ -10,4 +10,5 @@ extends Resource
 @export var hold_offset : Vector2
 @export var scale : Vector2 = Vector2(1, 1)
 
-var use : Callable
+var use : Callable = func(item_user : Node2D):
+	pass

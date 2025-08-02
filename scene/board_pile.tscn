@@ -1,34 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://3hmeuxy5sim4"]
+[gd_scene load_steps=6 format=3 uid="uid://3hmeuxy5sim4"]
 
 [ext_resource type="Script" uid="uid://dgd24t6bcgwrv" path="res://script/BoardPile.gd" id="1_k3fit"]
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_kcdmm"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_3p4ou"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_hocp4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hocp4"]
-radius = 22.0907
+[ext_resource type="Texture2D" uid="uid://cilgajogoycxs" path="res://sprite/board_pile-Sheet.png" id="3_3p4ou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hocp4"]
-size = Vector2(44, 43.5)
+size = Vector2(23.5, 15)
 
-[node name="board_pile" type="RigidBody2D"]
-gravity_scale = 0.0
-lock_rotation = true
-freeze = true
+[node name="board_pile" type="Node2D"]
 script = ExtResource("1_k3fit")
 board_pickupable_item = ExtResource("2_3p4ou")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.694118, 0, 1)
-position = Vector2(0, 0.999998)
-scale = Vector2(0.34375, 0.34375)
-texture = ExtResource("1_kcdmm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hocp4")
+texture = ExtResource("3_3p4ou")
+hframes = 5
+metadata/_edit_lock_ = true
 
 [node name="interactable_component" parent="." instance=ExtResource("2_hocp4")]
 unique_name_in_owner = true
+interact_priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+position = Vector2(0.25, 0.5)
 shape = SubResource("RectangleShape2D_hocp4")

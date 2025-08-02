@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://o40os8tevy7i"]
 
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="1_myu72"]
 [ext_resource type="Script" uid="uid://blskqk86x2w5m" path="res://script/Fireplace.gd" id="1_q16f2"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_fdvmc"]
+[ext_resource type="Texture2D" uid="uid://2i64sqku1s51" path="res://sprite/fireplace-Sheet.png" id="2_q16f2"]
 
 [sub_resource type="Curve" id="Curve_fdvmc"]
 _data = [Vector2(0, 1), 0.0, 0.0412526, 0, 0, Vector2(1, 0.0365853), -3.09181, 0.0, 0, 0]
@@ -40,22 +40,24 @@ turbulence_noise_strength = 11.15
 turbulence_noise_scale = 5.99
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdvmc"]
+size = Vector2(28, 45)
 
 [node name="fireplace" type="Node2D"]
 script = ExtResource("1_q16f2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0, 1)
-position = Vector2(0, 4.76837e-07)
-scale = Vector2(0.15625, 0.15625)
-texture = ExtResource("1_myu72")
+texture = ExtResource("2_q16f2")
+hframes = 3
+metadata/_edit_lock_ = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-amount = 20
+position = Vector2(-6, 9)
+amount = 10
 explosiveness = 0.15
 process_material = SubResource("ParticleProcessMaterial_fdvmc")
 
 [node name="interactable_component" parent="." instance=ExtResource("2_fdvmc")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_fdvmc")
