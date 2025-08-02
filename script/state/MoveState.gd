@@ -1,6 +1,6 @@
 extends State
 
-const MOVE_HUNGER_DEGENERATION : float = 10
+const MOVE_HUNGER_DEGENERATION : float = 5
 
 @export var idle_state : State
 @export var attack_state : State

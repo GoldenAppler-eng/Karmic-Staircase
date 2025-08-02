@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=21 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
 [ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
 [ext_resource type="PackedScene" uid="uid://dyu1r4m2jya2a" path="res://scene/HUD/desperation_hud.tscn" id="15_0lu6w"]
+[ext_resource type="PackedScene" uid="uid://cu27ed416s2o5" path="res://scene/dummy.tscn" id="16_0lu6w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g16k"]
 radius = 33.0
@@ -134,3 +135,5 @@ offset_top = 68.0
 offset_right = -144.0
 offset_bottom = 68.0
 player = NodePath("../player")
+
+[node name="dummy" parent="." instance=ExtResource("16_0lu6w")]

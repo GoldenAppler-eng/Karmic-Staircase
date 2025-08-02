@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=39 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
-[ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="2_b05ef"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="3_p4hug"]
 [ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/IdleState.gd" id="4_cercp"]
 [ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/MoveState.gd" id="5_6hp1k"]
@@ -13,30 +12,291 @@
 [ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="11_2ycxl"]
 [ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/DeadState.gd" id="11_b05ef"]
 [ext_resource type="Script" uid="uid://dkqq41o5lv5pl" path="res://script/brain/RecordedBrain.gd" id="12_ce7el"]
-[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="13_xcl4y"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="13_xcl4y"]
 [ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="14_tt30e"]
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="15_pq381"]
-[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="16_xc1lj"]
+[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/component/pickup_item_component.tscn" id="16_xc1lj"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="17_ce7el"]
+[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="19_6hp1k"]
 [ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="19_isn2n"]
-[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/hurtbox_component.tscn" id="19_p4hug"]
-[ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="20_cercp"]
+[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/component/hurtbox_component.tscn" id="19_p4hug"]
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="21_6hp1k"]
+[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="21_isn2n"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
+height = 22.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
-radius = 45.0444
+[sub_resource type="CircleShape2D" id="CircleShape2D_isn2n"]
+radius = 18.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4hug"]
 size = Vector2(22, 29)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_llrc2"]
+radius = 12.0416
+
+[sub_resource type="Animation" id="Animation_kk4ol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flippables/pickup_item_component:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3vgh4"]
+resource_name = "attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 8), Vector2i(1, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flippables/pickup_item_component:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(0, 0.5, 0.5),
+"update": 0,
+"values": [0.0, 1.49575, 2.3178]
+}
+
+[sub_resource type="Animation" id="Animation_8ie14"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 9)]
+}
+
+[sub_resource type="Animation" id="Animation_jrjdb"]
+resource_name = "idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1.2, 1.4, 2.4, 2.8, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(0, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l1uwf"]
+resource_name = "idle_hold"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flippables/pickup_item_component:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_k8m7u"]
+resource_name = "scared"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wt23p"]
+resource_name = "sprint"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_xsw3c"]
+resource_name = "sprint_hold"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flippables/pickup_item_component:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_pk8el"]
+resource_name = "use"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 7), Vector2i(0, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_4reak"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 2), Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_qucqc"]
+resource_name = "walk_hold"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 5), Vector2i(0, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flippables/pickup_item_component:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4reak"]
+_data = {
+&"RESET": SubResource("Animation_kk4ol"),
+&"attack": SubResource("Animation_3vgh4"),
+&"dead": SubResource("Animation_8ie14"),
+&"idle": SubResource("Animation_jrjdb"),
+&"idle_hold": SubResource("Animation_l1uwf"),
+&"scared": SubResource("Animation_k8m7u"),
+&"sprint": SubResource("Animation_wt23p"),
+&"sprint_hold": SubResource("Animation_xsw3c"),
+&"use": SubResource("Animation_pk8el"),
+&"walk": SubResource("Animation_4reak"),
+&"walk_hold": SubResource("Animation_qucqc")
+}
 
 [node name="recorded_player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_vx2og")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_onrkg")
+position = Vector2(2, 6)
+shape = SubResource("CapsuleShape2D_isn2n")
 
 [node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("3_p4hug")]
 unique_name_in_owner = true
@@ -71,11 +331,12 @@ use_state = NodePath("../use_state")
 drop_state = NodePath("../drop_state")
 dead_state = NodePath("../dead_state")
 
-[node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "dead_state")]
+[node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "dead_state", "damager_component")]
 script = ExtResource("7_llrc2")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 dead_state = NodePath("../dead_state")
+damager_component = NodePath("../../flippables/damager_component")
 
 [node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
 script = ExtResource("8_wyros")
@@ -105,13 +366,14 @@ metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
 [node name="recorded_brain" type="Node" parent="." node_paths=PackedStringArray("pickup_item_component")]
 unique_name_in_owner = true
 script = ExtResource("12_ce7el")
-pickup_item_component = NodePath("../pickup_item_component")
+pickup_item_component = NodePath("../flippables/pickup_item_component")
 
 [node name="interacter_component" parent="." instance=ExtResource("13_xcl4y")]
 unique_name_in_owner = true
+position = Vector2(2, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
-shape = SubResource("CircleShape2D_34jf3")
+shape = SubResource("CircleShape2D_isn2n")
 
 [node name="speech_text" parent="." instance=ExtResource("14_tt30e")]
 unique_name_in_owner = true
@@ -124,25 +386,10 @@ offset_bottom = -39.0
 unique_name_in_owner = true
 script = ExtResource("15_pq381")
 
-[node name="pickup_item_component" parent="." instance=ExtResource("16_xc1lj")]
-unique_name_in_owner = true
-
-[node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
-unique_name_in_owner = true
+[node name="stat_data_components" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
 script = ExtResource("17_ce7el")
-hunger_degeneration_timer = NodePath("hunger_degen_timer")
+hunger_degeneration_timer = NodePath("../stat_data_component/hunger_degen_timer")
 metadata/_custom_type_script = "uid://dcdbliakm3u3e"
-
-[node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
-wait_time = 2.0
-autostart = true
-
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
-unique_name_in_owner = true
-script = ExtResource("20_cercp")
-target_brain = NodePath("../recorded_brain")
-target_pickup_item_component = NodePath("../pickup_item_component")
-metadata/_custom_type_script = "uid://0nqej4vc3au4"
 
 [node name="flippables" type="Node2D" parent="."]
 script = ExtResource("19_isn2n")
@@ -157,14 +404,37 @@ position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_p4hug")
 
 [node name="player_sprite" type="Sprite2D" parent="flippables"]
-position = Vector2(7.15256e-07, 0.999998)
-scale = Vector2(0.15625, 0.203125)
-texture = ExtResource("2_b05ef")
+texture = ExtResource("19_6hp1k")
+hframes = 7
+vframes = 10
 
-[node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("movement_component", "pickup_item_component", "stat_data_component", "flippables")]
+[node name="pickup_item_component" parent="flippables" instance=ExtResource("16_xc1lj")]
+unique_name_in_owner = true
+
+[node name="damager_component" parent="flippables" instance=ExtResource("21_isn2n")]
+position = Vector2(20, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
+shape = SubResource("CircleShape2D_llrc2")
+
+[node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("anim_player", "movement_component", "pickup_item_component", "stat_data_component", "flippables")]
 script = ExtResource("21_6hp1k")
+anim_player = NodePath("../AnimationPlayer")
 movement_component = NodePath("../movement_component")
-pickup_item_component = NodePath("../pickup_item_component")
-stat_data_component = NodePath("../stat_data_component")
+pickup_item_component = NodePath("../flippables/pickup_item_component")
+stat_data_component = NodePath("../stat_data_components")
 flippables = NodePath("../flippables")
 metadata/_custom_type_script = "uid://r6v4breyygeo"
+
+[node name="stat_data_component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_ce7el")
+
+[node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
+wait_time = 2.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4reak")
+}

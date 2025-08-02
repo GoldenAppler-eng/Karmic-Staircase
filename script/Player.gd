@@ -16,6 +16,8 @@ extends CharacterBody2D
 @onready var step_recorder_component: StepRecorderComponent = %step_recorder_component
 @onready var animation_controller : AnimationController = %animation_controller
 
+@onready var player_vision_component: PlayerVisionComponent = %player_vision_component
+
 @onready var speech_text: SpeechText = %speech_text
 
 func _ready() -> void:
@@ -29,6 +31,8 @@ func _ready() -> void:
 	pickup_item_component.init(self)
 	hurtbox_component.init()
 	
+	player_vision_component.init(self, movement_component)
+	
 	state_machine.init(input_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
 
 func _process(delta: float) -> void:
@@ -41,6 +45,8 @@ func _physics_process(delta: float) -> void:
 	animation_controller.process_physics(delta)
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
+
+	print(player_vision_component.get_number_of_seen_player())
 
 func get_vertical_coordinate() -> float:
 	return rotation_tracker_component.psuedo_vertical_coordinate

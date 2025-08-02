@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgd24t6bcgwrv" path="res://script/BoardPile.gd" id="1_k3fit"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_3p4ou"]
-[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_hocp4"]
+[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="2_hocp4"]
 [ext_resource type="Texture2D" uid="uid://cilgajogoycxs" path="res://sprite/board_pile-Sheet.png" id="3_3p4ou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p4ou"]

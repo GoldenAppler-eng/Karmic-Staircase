@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://o40os8tevy7i"]
 
 [ext_resource type="Script" uid="uid://blskqk86x2w5m" path="res://script/Fireplace.gd" id="1_q16f2"]
-[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/interactable_component.tscn" id="2_fdvmc"]
+[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="2_fdvmc"]
 [ext_resource type="Texture2D" uid="uid://2i64sqku1s51" path="res://sprite/fireplace-Sheet.png" id="2_q16f2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q16f2"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=42 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_jrjdb"]
@@ -13,16 +13,17 @@
 [ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/InteractState.gd" id="8_ivps1"]
 [ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/UseState.gd" id="9_j4wxg"]
 [ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
-[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/interacter_component.tscn" id="11_dk1vr"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="11_dk1vr"]
 [ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/DeadState.gd" id="11_iuf2t"]
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
-[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="14_u7b46"]
+[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/component/pickup_item_component.tscn" id="14_u7b46"]
 [ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="17_4ja17"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="18_v4iqv"]
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="19_4reak"]
-[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/hurtbox_component.tscn" id="19_42h83"]
+[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/component/hurtbox_component.tscn" id="19_42h83"]
 [ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="19_kk4ol"]
-[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/damager_component.tscn" id="21_jrjdb"]
+[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="21_jrjdb"]
+[ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="24_wt23p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 height = 22.0
@@ -291,6 +292,9 @@ _data = {
 &"walk_hold": SubResource("Animation_qucqc")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wt23p"]
+radius = 104.077
+
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_1jxqw")
@@ -439,3 +443,10 @@ flippables = NodePath("../flippables")
 libraries = {
 &"": SubResource("AnimationLibrary_4reak")
 }
+
+[node name="player_vision_component" parent="." instance=ExtResource("24_wt23p")]
+unique_name_in_owner = true
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_vision_component"]
+shape = SubResource("CircleShape2D_wt23p")

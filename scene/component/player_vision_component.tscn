@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://lxue4cgo42vb"]
+
+[ext_resource type="Script" uid="uid://dewc2jjouadhl" path="res://script/component/PlayerVisionComponent.gd" id="1_tef0y"]
+
+[node name="player_vision_component" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_tef0y")
+fov = 1.08
