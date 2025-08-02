@@ -9,3 +9,5 @@ extends Resource
 @export var wants_pickup : bool = false
 @export var wants_drop : bool = false
 @export var movement_vector : Vector2 = Vector2(0, 0)
+
+@export var number_of_players_seen : int = 0

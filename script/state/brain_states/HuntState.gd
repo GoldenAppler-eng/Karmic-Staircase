@@ -1,0 +1,21 @@
+extends BrainState
+
+@export var chase_player_state : BrainState
+
+func extra_init() -> void:
+	pass
+
+func enter() -> void:
+	brain._wants_movement = true
+	brain.set_target_position(level.staircase_top.global_position)
+	
+func exit() -> void:
+	brain._wants_movement = false
+
+func process_physics(delta : float) -> BrainState:
+	if player_vision_component.get_number_of_seen_player() > 0:
+		brain.target_player = player_vision_component.get_closest_player()
+		return chase_player_state
+	
+	return null
+	

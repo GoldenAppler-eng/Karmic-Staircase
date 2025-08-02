@@ -6,6 +6,7 @@ const recorded_player_prefab : PackedScene = preload("res://scene/recorded_playe
 @export var level_data : LevelData
 
 @export var origin_node : Node2D
+@export var staircase_top : Node2D
 
 @export var board_pile : BoardPile
 @export var cake : Cake

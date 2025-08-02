@@ -43,4 +43,50 @@ func _on_player_exited_area(body : Node2D) -> void:
 	players_in_area.erase(body)
 
 func get_closest_player() -> CharacterBody2D:
-	return null
+	var min_distance : float = 99999
+	var closest_player : CharacterBody2D = null
+		
+	var forward : Vector2 = Vector2(10, 0) if not movement_component.last_facing_right else Vector2(-10, 0)
+	
+	for player in players_in_area:
+		var to_player : Vector2 = player.global_position - global_position
+		var dot : float = forward.dot(to_player)
+		
+		if dot > fov:
+			continue
+			
+		var distance : float = to_player.length()
+		
+		if distance < min_distance:
+			min_distance = distance
+			closest_player = player
+	
+	return closest_player
+
+func any_player_has_weapon() -> bool:
+	var forward : Vector2 = Vector2(10, 0) if not movement_component.last_facing_right else Vector2(-10, 0)
+	
+	for player in players_in_area:
+		var to_player : Vector2 = player.global_position - global_position
+		var dot : float = forward.dot(to_player)
+		
+		if dot > fov:
+			continue
+			
+		if has_weapon(player):
+			return true
+			
+	return false
+
+func has_weapon(player : Node2D) -> bool:
+	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
+	
+	if not player.has_meta(pickup_meta_name):
+		return false
+	
+	var pickup_item_component : PickupItemComponent = player.get_meta(pickup_meta_name) as PickupItemComponent
+	
+	if pickup_item_component.is_not_holding_item():
+		return false
+	
+	return pickup_item_component.can_be_used_for_attack()

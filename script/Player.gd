@@ -46,8 +46,6 @@ func _physics_process(delta: float) -> void:
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
 
-	print(player_vision_component.get_number_of_seen_player())
-
 func get_vertical_coordinate() -> float:
 	return rotation_tracker_component.psuedo_vertical_coordinate
 
