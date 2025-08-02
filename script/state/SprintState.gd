@@ -1,5 +1,7 @@
 extends State
 
+const SPRINT_HUNGER_DEGENERATION : float = 15
+
 @export var move_state : State
 @export var idle_state : State
 @export var attack_state : State
@@ -13,13 +15,13 @@ func extra_init() -> void:
 	
 func enter() -> void:
 	movement_component.set_sprinting(true)
-	stat_data_component.speed_up_hunger_degeneration_time(2)
+	stat_data_component.set_hunger_degeneration_amount(SPRINT_HUNGER_DEGENERATION)
 	
 	animation_controller.play_animation("sprint")
 	
 func exit() -> void:
 	movement_component.set_sprinting(false)
-	stat_data_component.speed_up_hunger_degeneration_time(1)
+	stat_data_component.set_hunger_degeneration_amount()
 	
 func process_physics(delta : float) -> State:
 	if hurtbox_component.is_hurt():

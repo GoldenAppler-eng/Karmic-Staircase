@@ -11,7 +11,7 @@ const MIN_DESPERATION : float = 0
 const MAX_DESPERATION : float = 100
 
 var hunger : float = 100
-var desperation : float = 100
+var desperation : float = 0
 
 func change_hunger(net_change : float) -> void:
 	hunger += net_change

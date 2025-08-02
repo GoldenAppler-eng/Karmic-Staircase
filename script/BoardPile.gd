@@ -1,6 +1,9 @@
 class_name BoardPile
 extends Node2D
 
+const TAKE_BOARD_DESPERATION : float = 30
+const BURN_BOARD_DESPERATION : float = -15
+
 const BOARD_MAX_FRAME : int = 5
 
 const BOARD_FUEL_VALUE : float = 50
@@ -26,12 +29,17 @@ func _ready() -> void:
 	
 func interact(interacter : Node2D) -> void:	
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
 	
 	if interacter.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
 		var item : PickupableItemData = board_pickupable_item.duplicate(true)
 		item.use = board_use_function
 		pickup_item_component.pickup_item(item)
+		
+		if interacter.has_meta(stat_meta_name):
+			var stat_data_component : StatDataComponent = interacter.get_meta(stat_meta_name)
+			stat_data_component.change_desperation(TAKE_BOARD_DESPERATION)
 		
 		boards_left = boards_left - 1
 		
@@ -46,6 +54,7 @@ func _check_for_empty() -> void:
 func board_use_function(user : Node2D) -> void:
 	var interacter_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.INTERACTER)
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
 
 	if not user.has_meta(interacter_meta_name) or not user.has_meta(pickup_meta_name):
 		return	
@@ -58,6 +67,10 @@ func board_use_function(user : Node2D) -> void:
 		
 		var fireplace : Fireplace = interactable_component.owner as Fireplace
 		fireplace.fuel_fire(BOARD_FUEL_VALUE)
+		
+		if user.has_meta(stat_meta_name):
+			var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)
+			stat_data_component.change_desperation(BURN_BOARD_DESPERATION)
 		
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
 		pickup_item_component.remove_item()

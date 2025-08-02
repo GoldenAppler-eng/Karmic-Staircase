@@ -1,5 +1,7 @@
 extends State
 
+const ATTACK_HIT_DESPERATION : float = 50
+
 @export var idle_state : State
 @export var move_state : State
 @export var dead_state : State
@@ -21,6 +23,7 @@ func enter() -> void:
 func exit() -> void:
 	if dealt_damage:
 		pickup_item_component.consume_item()	
+		stat_data_component.change_desperation(ATTACK_HIT_DESPERATION)
 	
 func process_physics(delta : float) -> State:
 	if not _attack_finished:

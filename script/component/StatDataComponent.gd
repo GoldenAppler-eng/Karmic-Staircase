@@ -1,10 +1,11 @@
 class_name StatDataComponent
 extends Node
 
-const INITIAL_HUNGER_DEGENERATION_WAIT_TIME : float = 20000
+const INITIAL_HUNGER_DEGENERATION_WAIT_TIME : float = 2
+const DEFAULT_HUNGER_DEGENERATION_AMOUNT : float = 1
 
 @export var hunger_degeneration_timer : Timer
-var hunger_degeneration_amount = 10
+var hunger_degeneration_amount = DEFAULT_HUNGER_DEGENERATION_AMOUNT
 
 var data : StatData
 
@@ -19,9 +20,12 @@ func init() -> void:
 	
 func change_hunger(net_change : float) -> void:
 	data.change_hunger(net_change)
-	
+
+func change_desperation(net_change : float) -> void:
+	data.change_desperation(net_change)
+
+func set_hunger_degeneration_amount(amount : float = DEFAULT_HUNGER_DEGENERATION_AMOUNT) -> void:
+	hunger_degeneration_amount = amount
+
 func _on_hunger_degeneration_timer_timeout() -> void:
 	data.change_hunger(-hunger_degeneration_amount)
-
-func speed_up_hunger_degeneration_time(multiplier : float) -> void:
-	hunger_degeneration_timer.wait_time = INITIAL_HUNGER_DEGENERATION_WAIT_TIME / multiplier

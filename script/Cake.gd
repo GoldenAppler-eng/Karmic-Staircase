@@ -1,10 +1,13 @@
 class_name Cake
 extends Node2D
 
+const TAKE_CAKE_DESPERATION : float = 5
+const EAT_CAKE_DESPERATION : float = 15
+
 const CAKE_MAX_FRAME : int = 4
 const INITIAL_CAKE_LEFT : int = 4
 
-var cake_hunger_regen_amount : float = 30
+const CAKE_HUNGER_REFILL : float = 30
 
 @export var cake_pickupable_item : PickupableItemData
 
@@ -25,12 +28,17 @@ func _ready() -> void:
 	
 func interact(interacter : Node2D) -> void:	
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
 	
 	if interacter.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = interacter.get_meta(pickup_meta_name)
 		var item : PickupableItemData = cake_pickupable_item.duplicate(true)
 		item.use = cake_use_function
 		pickup_item_component.pickup_item(item)		
+		
+		if interacter.has_meta(stat_meta_name):
+			var stat_data_component : StatDataComponent = interacter.get_meta(stat_meta_name)
+			stat_data_component.change_desperation(TAKE_CAKE_DESPERATION)
 		
 		cake_left = cake_left - 1
 
@@ -49,7 +57,8 @@ func cake_use_function(user : Node2D) -> void:
 	if user.has_meta(stat_meta_name):
 		var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)
 		
-		stat_data_component.change_hunger(cake_hunger_regen_amount)
+		stat_data_component.change_hunger(CAKE_HUNGER_REFILL)
+		stat_data_component.change_desperation(EAT_CAKE_DESPERATION)
 		
 	if user.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
