@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdqhiaqxesh60"]
+
+[ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="1_0e6vc"]
+[ext_resource type="Script" uid="uid://civ48t4558r4y" path="res://script/game_manager/TransitionManager.gd" id="1_invj0"]
+[ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="1_iy1f3"]
+[ext_resource type="Script" uid="uid://87erus3hwjhy" path="res://script/manager/ScreenShaderManager.gd" id="2_fsey5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
+shader = ExtResource("1_iy1f3")
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 0.7
+
+[sub_resource type="Animation" id="Animation_iy1f3"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_invj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fsey5"]
+resource_name = "fade_out"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fsey5"]
+_data = {
+&"RESET": SubResource("Animation_invj0"),
+&"fade_in": SubResource("Animation_iy1f3"),
+&"fade_out": SubResource("Animation_fsey5")
+}
+
+[node name="core" type="Node"]
+
+[node name="game_loading_manager" type="Node" parent="." node_paths=PackedStringArray("core", "transition_manager", "screen_shader_manager")]
+script = ExtResource("1_0e6vc")
+core = NodePath("..")
+transition_manager = NodePath("../transition_manager")
+screen_shader_manager = NodePath("../screen_shader_manager")
+
+[node name="transition_manager" type="Node" parent="." node_paths=PackedStringArray("transition_canvas_layer", "transition_animation_player")]
+script = ExtResource("1_invj0")
+transition_canvas_layer = NodePath("../Transition")
+transition_animation_player = NodePath("../Transition/TransitionAnimationPlayer")
+
+[node name="screen_shader_manager" type="Node" parent="." node_paths=PackedStringArray("screen_shader")]
+script = ExtResource("2_fsey5")
+screen_shader = NodePath("../ScreenShader")
+
+[node name="ScreenShader" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="ScreenShader"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_invj0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Transition" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="Transition"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Transition/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="Transition"]
+libraries = {
+&"": SubResource("AnimationLibrary_fsey5")
+}
