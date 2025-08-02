@@ -14,11 +14,14 @@ extends CharacterBody2D
 @onready var hurtbox_component: HurtboxComponent = %hurtbox_component
 
 @onready var step_recorder_component: StepRecorderComponent = %step_recorder_component
+@onready var animation_controller : AnimationController = %animation_controller
 
 @onready var speech_text: SpeechText = %speech_text
 
 func _ready() -> void:
 	stat_data_component.init()
+	
+	animation_controller.init()
 	
 	movement_component.init(self, stat_data_component)
 	interacter_component.init(self)
@@ -26,7 +29,7 @@ func _ready() -> void:
 	pickup_item_component.init(self)
 	hurtbox_component.init()
 	
-	state_machine.init(input_brain, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
+	state_machine.init(input_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
@@ -35,6 +38,7 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	animation_controller.process_physics(delta)
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
 

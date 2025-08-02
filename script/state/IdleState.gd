@@ -11,7 +11,7 @@ func extra_init() -> void:
 	pass
 	
 func enter() -> void:
-	pass
+	animation_controller.play_animation("idle")
 	
 func exit() -> void:
 	pass	

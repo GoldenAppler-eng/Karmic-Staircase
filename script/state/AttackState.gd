@@ -9,13 +9,13 @@ extends State
 var _attack_finished : bool = false
 
 func extra_init() -> void:
-	pass
+	animation_controller.animation_finished.connect(_on_animation_finished)
 	
 func enter() -> void:
 	_attack_finished = false
 	damager_component.deal_damage()
-		
-	get_tree().create_timer(0.5).timeout.connect( mark_attack_finished, CONNECT_ONE_SHOT)
+	
+	animation_controller.play_animation("attack")
 	
 func exit() -> void:
 	pass	
@@ -39,3 +39,6 @@ func process_frame(delta : float) -> State:
 
 func mark_attack_finished() -> void:
 	_attack_finished = true
+
+func _on_animation_finished(anim_name : StringName) -> void:
+	mark_attack_finished()

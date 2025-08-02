@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=25 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
 [ext_resource type="Texture2D" uid="uid://beaowaw3ucksp" path="res://icon.svg" id="2_b05ef"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="15_pq381"]
 [ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/pickup_item_component.tscn" id="16_xc1lj"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="17_ce7el"]
-[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="19_isn2n"]
 [ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/hurtbox_component.tscn" id="19_p4hug"]
 [ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="20_cercp"]
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="21_6hp1k"]
@@ -34,6 +33,11 @@ size = Vector2(22, 29)
 [node name="recorded_player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_vx2og")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.15256e-07, 0.999998)
+scale = Vector2(0.15625, 0.203125)
+texture = ExtResource("2_b05ef")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_onrkg")
@@ -137,6 +141,14 @@ metadata/_custom_type_script = "uid://dcdbliakm3u3e"
 wait_time = 2.0
 autostart = true
 
+[node name="hurtbox_component" parent="." instance=ExtResource("19_p4hug")]
+unique_name_in_owner = true
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_p4hug")
+
 [node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
 unique_name_in_owner = true
 script = ExtResource("20_cercp")
@@ -144,27 +156,9 @@ target_brain = NodePath("../recorded_brain")
 target_pickup_item_component = NodePath("../pickup_item_component")
 metadata/_custom_type_script = "uid://0nqej4vc3au4"
 
-[node name="flippables" type="Node2D" parent="."]
-script = ExtResource("19_isn2n")
-metadata/_custom_type_script = "uid://dathf1gj3y2oa"
-
-[node name="hurtbox_component" parent="flippables" instance=ExtResource("19_p4hug")]
-unique_name_in_owner = true
-collision_layer = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/hurtbox_component"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_p4hug")
-
-[node name="player_sprite" type="Sprite2D" parent="flippables"]
-position = Vector2(7.15256e-07, 0.999998)
-scale = Vector2(0.15625, 0.203125)
-texture = ExtResource("2_b05ef")
-
-[node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("movement_component", "pickup_item_component", "stat_data_component", "flippables")]
+[node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("movement_component", "pickup_item_component", "stat_data_component")]
 script = ExtResource("21_6hp1k")
 movement_component = NodePath("../movement_component")
 pickup_item_component = NodePath("../pickup_item_component")
 stat_data_component = NodePath("../stat_data_component")
-flippables = NodePath("../flippables")
 metadata/_custom_type_script = "uid://r6v4breyygeo"

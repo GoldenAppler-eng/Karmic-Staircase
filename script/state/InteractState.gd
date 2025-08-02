@@ -6,13 +6,13 @@ extends State
 var _interact_finished : bool = false
 
 func extra_init() -> void:
-	pass
+	animation_controller.animation_finished.connect(_on_animation_finished)
 	
 func enter() -> void:
 	_interact_finished = false
-	
+	animation_controller.play_animation("use")
+		
 	interacter_component.interact_with_interactables()
-	get_tree().create_timer(0.5).timeout.connect(mark_interact_finished, CONNECT_ONE_SHOT)
 	
 func exit() -> void:
 	pass	
@@ -33,3 +33,6 @@ func process_frame(delta : float) -> State:
 
 func mark_interact_finished() -> void:
 	_interact_finished = true
+
+func _on_animation_finished(anim_name : StringName) -> void:
+	mark_interact_finished()

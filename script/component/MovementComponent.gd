@@ -12,6 +12,9 @@ const HUNGER_THRESHOLD : float = 50
 
 var actor : CharacterBody2D
 var _is_sprinting : bool = false
+var _is_moving : bool = false
+
+var last_facing_right : bool = true
 
 var stat_data_component : StatDataComponent
 
@@ -31,11 +34,23 @@ func move(delta : float, movement_vector : Vector2) -> void:
 	
 	actor.velocity = normalized_movement_vector * actual_speed
 	
+	_is_moving = true
+	
+	if movement_vector.x > 0:
+		last_facing_right = true
+	elif movement_vector.x < 0:
+		last_facing_right = false
+	
 	actor.move_and_slide()
 	
 func stop_movement() -> void:
 	actor.velocity = Vector2(0, 0)
 	actor.move_and_slide()
+	
+	_is_moving = false
 
 func set_sprinting(sprint : bool) -> void:
 	_is_sprinting = sprint
+
+func is_moving() -> bool:
+	return _is_moving

@@ -10,6 +10,6 @@ name = "Board"
 can_use_to_attack = true
 hold_sprite = ExtResource("1_k2mf6")
 world_sprite = ExtResource("1_k2mf6")
-hold_offset = Vector2(0, 0)
+hold_offset = Vector2(0, -20)
 scale = Vector2(1, 1)
 metadata/_custom_type_script = "uid://dpsdxig7vq6hu"

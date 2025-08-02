@@ -6,13 +6,13 @@ extends State
 var _use_finished : bool = false
 
 func extra_init() -> void:
-	pass
+	animation_controller.animation_finished.connect(_on_animation_finished)
 	
 func enter() -> void:
-	pickup_item_component.use_item()
-	
 	_use_finished = false
-	get_tree().create_timer(0.5).timeout.connect(mark_use_finished, CONNECT_ONE_SHOT)
+	animation_controller.play_animation("use")
+
+	pickup_item_component.use_item()	
 	
 func exit() -> void:
 	pass	
@@ -33,3 +33,7 @@ func process_frame(delta : float) -> State:
 
 func mark_use_finished() -> void:
 	_use_finished = true
+
+
+func _on_animation_finished(anim_name : StringName) -> void:
+	mark_use_finished()

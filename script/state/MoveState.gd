@@ -12,7 +12,7 @@ func extra_init() -> void:
 	pass
 	
 func enter() -> void:
-	pass
+	animation_controller.play_animation("move")
 	
 func exit() -> void:
 	movement_component.stop_movement()	
