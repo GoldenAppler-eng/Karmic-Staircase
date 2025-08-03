@@ -13,9 +13,11 @@ func enter() -> void:
 	super()
 	
 	_go_back = false
+	set_game_paused(true)
 	
 func exit() -> void:
 	super()
+	set_game_paused(false)
 
 func process_frame(delta : float) -> Menu:
 	if _go_back:
@@ -27,6 +29,9 @@ func process_physics(delta : float) -> Menu:
 	return null
 
 func process_input(event : InputEvent) -> Menu:
+	if event.is_action_pressed("pause_game"):
+		return revert_menu
+	
 	return null
 
 func _on_back_button_pressed() -> void:

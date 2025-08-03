@@ -22,6 +22,11 @@ func extra_init() -> void:
 func enter() -> void:
 	super()	
 	
+	game_loading_manager.hide_screen_shaders()
+	
+	game_loading_manager.call_transition_fade_out()
+	game_loading_manager.kill_game()
+	
 	_start_game = false
 	_go_to_settings = false
 	_quit_game = false
@@ -32,6 +37,7 @@ func exit() -> void:
 
 func process_frame(delta : float) -> Menu:
 	if _start_game:
+		game_loading_manager.load_game()
 		return idle_menu
 		
 	if _go_to_settings:

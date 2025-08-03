@@ -1,5 +1,8 @@
 extends Control
 
+@export var game_loading_manager : GameLoadingManager
+@export var game_end_manager : GameEndManager
+
 @export var initial_menu : Menu
 var current_menu : Menu 
 
@@ -12,7 +15,7 @@ func _ready() -> void:
 	for node : Node in get_children():
 		if node is Menu:
 			var menu : Menu = node as Menu
-			menu.init()
+			menu.init(game_loading_manager, game_end_manager)
 	
 	change_menu(initial_menu)
 	

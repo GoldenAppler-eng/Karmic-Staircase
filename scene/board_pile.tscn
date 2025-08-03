@@ -44,7 +44,8 @@ shape = SubResource("RectangleShape2D_hocp4")
 
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_i00g7")]
 unique_name_in_owner = true
-tooltip = "These are boards"
+tooltip = "Could go for
+a swing"
 tip = NodePath("tip")
 
 [node name="tip" type="Label" parent="tool_tip_activation_component"]
@@ -52,7 +53,8 @@ offset_left = -68.0
 offset_top = -32.0
 offset_right = 76.0
 offset_bottom = -9.0
-text = "these are boards"
+text = "Could go for
+a swing"
 horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]

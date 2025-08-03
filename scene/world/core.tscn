@@ -136,7 +136,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("initial_menu")]
+[node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("game_loading_manager", "game_end_manager", "initial_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,6 +144,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_ymi47")
+game_loading_manager = NodePath("../../game_loading_manager")
+game_end_manager = NodePath("../../game_end_manager")
 initial_menu = NodePath("main_menu")
 
 [node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "settings_menu", "quit_menu", "revert_menu")]

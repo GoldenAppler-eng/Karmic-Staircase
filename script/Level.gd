@@ -20,7 +20,14 @@ var recorded_players : Array[RecordedPlayer]
 
 var current_evil_player : EvilPlayer
 
-func _init() -> void:
+func init(id : int, p_origin_node : Node2D, p_staircase_top : Node2D, p_evil_player_spawn_location : Node2D) -> void:
+	level_data = LevelData.new()
+	level_data.level_id = id
+	
+	origin_node = p_origin_node
+	staircase_top = p_staircase_top
+	evil_player_spawn_location = p_evil_player_spawn_location
+	
 	disable()
 
 func intialize_first_level_data(player : Player) -> void:
@@ -95,6 +102,8 @@ func create_evil_player() -> void:
 	evil_player.set_level(self)
 	
 	add_child(evil_player)
+	
+	current_evil_player = evil_player
 	
 	evil_player.global_position = evil_player_spawn_location.global_position
 	evil_player.set_vertical_coordinate(level_data.level_id * 2 + EVIL_PLAYER_INITIAL_VERTICAL_COORDINATE)

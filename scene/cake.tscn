@@ -41,7 +41,8 @@ unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_wpivv")
 
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_r8mnr")]
-tooltip = "This is cake"
+tooltip = "Floor cake
+Yum"
 tip = NodePath("tip")
 
 [node name="tip" type="Label" parent="tool_tip_activation_component"]
@@ -49,7 +50,8 @@ offset_left = -49.0
 offset_top = -31.0
 offset_right = 52.0
 offset_bottom = -8.0
-text = "This is cake"
+text = "Floor cake
+Yum"
 horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]

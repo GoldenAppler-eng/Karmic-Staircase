@@ -9,7 +9,9 @@ func exit() -> void:
 	super()
 
 func process_frame(delta : float) -> Menu:
-	return null
+	game_loading_manager.load_game()
+	
+	return idle_menu
 	
 func process_physics(delta : float) -> Menu:
 	return null

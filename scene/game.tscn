@@ -1,21 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=19 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/players/player.tscn" id="1_5kiuu"]
 [ext_resource type="AudioStream" uid="uid://b4so8tomtpylw" path="res://audio/footsteps.wav" id="1_jhlss"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
 [ext_resource type="AudioStream" uid="uid://caoec1xnfl4aq" path="res://audio/air_vent.wav" id="1_ux4dc"]
+[ext_resource type="Script" uid="uid://dcl5uq8phjyx3" path="res://script/manager/GameManager.gd" id="1_ww6yf"]
 [ext_resource type="PackedScene" uid="uid://csb6mtlftuisj" path="res://scene/water_dripping.tscn" id="2_jrd6n"]
-[ext_resource type="PackedScene" uid="uid://uw4m24pq2ena" path="res://scene/cake.tscn" id="3_33cqm"]
 [ext_resource type="Texture2D" uid="uid://d2ypp8xig7ohc" path="res://sprite/center_column_occluder.png" id="3_i6gbm"]
-[ext_resource type="Script" uid="uid://dnbkjrpno7u1e" path="res://script/class/LevelData.gd" id="3_qpk70"]
 [ext_resource type="Texture2D" uid="uid://so5sxf56le20" path="res://sprite/room_occluder.png" id="4_ux4dc"]
-[ext_resource type="Texture2D" uid="uid://578crqnkf465" path="res://sprite/board.png" id="5_5g16k"]
-[ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="6_81276"]
-[ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="6_xlg7c"]
-[ext_resource type="PackedScene" uid="uid://o40os8tevy7i" path="res://scene/fireplace.tscn" id="7_qpk70"]
 [ext_resource type="Texture2D" uid="uid://bjr0vl3awhamp" path="res://sprite/room.png" id="8_17rxn"]
-[ext_resource type="Script" uid="uid://c7vkkmg5qpumj" path="res://script/Level.gd" id="8_ll5lq"]
-[ext_resource type="Texture2D" uid="uid://14tbo3pkjvqu" path="res://sprite/cake_piece.png" id="8_ve786"]
 [ext_resource type="Texture2D" uid="uid://bwiif3lm1mh17" path="res://sprite/spiral_staircase.png" id="8_yq8tf"]
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
 [ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
@@ -39,62 +32,9 @@ polygon = PackedVector2Array(-34, -90, -33, -9, -27, 9, -4, 21, 18, 12, 28, -2, 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0lu6w"]
 polygon = PackedVector2Array(-52, -60, -53, -14, -47, -14, -46, -55, 65, -56, 65, 31, -49, 31, -49, 12, -54, 12, -53, 36, 70, 36, 70, -60)
 
-[sub_resource type="Resource" id="Resource_ll5lq"]
-resource_local_to_scene = true
-script = ExtResource("3_qpk70")
-level_id = 0
-metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
-
-[sub_resource type="Resource" id="Resource_5g16k"]
-resource_local_to_scene = true
-script = ExtResource("6_81276")
-name = "Board"
-can_use_to_attack = true
-hold_sprite = ExtResource("5_5g16k")
-world_sprite = ExtResource("5_5g16k")
-hold_offset = Vector2(0, -20)
-scale = Vector2(1, 1)
-metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
-
-[sub_resource type="Resource" id="Resource_81276"]
-resource_local_to_scene = true
-script = ExtResource("6_81276")
-name = "CakePiece"
-can_use_to_attack = false
-hold_sprite = ExtResource("8_ve786")
-world_sprite = ExtResource("8_ve786")
-hold_offset = Vector2(-5, -5)
-scale = Vector2(1, 1)
-metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
-
-[sub_resource type="Resource" id="Resource_jrd6n"]
-script = ExtResource("3_qpk70")
-level_id = 1
-metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
-
-[sub_resource type="Resource" id="Resource_ve786"]
-resource_local_to_scene = true
-script = ExtResource("6_81276")
-name = "Board"
-can_use_to_attack = true
-hold_sprite = ExtResource("5_5g16k")
-world_sprite = ExtResource("5_5g16k")
-hold_offset = Vector2(0, -20)
-scale = Vector2(1, 1)
-metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
-
-[sub_resource type="Resource" id="Resource_0lu6w"]
-resource_local_to_scene = true
-script = ExtResource("6_81276")
-name = "CakePiece"
-can_use_to_attack = false
-hold_sprite = ExtResource("8_ve786")
-world_sprite = ExtResource("8_ve786")
-hold_offset = Vector2(-5, -5)
-scale = Vector2(1, 1)
-metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
-
 [node name="game" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_ww6yf")
 
 [node name="Constant" type="Node2D" parent="."]
 
@@ -184,6 +124,8 @@ texture = ExtResource("3_i6gbm")
 position = Vector2(91, 2)
 texture = ExtResource("4_ux4dc")
 
+[node name="Levels" type="Node2D" parent="."]
+
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
 z_index = 30
 position = Vector2(-53, -60)
@@ -192,58 +134,10 @@ origin_node = NodePath("../Constant/origin")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(3, 4)
 
-[node name="Level0" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "staircase_top", "evil_player_spawn_location", "board_pile", "cake", "fireplace")]
-z_index = 10
-script = ExtResource("8_ll5lq")
-level_data = SubResource("Resource_ll5lq")
-origin_node = NodePath("../Constant/origin")
-staircase_top = NodePath("../Constant/staircase_top_marker")
-evil_player_spawn_location = NodePath("../Constant/evil_spawn_location")
-board_pile = NodePath("board_pile")
-cake = NodePath("cake")
-fireplace = NodePath("fireplace")
-metadata/_edit_lock_ = true
-
-[node name="board_pile" parent="Level0" instance=ExtResource("6_xlg7c")]
-position = Vector2(141, 22)
-board_pickupable_item = SubResource("Resource_5g16k")
-
-[node name="cake" parent="Level0" instance=ExtResource("3_33cqm")]
-position = Vector2(76, -21)
-cake_pickupable_item = SubResource("Resource_81276")
-
-[node name="fireplace" parent="Level0" instance=ExtResource("7_qpk70")]
-position = Vector2(142, -30)
-
-[node name="Level1" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "staircase_top", "evil_player_spawn_location", "board_pile", "cake", "fireplace")]
-visible = false
-z_index = 10
-script = ExtResource("8_ll5lq")
-level_data = SubResource("Resource_jrd6n")
-origin_node = NodePath("../Constant/origin")
-staircase_top = NodePath("../Constant/staircase_top_marker")
-evil_player_spawn_location = NodePath("../Constant/evil_spawn_location")
-board_pile = NodePath("board_pile")
-cake = NodePath("cake")
-fireplace = NodePath("fireplace")
-metadata/_edit_lock_ = true
-
-[node name="board_pile" parent="Level1" instance=ExtResource("6_xlg7c")]
-position = Vector2(141, 22)
-board_pickupable_item = SubResource("Resource_ve786")
-
-[node name="cake" parent="Level1" instance=ExtResource("3_33cqm")]
-position = Vector2(76, -21)
-cake_pickupable_item = SubResource("Resource_0lu6w")
-
-[node name="fireplace" parent="Level1" instance=ExtResource("7_qpk70")]
-position = Vector2(142, -30)
-
-[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "ambient_footstep_sfx_player", "level_list")]
+[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "ambient_footstep_sfx_player")]
 script = ExtResource("1_p1ry8")
 player = NodePath("../player")
 ambient_footstep_sfx_player = NodePath("../Constant/ambient_footsteps")
-level_list = [NodePath("../Level0"), NodePath("../Level1")]
 
 [node name="Label" type="Label" parent="staircase_level_manager"]
 offset_left = -139.0

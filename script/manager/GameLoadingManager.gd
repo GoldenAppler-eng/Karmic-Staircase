@@ -11,6 +11,10 @@ const game_prefab : PackedScene = preload("res://scene/game.tscn")
 
 var current_game : Node
 
+func kill_game() -> void:	
+	if current_game:
+		current_game.queue_free()
+
 func load_game() -> void:
 	await transition_manager.fade_in()
 	
@@ -27,6 +31,11 @@ func load_game() -> void:
 	
 	await transition_manager.fade_out()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug_special_button"):
-		load_game()
+func call_transition_fade_in() -> void:
+	await transition_manager.fade_in()
+	
+func call_transition_fade_out() -> void:
+	await transition_manager.fade_out()
+
+func hide_screen_shaders() -> void:
+	screen_shader_manager.hide()

@@ -1,9 +1,15 @@
 class_name Menu
 extends Control
 
-func init() -> void:
+var game_loading_manager : GameLoadingManager
+var game_end_manager : GameEndManager
+
+func init(p_game_loading_manager : GameLoadingManager, p_game_end_manger : GameEndManager) -> void:
 	visible = false
 	extra_init()
+	
+	game_loading_manager = p_game_loading_manager
+	game_end_manager = p_game_end_manger
 
 func extra_init() -> void:
 	pass

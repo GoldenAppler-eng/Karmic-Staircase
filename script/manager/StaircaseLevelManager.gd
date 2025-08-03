@@ -1,3 +1,4 @@
+class_name StaircaseLevelManager
 extends Node
 
 signal level_changed(current_level : int)
@@ -17,11 +18,11 @@ var current_level : int:
 
 @onready var label: Label = $Label
 
-@export var level_list : Array[Level]
+@export var level_list : Array[Level] = []
 
 var rotation_tracker_component : RotationTrackerComponent
 
-func _ready() -> void:	
+func init() -> void:	
 	rotation_tracker_component = player.get_meta(GlobalConstants.get_component_name(GlobalConstants.COMPONENT.ROTATIONTRACKER))
 	
 	level_list[0].enable()

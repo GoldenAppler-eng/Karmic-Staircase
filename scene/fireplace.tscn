@@ -104,7 +104,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_fdvmc")
 
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("4_j8u3g")]
-tooltip = "This is a fireplace"
+tooltip = "Its bright"
 tip = NodePath("tip")
 metadata/_edit_lock_ = true
 
@@ -113,7 +113,7 @@ offset_left = -63.0
 offset_top = -47.0
 offset_right = 70.0
 offset_bottom = -24.0
-text = "This is a fireplace"
+text = "It's dying"
 horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]

@@ -1,6 +1,14 @@
 class_name Fireplace
 extends Node2D
 
+const tooltip_list : Array[String] = [
+	"Its dying",
+	"Its dim",
+	"Its warm",
+	"Its bright",
+	"Its hot",
+	]
+
 const FUEL_BURNOUT_AMOUNT : float = 2
 const FIREPLACE_MAX_FRAME : int = 3
 
@@ -19,6 +27,7 @@ var fuel : float:
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
+@onready var tool_tip_activation_component: ToolTipActivationComponent = $tool_tip_activation_component
 
 @onready var burn_sound: AudioStreamPlayer2D = $burn_sound
 
@@ -36,6 +45,9 @@ func _update_sprite_animation(current_value : int, max_value : int, max_frame : 
 	
 	gpu_particles_2d.emitting = not sprite_2d.frame == FIREPLACE_MAX_FRAME
 	point_light_2d.energy = float(current_value) / max_value * (MAX_LIGHT_ENERGY - MIN_LIGHT_ENERGY) + MIN_LIGHT_ENERGY
+
+	var tip_index : int = min(float(current_value) / max_value * tooltip_list.size(), tooltip_list.size() - 1)
+	tool_tip_activation_component.set_tooltip(tooltip_list[tip_index])	
 
 func _on_fuel_burnout_timer_timeout() -> void:
 	fuel = fuel - FUEL_BURNOUT_AMOUNT 

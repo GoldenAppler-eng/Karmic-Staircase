@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=44 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_jrjdb"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bj2fo22m487fj" path="res://script/brain/InputBrain.gd" id="8_dw050"]
 [ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/player_state/InteractState.gd" id="8_ivps1"]
 [ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/player_state/UseState.gd" id="9_j4wxg"]
-[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="11_dk1vr"]
 [ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/player_state/DeadState.gd" id="11_iuf2t"]
 [ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
@@ -298,7 +297,7 @@ _data = {
 radius = 104.077
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k8m7u"]
-radius = 19.0263
+radius = 18.0
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
@@ -388,13 +387,6 @@ unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
 shape = SubResource("CircleShape2D_34jf3")
-
-[node name="speech_text" parent="." instance=ExtResource("10_n7ghd")]
-unique_name_in_owner = true
-offset_left = -40.0
-offset_top = -39.0
-offset_right = -40.0
-offset_bottom = -39.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true

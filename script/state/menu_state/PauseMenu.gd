@@ -56,6 +56,7 @@ func process_frame(delta : float) -> Menu:
 		return restart_menu
 		
 	if _back_to_main_menu:
+		game_loading_manager.call_transition_fade_in()
 		return main_menu
 	
 	if _resume:
