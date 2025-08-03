@@ -23,10 +23,10 @@ func load_game() -> void:
 	
 	screen_shader_manager.show()
 	
-	await get_tree().create_timer(LOADING_TIME)
+	await get_tree().create_timer(LOADING_TIME).timeout
 	
 	await transition_manager.fade_out()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("debug_special_button"):
 		load_game()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://o40os8tevy7i"]
+[gd_scene load_steps=15 format=3 uid="uid://o40os8tevy7i"]
 
 [ext_resource type="Script" uid="uid://blskqk86x2w5m" path="res://script/Fireplace.gd" id="1_q16f2"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="2_fdvmc"]
 [ext_resource type="Texture2D" uid="uid://2i64sqku1s51" path="res://sprite/fireplace-Sheet.png" id="2_q16f2"]
+[ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="4_j8u3g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q16f2"]
 radius = 14.0
@@ -46,6 +47,9 @@ turbulence_noise_scale = 5.99
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdvmc"]
 size = Vector2(28, 45)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngobc"]
+size = Vector2(29, 48)
+
 [node name="fireplace" type="RigidBody2D"]
 collision_mask = 0
 gravity_scale = 0.0
@@ -71,3 +75,19 @@ process_material = SubResource("ParticleProcessMaterial_fdvmc")
 visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_fdvmc")
+
+[node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("4_j8u3g")]
+tooltip = "This is a fireplace"
+tip = NodePath("tip")
+
+[node name="tip" type="Label" parent="tool_tip_activation_component"]
+offset_left = -63.0
+offset_top = -47.0
+offset_right = 70.0
+offset_bottom = -24.0
+text = "This is a fireplace"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ngobc")

@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://uw4m24pq2ena"]
+[gd_scene load_steps=9 format=3 uid="uid://uw4m24pq2ena"]
 
 [ext_resource type="Script" uid="uid://cllrjayydeik" path="res://script/Cake.gd" id="1_bpxnu"]
 [ext_resource type="Resource" uid="uid://fry6ncngyn0d" path="res://resource/Cake.tres" id="2_526gx"]
 [ext_resource type="Texture2D" uid="uid://cdo2d44r34e3a" path="res://sprite/cake-Sheet.png" id="3_kob85"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="5_f41j1"]
+[ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="5_r8mnr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kob85"]
 radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpivv"]
 size = Vector2(18, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysww7"]
+size = Vector2(20, 16)
 
 [node name="cake" type="RigidBody2D"]
 collision_mask = 0
@@ -30,3 +34,18 @@ unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
 shape = SubResource("RectangleShape2D_wpivv")
+
+[node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_r8mnr")]
+tooltip = "This is cake"
+tip = NodePath("tip")
+
+[node name="tip" type="Label" parent="tool_tip_activation_component"]
+offset_left = -49.0
+offset_top = -31.0
+offset_right = 52.0
+offset_bottom = -8.0
+text = "This is cake"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
+shape = SubResource("RectangleShape2D_ysww7")

@@ -1,18 +1,12 @@
-class_name Menu
-extends Control
+extends Menu
 
-func init() -> void:
-	visible = false
-	extra_init()
-
-func extra_init() -> void:
-	pass
+@export var idle_menu : Menu
 
 func enter() -> void:
-	visible = true
+	super()
 	
 func exit() -> void:
-	visible = false
+	super()
 
 func process_frame(delta : float) -> Menu:
 	return null
@@ -22,6 +16,3 @@ func process_physics(delta : float) -> Menu:
 
 func process_input(event : InputEvent) -> Menu:
 	return null
-
-func set_game_paused(paused : bool) -> void:
-	get_tree().paused = paused

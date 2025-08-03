@@ -1,0 +1,17 @@
+extends Menu
+
+func enter() -> void:
+	super()
+	get_tree().quit()
+	
+func exit() -> void:
+	super()
+
+func process_frame(delta : float) -> Menu:
+	return null
+	
+func process_physics(delta : float) -> Menu:
+	return null
+
+func process_input(event : InputEvent) -> Menu:
+	return null

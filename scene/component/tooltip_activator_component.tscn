@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp7rg1dk1tc2p"]
+
+[ext_resource type="Script" uid="uid://cwh3ok4caafce" path="res://script/component/TooltipActivatorComponent.gd" id="1_2ukap"]
+
+[node name="tooltip_activator_component" type="Area2D"]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+script = ExtResource("1_2ukap")
