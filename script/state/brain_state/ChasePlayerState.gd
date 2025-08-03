@@ -8,6 +8,8 @@ const DESIRED_ATTACK_RANGE : float = 10
 
 @export var dead_state : BrainState
 
+@export var eerie_sfx_player : AudioStreamPlayer2D
+
 func extra_init() -> void:
 	pass
 
@@ -18,6 +20,9 @@ func enter() -> void:
 	brain.find_target_player()
 	
 	speech_text.say("Get over here")
+	
+	if eerie_sfx_player:
+		eerie_sfx_player.play()
 	
 func exit() -> void:
 	brain._wants_movement = false

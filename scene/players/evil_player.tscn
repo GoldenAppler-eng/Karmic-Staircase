@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://brno1uhibtnx"]
+[gd_scene load_steps=52 format=3 uid="uid://brno1uhibtnx"]
 
 [ext_resource type="Script" uid="uid://d35unl7e2i5gi" path="res://script/EvilPlayer.gd" id="1_c3ptj"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_dti7d"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="31_b3jd8"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_0d2it"]
 [ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="33_cedyb"]
+[ext_resource type="AudioStream" uid="uid://bp8bofjf867m7" path="res://audio/eerie.wav" id="34_cx4nn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
@@ -420,12 +421,13 @@ run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 dead_state = NodePath("../dead_state")
 
-[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state", "dead_state")]
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state", "dead_state", "eerie_sfx_player")]
 script = ExtResource("19_hbida")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 calm_state = NodePath("../find_weapon_state")
 dead_state = NodePath("../dead_state")
+eerie_sfx_player = NodePath("../../../eerie_sfx")
 
 [node name="run_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("dead_state")]
 script = ExtResource("20_3gqpw")
@@ -521,4 +523,10 @@ shape = SubResource("CircleShape2D_11mpr")
 position = Vector2(0, 13)
 stream = ExtResource("33_cedyb")
 max_distance = 50.0
+bus = &"Sfx"
+
+[node name="eerie_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("34_cx4nn")
+autoplay = true
+max_distance = 300.0
 bus = &"Sfx"
