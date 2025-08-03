@@ -1,9 +1,10 @@
-class_name RecordedPlayer
+class_name EvilPlayer
 extends CharacterBody2D
+
+@export var starting_weapon : PickupableItemData
 
 @export var origin_node : Node2D
 
-@onready var recorded_brain: RecordedBrain = %recorded_brain
 @onready var state_machine: StateMachine = %state_machine
 
 @onready var ai_brain : AIBrain = %ai_brain
@@ -15,21 +16,21 @@ extends CharacterBody2D
 @onready var pickup_item_component: PickupItemComponent = %pickup_item_component
 @onready var stat_data_component: StatDataComponent = %stat_data_component
 @onready var hurtbox_component: HurtboxComponent = %hurtbox_component
+
 @onready var animation_controller : AnimationController = %animation_controller
 
 @onready var player_vision_component: PlayerVisionComponent = %player_vision_component
 
-@onready var interruption_detection_component: InterruptionDetectionComponent = %interruption_detection_component
-
-var level : Level
+@export var level : Level
 
 var initial_position : Vector2
 
-var using_ai : bool = false
+var using_ai : bool = true
 
 func _ready() -> void:
 	stat_data_component.init()	
-
+	stat_data_component.data.change_desperation(100)
+	
 	animation_controller.init()
 
 	movement_component.init(self, stat_data_component)
@@ -40,9 +41,10 @@ func _ready() -> void:
 	player_vision_component.init(self, movement_component, rotation_tracker_component)
 	
 	brain_state_machine.init(ai_brain, stat_data_component, pickup_item_component, interacter_component, player_vision_component, level)
-	state_machine.init(recorded_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
-
-	interruption_detection_component.interrupted.connect(_on_recording_interrupted)
+	brain_state_machine.activate()
+	state_machine.init(ai_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
+	
+	pickup_item_component.pickup_item(starting_weapon)
 	
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
@@ -61,23 +63,3 @@ func set_vertical_coordinate(vertical_coordinate : float) -> void:
 	
 func set_level(p_level : Level) -> void:
 	level = p_level
-
-func set_recorded_brain_data(step_data : Array[BrainFrameData], item_data : Array[PickupFrameData]) -> void:
-	recorded_brain.recorded_brain_data = step_data
-	recorded_brain.recorded_item_data = item_data
-
-func reset_player() -> void:
-	global_position = initial_position
-	recorded_brain.reset_brain()
-	use_recorded_brain()
-	
-	state_machine.reset_state_machine()
-
-func _on_recording_interrupted() -> void:
-	state_machine.set_brain(ai_brain)
-	brain_state_machine.activate()
-	using_ai = true
-
-func use_recorded_brain() -> void:
-	state_machine.set_brain(recorded_brain)
-	using_ai = false

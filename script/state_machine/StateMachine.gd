@@ -31,3 +31,8 @@ func process_frame(delta : float) -> void:
 
 func reset_state_machine() -> void:
 	change_state(initial_state)
+
+func set_brain(p_brain : Brain) -> void:
+	for state in get_children():
+		(state as State).set_brain(p_brain)
+		

@@ -12,7 +12,7 @@ func deal_damage() -> bool:
 		if not area is HurtboxComponent:
 			continue
 			
-		if area.owner.has_meta(rotation_tracker_meta_name) and owner.has_meta(rotation_tracker_meta_name):
+		if area.owner.has_meta(rotation_tracker_meta_name) and owner.has_meta(rotation_tracker_meta_name):			
 			var attacker_rotation_tracker_component : RotationTrackerComponent = owner.get_meta(rotation_tracker_meta_name)
 			var attacked_rotation_tracker_component : RotationTrackerComponent = area.owner.get_meta(rotation_tracker_meta_name)
 		
@@ -21,11 +21,13 @@ func deal_damage() -> bool:
 			
 			var vertical_distance : float = abs(attacker_vertical_coordinate - attacked_vertical_coordinate)
 			
+			print(vertical_distance)
+			
 			if vertical_distance > reach:
 				continue
-				
+					
 		var hurtbox_component : HurtboxComponent = area as HurtboxComponent
 		hurtbox_component.get_hurt()
 		dealt_damage = true
-	
+		
 	return dealt_damage

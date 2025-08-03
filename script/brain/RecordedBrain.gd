@@ -37,6 +37,10 @@ func _physics_process(delta: float) -> void:
 	
 	current_frame += 1
 	
+func reset_brain() -> void:
+	current_frame = 0
+	_stop_play_recording = false	
+
 func wants_movement() -> bool:
 	return recorded_brain_data[current_frame].wants_movement
 

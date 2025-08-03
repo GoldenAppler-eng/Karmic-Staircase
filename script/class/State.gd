@@ -38,3 +38,6 @@ func process_physics(delta : float) -> State:
 	
 func process_frame(delta : float) -> State:
 	return null
+
+func set_brain(p_brain : Brain) -> void:
+	brain = p_brain

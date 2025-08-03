@@ -1,41 +1,47 @@
-[gd_scene load_steps=44 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=49 format=3 uid="uid://brno1uhibtnx"]
 
-[ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
-[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_jrjdb"]
-[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/player_state/IdleState.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://dlwylnp3l1144" path="res://script/state/player_state/DropState.gd" id="4_bup7g"]
-[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/player_state/MoveState.gd" id="4_hqtel"]
-[ext_resource type="Script" uid="uid://dgcyi6lkgvs6g" path="res://script/state/player_state/AttackState.gd" id="5_sweqy"]
-[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="6_2hs0m"]
-[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/player_state/SprintState.gd" id="7_b26j0"]
-[ext_resource type="Script" uid="uid://bj2fo22m487fj" path="res://script/brain/InputBrain.gd" id="8_dw050"]
-[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/player_state/InteractState.gd" id="8_ivps1"]
-[ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/player_state/UseState.gd" id="9_j4wxg"]
-[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="10_n7ghd"]
-[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="11_dk1vr"]
-[ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/player_state/DeadState.gd" id="11_iuf2t"]
-[ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="13_34jf3"]
-[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/component/pickup_item_component.tscn" id="14_u7b46"]
-[ext_resource type="Script" uid="uid://0nqej4vc3au4" path="res://script/component/StepRecorderComponent.gd" id="17_4ja17"]
-[ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="18_v4iqv"]
-[ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="19_4reak"]
-[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/component/hurtbox_component.tscn" id="19_42h83"]
-[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="19_kk4ol"]
-[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="21_jrjdb"]
-[ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="24_wt23p"]
-[ext_resource type="PackedScene" uid="uid://bp7rg1dk1tc2p" path="res://scene/component/tooltip_activator_component.tscn" id="25_k8m7u"]
+[ext_resource type="Script" uid="uid://d35unl7e2i5gi" path="res://script/EvilPlayer.gd" id="1_c3ptj"]
+[ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_dti7d"]
+[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_idtud"]
+[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/player_state/IdleState.gd" id="3_8dsjt"]
+[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/player_state/MoveState.gd" id="4_8hjud"]
+[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/player_state/SprintState.gd" id="5_4tm5l"]
+[ext_resource type="Script" uid="uid://dgcyi6lkgvs6g" path="res://script/state/player_state/AttackState.gd" id="6_14uvd"]
+[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/player_state/InteractState.gd" id="7_w20ve"]
+[ext_resource type="Script" uid="uid://xerbnbwebg7h" path="res://script/state/player_state/UseState.gd" id="8_eoo6w"]
+[ext_resource type="Script" uid="uid://dlwylnp3l1144" path="res://script/state/player_state/DropState.gd" id="9_whiqh"]
+[ext_resource type="Script" uid="uid://djdu4ngv8cr8e" path="res://script/state/player_state/DeadState.gd" id="10_hevx2"]
+[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="11_c2qgx"]
+[ext_resource type="Script" uid="uid://ctsho4xnp4xo2" path="res://script/brain/AIBrain.gd" id="14_rif31"]
+[ext_resource type="Script" uid="uid://brvy5x5uuivu" path="res://script/state_machine/BrainStateMachine.gd" id="15_rxbrd"]
+[ext_resource type="Script" uid="uid://c8ikj0cri6mtk" path="res://script/state/brain_state/ConfusedState.gd" id="16_jc5tp"]
+[ext_resource type="Script" uid="uid://d48ch43e31jo" path="res://script/state/brain_state/PanicState.gd" id="17_bl01o"]
+[ext_resource type="Script" uid="uid://bcfv6yyk1dcf" path="res://script/state/brain_state/FindWeaponState.gd" id="18_tyno4"]
+[ext_resource type="Script" uid="uid://b0ov4qsnpoy0w" path="res://script/state/brain_state/ChasePlayerState.gd" id="19_hbida"]
+[ext_resource type="Script" uid="uid://dhybi75eyuxgf" path="res://script/state/brain_state/RunState.gd" id="20_3gqpw"]
+[ext_resource type="Script" uid="uid://d308sc06xvbuc" path="res://script/state/brain_state/HuntState.gd" id="21_sj48o"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="22_f1v8l"]
+[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="23_jmx0l"]
+[ext_resource type="Script" uid="uid://dlihm53dfpyd5" path="res://script/component/RotationTrackerComponent.gd" id="24_5tqab"]
+[ext_resource type="Texture2D" uid="uid://bflqly8sjs1mc" path="res://sprite/evil_player-gridsheet.png" id="25_oxeey"]
+[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="25_tuwhu"]
+[ext_resource type="PackedScene" uid="uid://bypnx10jtyfcw" path="res://scene/component/hurtbox_component.tscn" id="26_bv8gt"]
+[ext_resource type="PackedScene" uid="uid://dh4w6wbocgxad" path="res://scene/component/pickup_item_component.tscn" id="28_4ixa5"]
+[ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="29_1neu7"]
+[ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="30_m4j63"]
+[ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="31_b3jd8"]
+[ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_0d2it"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_34jf3"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_isn2n"]
 radius = 18.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuf2t"]
-size = Vector2(11, 17)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4hug"]
+size = Vector2(18, 29)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jrjdb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_llrc2"]
 radius = 12.0416
 
 [sub_resource type="Animation" id="Animation_kk4ol"]
@@ -293,26 +299,24 @@ _data = {
 &"walk_hold": SubResource("Animation_qucqc")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wt23p"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_11mpr"]
 radius = 104.077
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k8m7u"]
-radius = 19.0263
-
-[node name="player" type="CharacterBody2D"]
+[node name="evil_player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_1jxqw")
+script = ExtResource("1_c3ptj")
+starting_weapon = ExtResource("2_dti7d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 6)
-shape = SubResource("CapsuleShape2D_onrkg")
+shape = SubResource("CapsuleShape2D_isn2n")
 
-[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_onrkg")]
+[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_idtud")]
 unique_name_in_owner = true
 initial_state = NodePath("idle_state")
 
 [node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "attack_state", "interact_state", "use_state", "drop_state", "dead_state")]
-script = ExtResource("3_i3pqv")
+script = ExtResource("3_8dsjt")
 move_state = NodePath("../move_state")
 attack_state = NodePath("../atttack_state")
 interact_state = NodePath("../interact_state")
@@ -321,7 +325,7 @@ drop_state = NodePath("../drop_state")
 dead_state = NodePath("../dead_state")
 
 [node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "attack_state", "sprint_state", "interact_state", "use_state", "drop_state", "dead_state")]
-script = ExtResource("4_hqtel")
+script = ExtResource("4_8hjud")
 idle_state = NodePath("../idle_state")
 attack_state = NodePath("../atttack_state")
 sprint_state = NodePath("../sprint_state")
@@ -331,7 +335,7 @@ drop_state = NodePath("../drop_state")
 dead_state = NodePath("../dead_state")
 
 [node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "interact_state", "use_state", "drop_state", "dead_state")]
-script = ExtResource("7_b26j0")
+script = ExtResource("5_4tm5l")
 move_state = NodePath("../move_state")
 idle_state = NodePath("../idle_state")
 attack_state = NodePath("../atttack_state")
@@ -341,121 +345,158 @@ drop_state = NodePath("../drop_state")
 dead_state = NodePath("../dead_state")
 
 [node name="atttack_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state", "dead_state", "damager_component")]
-script = ExtResource("5_sweqy")
+script = ExtResource("6_14uvd")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 dead_state = NodePath("../dead_state")
 damager_component = NodePath("../../flippables/damager_component")
 
 [node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("8_ivps1")
+script = ExtResource("7_w20ve")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="use_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("9_j4wxg")
+script = ExtResource("8_eoo6w")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="drop_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("4_bup7g")
+script = ExtResource("9_whiqh")
 idle_state = NodePath("../idle_state")
 move_state = NodePath("../move_state")
 
 [node name="dead_state" type="Node" parent="state_machine"]
-script = ExtResource("11_iuf2t")
+script = ExtResource("10_hevx2")
 
 [node name="movement_component" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("6_2hs0m")
+script = ExtResource("11_c2qgx")
 speed = 5.0
 sprint_multiplier = 2.0
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
 
-[node name="input_brain" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("8_dw050")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)
 
-[node name="interacter_component" parent="." instance=ExtResource("11_dk1vr")]
+[node name="PathRefreshTimer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[node name="ai_brain" type="Node" parent="." node_paths=PackedStringArray("nav_agent", "path_refresh_timer")]
 unique_name_in_owner = true
+script = ExtResource("14_rif31")
+nav_agent = NodePath("../NavigationAgent2D")
+path_refresh_timer = NodePath("../PathRefreshTimer")
+
+[node name="brain_state_machine" type="Node" parent="ai_brain" node_paths=PackedStringArray("speech_text", "initial_state")]
+unique_name_in_owner = true
+script = ExtResource("15_rxbrd")
+speech_text = NodePath("../../speech_text")
+initial_state = NodePath("confused_state")
+
+[node name="confused_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("panic_state")]
+script = ExtResource("16_jc5tp")
+panic_state = NodePath("../panic_state")
+
+[node name="panic_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "find_weapon_state", "hunt_state")]
+script = ExtResource("17_bl01o")
+run_state = NodePath("../run_state")
+find_weapon_state = NodePath("../find_weapon_state")
+hunt_state = NodePath("../hunt_state")
+
+[node name="find_weapon_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state")]
+script = ExtResource("18_tyno4")
+run_state = NodePath("../run_state")
+hunt_state = NodePath("../hunt_state")
+
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("find_weapon_state", "run_state", "hunt_state")]
+script = ExtResource("19_hbida")
+find_weapon_state = NodePath("../find_weapon_state")
+run_state = NodePath("../run_state")
+hunt_state = NodePath("../hunt_state")
+
+[node name="run_state" type="Node" parent="ai_brain/brain_state_machine"]
+script = ExtResource("20_3gqpw")
+
+[node name="hunt_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("chase_player_state")]
+script = ExtResource("21_sj48o")
+chase_player_state = NodePath("../chase_player_state")
+
+[node name="interacter_component" parent="." instance=ExtResource("22_f1v8l")]
+unique_name_in_owner = true
+position = Vector2(2, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
-shape = SubResource("CircleShape2D_34jf3")
+shape = SubResource("CircleShape2D_isn2n")
 
-[node name="speech_text" parent="." instance=ExtResource("10_n7ghd")]
+[node name="speech_text" parent="." instance=ExtResource("23_jmx0l")]
 unique_name_in_owner = true
-offset_left = -40.0
-offset_top = -39.0
-offset_right = -40.0
-offset_bottom = -39.0
+offset_left = -44.0
+offset_top = -40.0
+offset_right = -44.0
+offset_bottom = -40.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("13_34jf3")
-
-[node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
-unique_name_in_owner = true
-script = ExtResource("18_v4iqv")
-hunger_degeneration_timer = NodePath("hunger_degen_timer")
-
-[node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
-wait_time = 2.0
-autostart = true
-
-[node name="hurtbox_component" parent="." instance=ExtResource("19_42h83")]
-unique_name_in_owner = true
-position = Vector2(2, 7)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
-shape = SubResource("RectangleShape2D_iuf2t")
-
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
-unique_name_in_owner = true
-script = ExtResource("17_4ja17")
-target_brain = NodePath("../input_brain")
-target_pickup_item_component = NodePath("../flippables/pickup_item_component")
+script = ExtResource("24_5tqab")
 
 [node name="flippables" type="Node2D" parent="."]
-script = ExtResource("19_kk4ol")
+script = ExtResource("25_tuwhu")
+metadata/_custom_type_script = "uid://dathf1gj3y2oa"
 
-[node name="damager_component" parent="flippables" instance=ExtResource("21_jrjdb")]
-position = Vector2(20, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
-shape = SubResource("CircleShape2D_jrjdb")
-
-[node name="pickup_item_component" parent="flippables" instance=ExtResource("14_u7b46")]
+[node name="hurtbox_component" parent="flippables" instance=ExtResource("26_bv8gt")]
 unique_name_in_owner = true
-position = Vector2(7, 4)
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/hurtbox_component"]
+position = Vector2(-2, 1.5)
+shape = SubResource("RectangleShape2D_p4hug")
 
 [node name="player_sprite" type="Sprite2D" parent="flippables"]
-texture = ExtResource("2_jrjdb")
+texture = ExtResource("25_oxeey")
 hframes = 7
 vframes = 10
 
+[node name="pickup_item_component" parent="flippables" instance=ExtResource("28_4ixa5")]
+unique_name_in_owner = true
+
+[node name="damager_component" parent="flippables" instance=ExtResource("29_1neu7")]
+position = Vector2(20, 2)
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
+shape = SubResource("CircleShape2D_llrc2")
+
 [node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("anim_player", "movement_component", "pickup_item_component", "stat_data_component", "flippables")]
 unique_name_in_owner = true
-script = ExtResource("19_4reak")
+script = ExtResource("30_m4j63")
 anim_player = NodePath("../AnimationPlayer")
 movement_component = NodePath("../movement_component")
 pickup_item_component = NodePath("../flippables/pickup_item_component")
 stat_data_component = NodePath("../stat_data_component")
 flippables = NodePath("../flippables")
+metadata/_custom_type_script = "uid://r6v4breyygeo"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_4reak")
 }
 
-[node name="player_vision_component" parent="." instance=ExtResource("24_wt23p")]
+[node name="stat_data_component" type="Node" parent="." node_paths=PackedStringArray("hunger_degeneration_timer")]
+unique_name_in_owner = true
+script = ExtResource("31_b3jd8")
+hunger_degeneration_timer = NodePath("hunger_degen_timer")
+
+[node name="hunger_degen_timer" type="Timer" parent="stat_data_component"]
+wait_time = 2.0
+autostart = true
+
+[node name="player_vision_component" parent="." instance=ExtResource("32_0d2it")]
 unique_name_in_owner = true
 position = Vector2(0, -7)
 vertical_fov = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_vision_component"]
-shape = SubResource("CircleShape2D_wt23p")
-
-[node name="tooltip_activator_component" parent="." instance=ExtResource("25_k8m7u")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_activator_component"]
-shape = SubResource("CircleShape2D_k8m7u")
+shape = SubResource("CircleShape2D_11mpr")

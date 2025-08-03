@@ -2,16 +2,18 @@ class_name PlayerVisionComponent
 extends Area2D
 
 @export var fov : float = 0
-
+@export var vertical_fov : float = 0
 
 var ignore_player : CharacterBody2D
 var movement_component : MovementComponent
+var rotation_tracker_component : RotationTrackerComponent
 
 var players_in_area : Array[CharacterBody2D]
 
-func init(p_ignore_player : CharacterBody2D, p_movement_component : MovementComponent) -> void:
+func init(p_ignore_player : CharacterBody2D, p_movement_component : MovementComponent, p_rotation_tracker_component : RotationTrackerComponent) -> void:
 	ignore_player = p_ignore_player
 	movement_component = p_movement_component
+	rotation_tracker_component = p_rotation_tracker_component
 	
 	body_entered.connect(_on_player_entered_area)
 	body_exited.connect(_on_player_exited_area)
@@ -25,7 +27,7 @@ func get_number_of_seen_player() -> int:
 		var to_player : Vector2 = player.global_position - global_position
 		var dot : float = forward.dot(to_player)
 		
-		if dot <= fov:
+		if dot <= fov and player_in_vertical_range(player):
 			num_of_players_seen += 1
 			
 	return num_of_players_seen
@@ -55,6 +57,9 @@ func get_closest_player() -> CharacterBody2D:
 		if dot > fov:
 			continue
 			
+		if not player_in_vertical_range(player):
+			continue
+			
 		var distance : float = to_player.length()
 		
 		if distance < min_distance:
@@ -72,6 +77,9 @@ func any_player_has_weapon() -> bool:
 		
 		if dot > fov:
 			continue
+		
+		if not player_in_vertical_range(player):
+			continue	
 			
 		if has_weapon(player):
 			return true
@@ -90,3 +98,18 @@ func has_weapon(player : Node2D) -> bool:
 		return false
 	
 	return pickup_item_component.can_be_used_for_attack()
+
+func player_in_vertical_range(player : CharacterBody2D) -> bool:
+	var rotation_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.ROTATIONTRACKER)
+	
+	if not player.has_meta(rotation_meta_name):
+		return false
+	
+	var player_rotation_tracker_component : RotationTrackerComponent = player.get_meta(rotation_meta_name) as RotationTrackerComponent
+	
+	var vertical_distance : float = abs(player_rotation_tracker_component.psuedo_vertical_coordinate - rotation_tracker_component.psuedo_vertical_coordinate)
+	
+	if vertical_distance <= vertical_fov:
+		return true
+	
+	return false

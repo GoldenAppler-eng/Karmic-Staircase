@@ -31,7 +31,7 @@ func _ready() -> void:
 	pickup_item_component.init(self)
 	hurtbox_component.init()
 	
-	player_vision_component.init(self, movement_component)
+	player_vision_component.init(self, movement_component, rotation_tracker_component)
 	
 	state_machine.init(input_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
 

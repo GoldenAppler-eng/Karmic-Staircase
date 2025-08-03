@@ -9,5 +9,8 @@ func init() -> void:
 func get_hurt() -> void:
 	_hurt = true
 
-func is_hurt() -> bool:
+func is_hurt() -> bool:	
 	return _hurt
+
+func revive() -> void:
+	_hurt = false

@@ -67,6 +67,7 @@ func create_recorded_players() -> void:
 		
 		var recorded_player : RecordedPlayer = recorded_player_prefab.instantiate()
 		recorded_player.origin_node = origin_node
+		recorded_player.set_level(self)
 		
 		add_child(recorded_player)
 		

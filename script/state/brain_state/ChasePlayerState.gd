@@ -17,6 +17,7 @@ func enter() -> void:
 	
 func exit() -> void:
 	brain._wants_movement = false
+	brain._wants_attack = false
 
 func process_physics(delta : float) -> BrainState:
 	if pickup_item_component.is_not_holding_item():

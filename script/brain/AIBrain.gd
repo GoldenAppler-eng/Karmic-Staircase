@@ -49,7 +49,7 @@ func get_movement_vector() -> Vector2:
 	if not _wants_movement:
 		return Vector2(0, 0)
 	
-	return nav_agent.get_next_path_position() - (owner as Node2D).global_position
+	return (nav_agent.get_next_path_position() - (owner as Node2D).global_position).normalized()
 
 func _on_path_refresh_timeout() -> void:
 	nav_agent.target_position = target_position
