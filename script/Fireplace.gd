@@ -2,7 +2,7 @@ class_name Fireplace
 extends Node2D
 
 const FUEL_BURNOUT_AMOUNT : float = 2
-const FIREPLACE_MAX_FRAME : int = 2
+const FIREPLACE_MAX_FRAME : int = 3
 
 const MAX_LIGHT_ENERGY : float = 0.7
 const MIN_LIGHT_ENERGY : float = 0
@@ -32,7 +32,7 @@ func fuel_fire(fuel_amount : float) -> void:
 		burn_sound.play()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
-	sprite_2d.frame =  min(max_frame, max_frame - float(current_value) / max_value * max_frame)
+	sprite_2d.frame =  min(max_frame - 1, max_frame - float(current_value) / max_value * max_frame)
 	
 	gpu_particles_2d.emitting = not sprite_2d.frame == FIREPLACE_MAX_FRAME
 	point_light_2d.energy = float(current_value) / max_value * (MAX_LIGHT_ENERGY - MIN_LIGHT_ENERGY) + MIN_LIGHT_ENERGY

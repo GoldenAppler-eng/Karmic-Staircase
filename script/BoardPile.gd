@@ -4,7 +4,7 @@ extends Node2D
 const TAKE_BOARD_DESPERATION : float = 30
 const BURN_BOARD_DESPERATION : float = -15
 
-const BOARD_MAX_FRAME : int = 4
+const BOARD_MAX_FRAME : int = 5
 
 const BOARD_FUEL_VALUE : float = 50
 const INITIAL_BOARDS_LEFT : int = 5
@@ -15,6 +15,7 @@ const INITIAL_BOARDS_LEFT : int = 5
 
 @onready var interactable_component: InteractableComponent = %interactable_component
 @onready var tool_tip_activation_component: ToolTipActivationComponent = %tool_tip_activation_component
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -51,9 +52,12 @@ func interact(interacter : Node2D) -> void:
 func _check_for_empty() -> void:
 	if boards_left <= 0:
 		visible = false
+		collision_shape_2d.disabled = true
 		interactable_component.set_enabled(false)
+		
 	else:
 		visible = true
+		collision_shape_2d.disabled = true
 		interactable_component.set_enabled(true)
 
 func board_use_function(user : Node2D) -> void:
@@ -83,4 +87,4 @@ func board_use_function(user : Node2D) -> void:
 		return
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
-	sprite_2d.frame =  min(max_frame, max_frame - float(current_value) / max_value * max_frame)
+	sprite_2d.frame =  min(max_frame - 1, max_frame - float(current_value) / max_value * max_frame)

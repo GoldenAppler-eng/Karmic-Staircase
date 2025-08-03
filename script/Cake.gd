@@ -4,7 +4,7 @@ extends Node2D
 const TAKE_CAKE_DESPERATION : float = 5
 const EAT_CAKE_DESPERATION : float = 15
 
-const CAKE_MAX_FRAME : int = 3
+const CAKE_MAX_FRAME : int = 4
 const INITIAL_CAKE_LEFT : int = 4
 
 const CAKE_HUNGER_REFILL : float = 30
@@ -12,6 +12,7 @@ const CAKE_HUNGER_REFILL : float = 30
 @export var cake_pickupable_item : PickupableItemData
 
 @onready var interactable_component: InteractableComponent = %interactable_component
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -50,9 +51,11 @@ func interact(interacter : Node2D) -> void:
 func _check_for_empty() -> void:
 	if cake_left <= 0:
 		visible = false
+		collision_shape_2d.disabled = true
 		interactable_component.set_enabled(false)
 	else:
 		visible = true
+		collision_shape_2d.disabled = false
 		interactable_component.set_enabled(true)
 
 func cake_use_function(user : Node2D) -> void:
@@ -72,5 +75,5 @@ func cake_use_function(user : Node2D) -> void:
 		eat_sfx.play()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
-	sprite_2d.frame =  min(max_frame , max_frame - float(current_value) / max_value * max_frame)
+	sprite_2d.frame =  min(max_frame - 1, max_frame - float(current_value) / max_value * max_frame)
 	

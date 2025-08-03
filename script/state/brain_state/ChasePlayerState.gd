@@ -6,6 +6,8 @@ const DESIRED_ATTACK_RANGE : float = 10
 @export var hunt_state : BrainState
 @export var calm_state : BrainState
 
+@export var dead_state : BrainState
+
 func extra_init() -> void:
 	pass
 
@@ -23,6 +25,9 @@ func exit() -> void:
 	brain._wants_sprint = false
 
 func process_physics(delta : float) -> BrainState:
+	if stat_data_component.is_dead:
+		return dead_state
+	
 	if pickup_item_component.is_not_holding_item():
 		return calm_state
 

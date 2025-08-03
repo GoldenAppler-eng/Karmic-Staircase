@@ -44,9 +44,7 @@ func save_data(player : Player) -> LevelData:
 	level_data.players_recorded_items.append(player.get_recorded_items())
 	
 	player.clear_recorded_steps()
-	
-	#resave the brain of recorded players if need be
-	
+		
 	return level_data
 
 func load_from_data(prev_level_data : LevelData) -> void:
@@ -57,7 +55,6 @@ func load_from_data(prev_level_data : LevelData) -> void:
 func create_recorded_players() -> void:
 	for index in level_data.initial_player_positions.size():
 		if index < recorded_players.size():
-			#change the brain of the recorded player
 			continue
 		
 		var position : Vector2 = level_data.initial_player_positions[index]

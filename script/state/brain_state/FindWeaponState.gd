@@ -2,6 +2,7 @@ extends BrainState
 
 @export var run_state : BrainState
 @export var hunt_state : BrainState
+@export var dead_state : BrainState
 
 func extra_init() -> void:
 	pass
@@ -18,6 +19,9 @@ func exit() -> void:
 	brain._wants_sprint = false
 
 func process_physics(delta : float) -> BrainState:
+	if stat_data_component.is_dead:
+		return dead_state
+	
 	if interacter_component.are_interactables() and interacter_component.get_interactables()[0].owner is BoardPile:
 		brain._wants_interact = true
 	

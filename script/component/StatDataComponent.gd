@@ -9,6 +9,8 @@ var hunger_degeneration_amount = DEFAULT_HUNGER_DEGENERATION_AMOUNT
 
 var data : StatData
 
+var is_dead : bool = false
+
 func init() -> void:
 	hunger_degeneration_timer.wait_time = INITIAL_HUNGER_DEGENERATION_WAIT_TIME
 	owner.set_meta(GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA), self)

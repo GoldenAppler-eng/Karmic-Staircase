@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://brno1uhibtnx"]
+[gd_scene load_steps=50 format=3 uid="uid://brno1uhibtnx"]
 
 [ext_resource type="Script" uid="uid://d35unl7e2i5gi" path="res://script/EvilPlayer.gd" id="1_c3ptj"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_dti7d"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bcfv6yyk1dcf" path="res://script/state/brain_state/FindWeaponState.gd" id="18_tyno4"]
 [ext_resource type="Script" uid="uid://b0ov4qsnpoy0w" path="res://script/state/brain_state/ChasePlayerState.gd" id="19_hbida"]
 [ext_resource type="Script" uid="uid://dhybi75eyuxgf" path="res://script/state/brain_state/RunState.gd" id="20_3gqpw"]
+[ext_resource type="Script" uid="uid://brg57lxnv6idx" path="res://script/state/brain_state/DeadState.gd" id="21_c3ptj"]
 [ext_resource type="Script" uid="uid://d308sc06xvbuc" path="res://script/state/brain_state/HuntState.gd" id="21_sj48o"]
 [ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="22_f1v8l"]
 [ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="23_jmx0l"]
@@ -406,23 +407,30 @@ run_state = NodePath("../run_state")
 find_weapon_state = NodePath("../find_weapon_state")
 hunt_state = NodePath("../hunt_state")
 
-[node name="find_weapon_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state")]
+[node name="find_weapon_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "dead_state")]
 script = ExtResource("18_tyno4")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
+dead_state = NodePath("../dead_state")
 
-[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state")]
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state", "dead_state")]
 script = ExtResource("19_hbida")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 calm_state = NodePath("../find_weapon_state")
+dead_state = NodePath("../dead_state")
 
-[node name="run_state" type="Node" parent="ai_brain/brain_state_machine"]
+[node name="run_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("dead_state")]
 script = ExtResource("20_3gqpw")
+dead_state = NodePath("../dead_state")
 
-[node name="hunt_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("chase_player_state")]
+[node name="hunt_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("chase_player_state", "dead_state")]
 script = ExtResource("21_sj48o")
 chase_player_state = NodePath("../chase_player_state")
+dead_state = NodePath("../dead_state")
+
+[node name="dead_state" type="Node" parent="ai_brain/brain_state_machine"]
+script = ExtResource("21_c3ptj")
 
 [node name="interacter_component" parent="." instance=ExtResource("22_f1v8l")]
 unique_name_in_owner = true
