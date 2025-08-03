@@ -19,11 +19,13 @@ func _ready() -> void:
 func find_target_player() -> void:
 	if not target_player:
 		return
-		
+	
 	set_target_position(target_player.global_position)
+	nav_agent.path_desired_distance = 40
 
 func set_target_position(position : Vector2) -> void:
 	target_position = position
+	nav_agent.path_desired_distance = 20
 
 func wants_movement() -> bool:
 	return _wants_movement

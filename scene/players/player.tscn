@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cdmckyq563mja"]
+[gd_scene load_steps=45 format=3 uid="uid://cdmckyq563mja"]
 
 [ext_resource type="Script" uid="uid://catequcfrpbt8" path="res://script/Player.gd" id="1_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_jrjdb"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="21_jrjdb"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="24_wt23p"]
 [ext_resource type="PackedScene" uid="uid://bp7rg1dk1tc2p" path="res://scene/component/tooltip_activator_component.tscn" id="25_k8m7u"]
+[ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="26_jkh5p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 height = 22.0
@@ -365,12 +366,18 @@ move_state = NodePath("../move_state")
 [node name="dead_state" type="Node" parent="state_machine"]
 script = ExtResource("11_iuf2t")
 
-[node name="movement_component" type="Node" parent="."]
+[node name="movement_component" type="Node" parent="." node_paths=PackedStringArray("footstep_ready_timer", "footstep_sfx_player")]
 unique_name_in_owner = true
 script = ExtResource("6_2hs0m")
 speed = 5.0
 sprint_multiplier = 2.0
+footstep_ready_timer = NodePath("FootstepReadyTimer")
+footstep_sfx_player = NodePath("../footstep_sfx")
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
+
+[node name="FootstepReadyTimer" type="Timer" parent="movement_component"]
+wait_time = 0.5
+autostart = true
 
 [node name="input_brain" type="Node" parent="."]
 unique_name_in_owner = true
@@ -464,3 +471,10 @@ shape = SubResource("CircleShape2D_k8m7u")
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 position = Vector2(0, -7)
 current = true
+
+[node name="footstep_sfx" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 13)
+stream = ExtResource("26_jkh5p")
+volume_db = 5.0
+max_distance = 50.0
+bus = &"Sfx"

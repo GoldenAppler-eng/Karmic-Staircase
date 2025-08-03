@@ -46,6 +46,9 @@ func _physics_process(delta: float) -> void:
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
 
+func get_desperation_level() -> float:
+	return stat_data_component.data.desperation
+
 func get_vertical_coordinate() -> float:
 	return rotation_tracker_component.psuedo_vertical_coordinate
 

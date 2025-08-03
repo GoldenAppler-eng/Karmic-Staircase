@@ -2,7 +2,10 @@ extends Node
 
 signal level_changed(current_level : int)
 
+const EVIL_SPAWN_DESPERATION_THRESHOLD : float = 90
+
 @export var player : Player
+@export var ambient_footstep_sfx_player : AudioStreamPlayer2D
 
 var current_level : int:
 	set(value):
@@ -39,6 +42,9 @@ func load_next_level(level_to_load : int) -> void:
 	
 	level_list[previous_level].create_recorded_players()
 	
+	if player.get_desperation_level() > EVIL_SPAWN_DESPERATION_THRESHOLD:
+		level_list[level_to_load].create_evil_player()
+	
 	level_list[previous_level].disable()
 	level_list[level_to_load].enable()
 	
@@ -57,6 +63,7 @@ func load_previous_level(level_to_load : int) -> void:
 func change_level(previous_level : int, new_level : int) -> void:
 	if previous_level < new_level:
 		load_next_level(new_level)
+		ambient_footstep_sfx_player.play()
 		print("LOADING NEXT LEVEL")
 	
 	if previous_level > new_level:

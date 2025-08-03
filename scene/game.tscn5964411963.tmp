@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=31 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/players/player.tscn" id="1_5kiuu"]
-[ext_resource type="AudioStream" uid="uid://b4so8tomtpylw" path="res://audio/footsteps.wav" id="1_jhlss"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
 [ext_resource type="AudioStream" uid="uid://caoec1xnfl4aq" path="res://audio/air_vent.wav" id="1_ux4dc"]
 [ext_resource type="PackedScene" uid="uid://csb6mtlftuisj" path="res://scene/water_dripping.tscn" id="2_jrd6n"]
@@ -98,13 +97,6 @@ metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
 [node name="Constant" type="Node2D" parent="."]
 
-[node name="ambient_footsteps" type="AudioStreamPlayer2D" parent="Constant"]
-position = Vector2(0, -137)
-stream = ExtResource("1_jhlss")
-max_distance = 300.0
-attenuation = 1.6245
-bus = &"Ambience"
-
 [node name="air_vent_sound" type="AudioStreamPlayer" parent="Constant"]
 stream = ExtResource("1_ux4dc")
 volume_db = -5.0
@@ -140,7 +132,7 @@ shape = SubResource("CapsuleShape2D_5g16k")
 position = Vector2(-41, -59)
 
 [node name="evil_spawn_location" type="Marker2D" parent="Constant"]
-position = Vector2(-76.527, -45.311)
+position = Vector2(-80, -41)
 
 [node name="background_collision" type="StaticBody2D" parent="Constant"]
 z_index = 100
@@ -239,10 +231,9 @@ cake_pickupable_item = SubResource("Resource_0lu6w")
 [node name="fireplace" parent="Level1" instance=ExtResource("7_qpk70")]
 position = Vector2(142, -30)
 
-[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "ambient_footstep_sfx_player", "level_list")]
+[node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "level_list")]
 script = ExtResource("1_p1ry8")
 player = NodePath("../player")
-ambient_footstep_sfx_player = NodePath("../Constant/ambient_footsteps")
 level_list = [NodePath("../Level0"), NodePath("../Level1")]
 
 [node name="Label" type="Label" parent="staircase_level_manager"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://brno1uhibtnx"]
+[gd_scene load_steps=51 format=3 uid="uid://brno1uhibtnx"]
 
 [ext_resource type="Script" uid="uid://d35unl7e2i5gi" path="res://script/EvilPlayer.gd" id="1_c3ptj"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_dti7d"]
@@ -32,6 +32,7 @@
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="30_m4j63"]
 [ext_resource type="Script" uid="uid://dcdbliakm3u3e" path="res://script/component/StatDataComponent.gd" id="31_b3jd8"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_0d2it"]
+[ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="33_cedyb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
@@ -370,12 +371,18 @@ move_state = NodePath("../move_state")
 [node name="dead_state" type="Node" parent="state_machine"]
 script = ExtResource("10_hevx2")
 
-[node name="movement_component" type="Node" parent="."]
+[node name="movement_component" type="Node" parent="." node_paths=PackedStringArray("footstep_ready_timer", "footstep_sfx_player")]
 unique_name_in_owner = true
 script = ExtResource("11_c2qgx")
 speed = 5.0
 sprint_multiplier = 2.0
+footstep_ready_timer = NodePath("FootstepReadyTimer")
+footstep_sfx_player = NodePath("../footstep_sfx")
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
+
+[node name="FootstepReadyTimer" type="Timer" parent="movement_component"]
+wait_time = 0.5
+autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -395,7 +402,7 @@ path_refresh_timer = NodePath("../PathRefreshTimer")
 unique_name_in_owner = true
 script = ExtResource("15_rxbrd")
 speech_text = NodePath("../../speech_text")
-initial_state = NodePath("confused_state")
+initial_state = NodePath("hunt_state")
 
 [node name="confused_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("panic_state")]
 script = ExtResource("16_jc5tp")
@@ -428,6 +435,7 @@ dead_state = NodePath("../dead_state")
 script = ExtResource("21_sj48o")
 chase_player_state = NodePath("../chase_player_state")
 dead_state = NodePath("../dead_state")
+only_hunt_living = false
 
 [node name="dead_state" type="Node" parent="ai_brain/brain_state_machine"]
 script = ExtResource("21_c3ptj")
@@ -508,3 +516,9 @@ vertical_fov = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_vision_component"]
 shape = SubResource("CircleShape2D_11mpr")
+
+[node name="footstep_sfx" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 13)
+stream = ExtResource("33_cedyb")
+max_distance = 50.0
+bus = &"Sfx"

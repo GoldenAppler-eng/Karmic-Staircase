@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=53 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="3_p4hug"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://q6jyxefwbj84" path="res://script/state/brain_state/CalmState.gd" id="22_11mpr"]
 [ext_resource type="Script" uid="uid://brg57lxnv6idx" path="res://script/state/brain_state/DeadState.gd" id="23_2ewax"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_xc1lj"]
+[ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="35_r66tl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
@@ -371,12 +372,18 @@ move_state = NodePath("../move_state")
 [node name="dead_state" type="Node" parent="state_machine"]
 script = ExtResource("11_b05ef")
 
-[node name="movement_component" type="Node" parent="."]
+[node name="movement_component" type="Node" parent="." node_paths=PackedStringArray("footstep_ready_timer", "footstep_sfx_player")]
 unique_name_in_owner = true
 script = ExtResource("11_2ycxl")
 speed = 5.0
 sprint_multiplier = 2.0
+footstep_ready_timer = NodePath("FootstepReadyTimer")
+footstep_sfx_player = NodePath("../footstep_sfx")
 metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
+
+[node name="FootstepReadyTimer" type="Timer" parent="movement_component"]
+wait_time = 0.5
+autostart = true
 
 [node name="recorded_brain" type="Node" parent="." node_paths=PackedStringArray("interruption_detection_component", "player_vision_component", "pickup_item_component")]
 unique_name_in_owner = true
@@ -527,3 +534,9 @@ vertical_fov = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_vision_component"]
 shape = SubResource("CircleShape2D_11mpr")
+
+[node name="footstep_sfx" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 13)
+stream = ExtResource("35_r66tl")
+max_distance = 50.0
+bus = &"Sfx"

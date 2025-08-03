@@ -2,17 +2,23 @@ class_name Level
 extends Node2D
 
 const recorded_player_prefab : PackedScene = preload("res://scene/players/recorded_player.tscn")
+const evil_player_prefab : PackedScene = preload("res://scene/players/evil_player.tscn")
+
+const EVIL_PLAYER_INITIAL_VERTICAL_COORDINATE : float = 1.84737585485633
 
 @export var level_data : LevelData
 
 @export var origin_node : Node2D
 @export var staircase_top : Node2D
+@export var evil_player_spawn_location : Node2D
 
 @export var board_pile : BoardPile
 @export var cake : Cake
 @export var fireplace : Fireplace
 
 var recorded_players : Array[RecordedPlayer]
+
+var current_evil_player : EvilPlayer
 
 func _init() -> void:
 	disable()
@@ -60,7 +66,7 @@ func create_recorded_players() -> void:
 		if index < recorded_players.size():
 			continue
 		
-		var position : Vector2 = level_data.initial_player_positions[index]
+		var i_position : Vector2 = level_data.initial_player_positions[index]
 		var vertical_coordinate : float = level_data.initial_player_vertical_coordinates[index]
 		var recorded_steps : Array[BrainFrameData] = level_data.players_recorded_steps[index]
 		var recorded_items : Array[PickupFrameData] = level_data.players_recorded_items[index]
@@ -73,12 +79,25 @@ func create_recorded_players() -> void:
 		
 		add_child(recorded_player)
 		
-		recorded_player.initial_position = position
+		recorded_player.initial_position = i_position
 		recorded_player.set_vertical_coordinate(vertical_coordinate)
 		recorded_player.set_recorded_brain_data(recorded_steps, recorded_items)
 		recorded_player.set_stats(recorded_stats)
 		
 		recorded_players.append(recorded_player)
+
+func create_evil_player() -> void:
+	if current_evil_player:
+		current_evil_player.queue_free()
+	
+	var evil_player : EvilPlayer = evil_player_prefab.instantiate()
+	evil_player.origin_node = origin_node
+	evil_player.set_level(self)
+	
+	add_child(evil_player)
+	
+	evil_player.global_position = evil_player_spawn_location.global_position
+	evil_player.set_vertical_coordinate(level_data.level_id * 2 + EVIL_PLAYER_INITIAL_VERTICAL_COORDINATE)
 
 func load_data() -> void:
 	board_pile.boards_left = level_data.initial_boards_left
