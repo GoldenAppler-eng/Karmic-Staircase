@@ -19,11 +19,41 @@ func init(p_ignore_player : CharacterBody2D, p_movement_component : MovementComp
 	body_exited.connect(_on_player_exited_area)
 
 func get_number_of_seen_player() -> int:
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
+	
 	var num_of_players_seen : int = 0
 	
 	var forward : Vector2 = Vector2(10, 0) if not movement_component.last_facing_right else Vector2(-10, 0)
 	
 	for player in players_in_area:
+		if player.has_meta(stat_meta_name):
+			var stat_data_component : StatDataComponent = player.get_meta(stat_meta_name) as StatDataComponent
+		
+			if stat_data_component.is_dead:
+				continue
+		
+		var to_player : Vector2 = player.global_position - global_position
+		var dot : float = forward.dot(to_player)
+		
+		if dot <= fov and player_in_vertical_range(player):
+			num_of_players_seen += 1
+			
+	return num_of_players_seen
+	
+func get_number_of_dead_bodies_seen() -> int:
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
+	
+	var num_of_players_seen : int = 0
+	
+	var forward : Vector2 = Vector2(10, 0) if not movement_component.last_facing_right else Vector2(-10, 0)
+	
+	for player in players_in_area:
+		if player.has_meta(stat_meta_name):
+			var stat_data_component : StatDataComponent = player.get_meta(stat_meta_name) as StatDataComponent
+		
+			if not stat_data_component.is_dead:
+				continue
+		
 		var to_player : Vector2 = player.global_position - global_position
 		var dot : float = forward.dot(to_player)
 		
@@ -44,7 +74,9 @@ func _on_player_exited_area(body : Node2D) -> void:
 	
 	players_in_area.erase(body)
 
-func get_closest_player() -> CharacterBody2D:
+func get_closest_player(need_living : bool = false) -> CharacterBody2D:
+	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
+	
 	var min_distance : float = 99999
 	var closest_player : CharacterBody2D = null
 		
@@ -53,6 +85,13 @@ func get_closest_player() -> CharacterBody2D:
 	for player in players_in_area:
 		var to_player : Vector2 = player.global_position - global_position
 		var dot : float = forward.dot(to_player)
+		
+		if need_living:
+			if player.has_meta(stat_meta_name):
+				var stat_data_component : StatDataComponent = player.get_meta(stat_meta_name) as StatDataComponent
+			
+				if stat_data_component.is_dead:
+					continue
 		
 		if dot > fov:
 			continue

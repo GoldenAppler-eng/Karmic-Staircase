@@ -1,7 +1,7 @@
 class_name Level
 extends Node2D
 
-const recorded_player_prefab : PackedScene = preload("res://scene/recorded_player.tscn")
+const recorded_player_prefab : PackedScene = preload("res://scene/players/recorded_player.tscn")
 
 @export var level_data : LevelData
 
@@ -27,11 +27,13 @@ func intialize_first_level_data(player : Player) -> void:
 func initialize_data(player : Player) -> void:
 	level_data.initial_player_positions.append(player.global_position)
 	level_data.initial_player_vertical_coordinates.append(player.get_vertical_coordinate())
+	level_data.initial_player_stats.append(player.get_stats())
 	
 func hold_data(player : Player) -> void:
 	level_data.held_initial_player_position = player.global_position
 	level_data.held_initial_vertical_coordinate = player.get_vertical_coordinate()
-	
+	level_data.held_initial_stat = player.get_stats()
+		
 func save_data(player : Player) -> LevelData:
 	level_data.final_boards_left = board_pile.boards_left
 	level_data.final_cake_left = cake.cake_left
@@ -39,6 +41,7 @@ func save_data(player : Player) -> LevelData:
 	
 	level_data.initial_player_positions.append(level_data.held_initial_player_position)
 	level_data.initial_player_vertical_coordinates.append(level_data.held_initial_vertical_coordinate)
+	level_data.initial_player_stats.append(level_data.held_initial_stat)
 		
 	level_data.players_recorded_steps.append(player.get_recorded_steps())
 	level_data.players_recorded_items.append(player.get_recorded_items())
@@ -62,6 +65,8 @@ func create_recorded_players() -> void:
 		var recorded_steps : Array[BrainFrameData] = level_data.players_recorded_steps[index]
 		var recorded_items : Array[PickupFrameData] = level_data.players_recorded_items[index]
 		
+		var recorded_stats : StatData = level_data.initial_player_stats[index]
+		
 		var recorded_player : RecordedPlayer = recorded_player_prefab.instantiate()
 		recorded_player.origin_node = origin_node
 		recorded_player.set_level(self)
@@ -71,6 +76,7 @@ func create_recorded_players() -> void:
 		recorded_player.initial_position = position
 		recorded_player.set_vertical_coordinate(vertical_coordinate)
 		recorded_player.set_recorded_brain_data(recorded_steps, recorded_items)
+		recorded_player.set_stats(recorded_stats)
 		
 		recorded_players.append(recorded_player)
 

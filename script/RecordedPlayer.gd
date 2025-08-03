@@ -26,6 +26,8 @@ const DESPERATION_THRESHOLD : float = 50
 var level : Level
 
 var initial_position : Vector2
+var initial_stats : StatData
+var initial_vertical_coordinate : float
 
 var using_ai : bool = false
 
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 	
 func set_vertical_coordinate(vertical_coordinate : float) -> void:
 	rotation_tracker_component.psuedo_vertical_coordinate = vertical_coordinate
+	initial_vertical_coordinate = vertical_coordinate
 	
 func set_level(p_level : Level) -> void:
 	level = p_level
@@ -70,6 +73,9 @@ func set_recorded_brain_data(step_data : Array[BrainFrameData], item_data : Arra
 
 func reset_player() -> void:
 	global_position = initial_position
+	rotation_tracker_component.psuedo_vertical_coordinate = initial_vertical_coordinate
+	stat_data_component.data = initial_stats.duplicate()
+	
 	recorded_brain.reset_brain()
 	use_recorded_brain()
 	
@@ -77,7 +83,6 @@ func reset_player() -> void:
 
 func _on_recording_interrupted() -> void:
 	brain_state_machine.activate()
-	print(stat_data_component.data.desperation)
 	
 	if stat_data_component.data.desperation >= DESPERATION_THRESHOLD:
 		state_machine.set_brain(ai_brain)
@@ -85,6 +90,10 @@ func _on_recording_interrupted() -> void:
 	else:
 		recorded_brain.continue_brain()
 		recorded_brain.add_seen_player()
+
+func set_stats(stats : StatData) -> void:
+	stat_data_component.data = stats
+	initial_stats = stats.duplicate()
 
 func use_recorded_brain() -> void:
 	state_machine.set_brain(recorded_brain)

@@ -55,5 +55,10 @@ func get_recorded_steps() -> Array[BrainFrameData]:
 func get_recorded_items() -> Array[PickupFrameData]:
 	return step_recorder_component.get_recorded_items()
 
+func get_stats() -> StatData:
+	var new_data : StatData = stat_data_component.data.duplicate(false)
+	
+	return new_data
+
 func clear_recorded_steps() -> void:
 	step_recorder_component.clear()

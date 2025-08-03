@@ -36,8 +36,8 @@ func process_physics(delta : float) -> BrainState:
 	if stat_data_component.data.hunger > 80:
 		return run_state
 	
-	if player_vision_component.get_number_of_seen_player() > 1:
-		brain.target_player = player_vision_component.get_closest_player()
+	if player_vision_component.get_number_of_seen_player() > 0:
+		brain.target_player = player_vision_component.get_closest_player(true)
 		return find_weapon_state
 	
 	return null

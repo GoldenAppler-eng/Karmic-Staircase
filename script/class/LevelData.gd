@@ -9,9 +9,11 @@ var initial_boards_left : int = 0
 
 var held_initial_player_position : Vector2
 var held_initial_vertical_coordinate : float
+var held_initial_stat : StatData
 
 var initial_player_positions : Array[Vector2]
 var initial_player_vertical_coordinates : Array[float]
+var initial_player_stats : Array[StatData]
 
 var players_recorded_steps : Array
 var players_recorded_items : Array
