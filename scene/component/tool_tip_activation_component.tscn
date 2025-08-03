@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="2_4cl71"]
 
 [node name="tool_tip_activation_component" type="Area2D"]
+z_index = 2000
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("1_dmjys")

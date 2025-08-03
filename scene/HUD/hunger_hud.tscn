@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0o7x3il6yic5"]
+[gd_scene load_steps=5 format=3 uid="uid://d0o7x3il6yic5"]
 
 [ext_resource type="Script" uid="uid://1udguh31pkj0" path="res://script/HUD/HungerHUD.gd" id="1_ywr8o"]
+[ext_resource type="Texture2D" uid="uid://2psx5rvggx0k" path="res://sprite/progress_bar/hunger_bar_under.png" id="2_rjm7k"]
+[ext_resource type="Texture2D" uid="uid://elnk7adueh6b" path="res://sprite/progress_bar/hunger_bar_progress.png" id="3_kp8jj"]
+[ext_resource type="Texture2D" uid="uid://r0mulplm6ays" path="res://sprite/progress_bar/hunger_bar_icon.png" id="4_kp8jj"]
 
 [node name="HungerHUD" type="Control"]
+z_index = 2000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,8 +15,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ywr8o")
 
-[node name="Label" type="Label" parent="."]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Hunger"
+offset_left = 33.0
+offset_right = 153.0
+offset_bottom = 40.0
+value = 100.0
+texture_under = ExtResource("2_rjm7k")
+texture_progress = ExtResource("3_kp8jj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -5.0
+offset_right = 32.0
+offset_bottom = 35.0
+texture = ExtResource("4_kp8jj")

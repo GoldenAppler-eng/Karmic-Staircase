@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="2_7x2nn"]
 
 [node name="speech_text" type="Control"]
+z_index = 2000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,9 +15,18 @@ grow_vertical = 2
 theme = ExtResource("1_67d1b")
 script = ExtResource("1_uemjf")
 
-[node name="Label" type="Label" parent="."]
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_right = 40.0
+offset_left = -32.0
+offset_top = -3.0
+offset_right = 90.0
+offset_bottom = 15.0
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 63.0
 offset_bottom = 23.0
 text = "Sample text"
 horizontal_alignment = 1

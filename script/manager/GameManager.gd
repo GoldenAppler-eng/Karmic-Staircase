@@ -16,6 +16,8 @@ const level_prefab : PackedScene = preload("res://scene/level.tscn")
 @onready var staircase_top_marker: Node2D = $Constant/staircase_top_marker
 @onready var evil_spawn_location: Node2D = $Constant/evil_spawn_location
 
+@onready var canvas_layer: CanvasLayer = $CanvasLayer
+
 var level_counter : int = 0
 
 var _all_cake_eaten : bool = false
@@ -55,12 +57,15 @@ func _on_player_has_killed() -> void:
 
 func _on_player_death(starved : bool, killed : bool, has_eaten_cake : bool) -> void:
 	game_ended.emit(false, starved, killed, _all_cake_eaten, _player_has_killed, has_eaten_cake, false, _all_boards_put_in_fire, false, _stolen_from_past)
+	canvas_layer.hide()
 
 func _on_all_levels_passed() -> void:
 	game_ended.emit(true, false, false, _all_cake_eaten, _player_has_killed, false, false, _all_boards_put_in_fire, false, _stolen_from_past)
+	canvas_layer.hide()
 
 func _on_burnout() -> void:
 	game_ended.emit(false, false, false, false, false, false, true, _all_boards_put_in_fire, player.has_burn_board, _stolen_from_past)
+	canvas_layer.hide()
 
 func _on_all_cake_eaten() -> void:
 	_all_cake_eaten = true

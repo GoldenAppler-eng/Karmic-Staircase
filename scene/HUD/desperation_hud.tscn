@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyu1r4m2jya2a"]
+[gd_scene load_steps=5 format=3 uid="uid://dyu1r4m2jya2a"]
 
 [ext_resource type="Script" uid="uid://cgud8g5sqi5dl" path="res://script/HUD/DesperationHUD.gd" id="1_5jjcf"]
+[ext_resource type="Texture2D" uid="uid://vw4ese56pw1s" path="res://sprite/progress_bar/desperation_bar_under.png" id="2_xognk"]
+[ext_resource type="Texture2D" uid="uid://cj3hiovy65a1o" path="res://sprite/progress_bar/desperation_bar_progress.png" id="3_4741w"]
+[ext_resource type="Texture2D" uid="uid://dicfchokhtqaa" path="res://sprite/progress_bar/desperation_bar_icon.png" id="4_gd8xk"]
 
 [node name="DesperationHUD" type="Control"]
 layout_mode = 3
@@ -11,8 +14,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5jjcf")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Desperation"
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 33.0
+offset_right = 153.0
+offset_bottom = 40.0
+texture_under = ExtResource("2_xognk")
+texture_progress = ExtResource("3_4741w")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -11.0
+offset_top = -5.0
+offset_right = 29.0
+offset_bottom = 35.0
+texture = ExtResource("4_gd8xk")

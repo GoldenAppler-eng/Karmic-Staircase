@@ -4,7 +4,7 @@ extends Control
 
 var player_stat_data : StatData
 
-@onready var label: Label = $Label
+@onready var texture_progress_bar: TextureProgressBar = $TextureProgressBar
 
 func _ready() -> void:
 	var stat_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.STATDATA)
@@ -14,4 +14,4 @@ func _ready() -> void:
 	player_stat_data = stat_data_component.data
 
 func _physics_process(delta: float) -> void:
-	label.text = str(player_stat_data.desperation)
+	texture_progress_bar.value = player_stat_data.desperation 

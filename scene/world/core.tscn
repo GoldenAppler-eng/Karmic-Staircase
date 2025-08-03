@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=39 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -11,7 +11,10 @@
 [ext_resource type="Script" uid="uid://b7flxnxy6lgf4" path="res://script/state/menu_state/IdleMenu.gd" id="8_6jsmi"]
 [ext_resource type="Script" uid="uid://peahexdjgm0m" path="res://script/state/menu_state/GameEndMenu.gd" id="9_th21j"]
 [ext_resource type="Script" uid="uid://cajkj2donjrkh" path="res://script/state/menu_state/QuitMenu.gd" id="10_4njw5"]
+[ext_resource type="Texture2D" uid="uid://cjijola12rt8a" path="res://sprite/main_menu.png" id="10_th21j"]
 [ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="11_2effu"]
+[ext_resource type="Texture2D" uid="uid://ctds0idm0kkbm" path="res://sprite/title.png" id="11_4njw5"]
+[ext_resource type="AudioStream" uid="uid://6kpkfmu5hk7f" path="res://audio/door_closing.wav" id="12_4njw5"]
 [ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
 [ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="12_ietmj"]
 [ext_resource type="Shader" uid="uid://bpbbomy5upy2k" path="res://shader/Vignette.gdshader" id="13_ig73b"]
@@ -29,6 +32,127 @@ shader = ExtResource("13_ig73b")
 shader_parameter/alpha = 0.76
 shader_parameter/inner_radius = 0.635
 shader_parameter/outer_radius = 1.275
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2effu"]
+shader = ExtResource("13_ig73b")
+shader_parameter/alpha = 0.18
+shader_parameter/inner_radius = 0.47
+shader_parameter/outer_radius = 1.225
+
+[sub_resource type="Animation" id="Animation_2effu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_menu_vignette:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title_texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Label:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_th21j"]
+resource_name = "message"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 5, 9, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5.7, 9, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4njw5"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_menu_vignette:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title_texture:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hsxsa"]
+_data = {
+&"RESET": SubResource("Animation_2effu"),
+&"message": SubResource("Animation_th21j"),
+&"start": SubResource("Animation_4njw5")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_6jsmi"]
 
@@ -254,6 +378,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 6
 
 [node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("game_loading_manager", "game_end_manager", "initial_menu")]
 layout_mode = 3
@@ -268,8 +393,7 @@ game_loading_manager = NodePath("../../game_loading_manager")
 game_end_manager = NodePath("../../game_end_manager")
 initial_menu = NodePath("main_menu")
 
-[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "settings_menu", "quit_menu", "revert_menu")]
-visible = false
+[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "door_sfx", "idle_menu", "settings_menu", "quit_menu", "revert_menu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -277,39 +401,105 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_ietmj")
+main_menu_animation = NodePath("MainMenuAnimationPlayer")
+door_sfx = NodePath("OpenDoorSfx")
 idle_menu = NodePath("../idle_menu")
 settings_menu = NodePath("../settings_menu")
 quit_menu = NodePath("../quit_menu")
 revert_menu = NodePath("../revert_menu")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+[node name="menu_texture" type="TextureRect" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("10_th21j")
+
+[node name="title_texture" type="TextureRect" parent="UI/MenuStateMachine/main_menu"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -50.5
-offset_right = 93.0
-offset_bottom = 50.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_4njw5")
+
+[node name="main_menu_vignette" type="ColorRect" parent="UI/MenuStateMachine/main_menu"]
+material = SubResource("ShaderMaterial_2effu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/main_menu/MarginContainer"]
+[node name="MainMenuAnimationPlayer" type="AnimationPlayer" parent="UI/MenuStateMachine/main_menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_hsxsa")
+}
+autoplay = "RESET"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 165
+theme_override_constants/margin_bottom = 85
+
+[node name="Label" type="Label" parent="UI/MenuStateMachine/main_menu/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "DO YOU
+TRUST
+YOURSELF ?"
+horizontal_alignment = 1
+
+[node name="OpenDoorSfx" type="AudioStreamPlayer" parent="UI/MenuStateMachine/main_menu"]
+stream = ExtResource("12_4njw5")
+volume_db = 20.0
+bus = &"Sfx"
+
+[node name="Panel" type="ColorRect" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.168627)
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -101.0
+offset_right = 93.0
+grow_vertical = 0
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/main_menu/MarginContainer2"]
 layout_mode = 2
 
-[node name="StartGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer/VBoxContainer"]
+[node name="StartGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitGameButton")
 focus_neighbor_bottom = NodePath("../SettingsButton")
 text = "Start game"
 
-[node name="SettingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartGameButton")
 focus_neighbor_bottom = NodePath("../QuitGameButton")
 text = "Settings"
 
-[node name="QuitGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer/VBoxContainer"]
+[node name="QuitGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
@@ -507,6 +697,7 @@ anchors_preset = 0
 script = ExtResource("10_4njw5")
 
 [node name="restart_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

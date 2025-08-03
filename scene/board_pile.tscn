@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://3hmeuxy5sim4"]
+[gd_scene load_steps=12 format=3 uid="uid://3hmeuxy5sim4"]
 
 [ext_resource type="Script" uid="uid://dgd24t6bcgwrv" path="res://script/BoardPile.gd" id="1_k3fit"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_3p4ou"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cilgajogoycxs" path="res://sprite/board_pile-Sheet.png" id="3_3p4ou"]
 [ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="5_i00g7"]
 [ext_resource type="AudioStream" uid="uid://cdagppj8p6lb0" path="res://audio/taking_hard.wav" id="6_atcrb"]
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="6_ywclf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p4ou"]
 size = Vector2(23, 19)
@@ -45,14 +46,22 @@ shape = SubResource("RectangleShape2D_hocp4")
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_i00g7")]
 unique_name_in_owner = true
 tooltip = "Could go for
-a swing"
+a swing."
 tip = NodePath("tip")
 
+[node name="Panel" type="Panel" parent="tool_tip_activation_component"]
+offset_left = -53.0
+offset_top = -41.0
+offset_right = 20.0
+offset_bottom = -8.0
+theme = ExtResource("6_ywclf")
+
 [node name="tip" type="Label" parent="tool_tip_activation_component"]
-offset_left = -68.0
-offset_top = -32.0
-offset_right = 76.0
+offset_left = -88.0
+offset_top = -38.0
+offset_right = 56.0
 offset_bottom = -9.0
+theme = ExtResource("6_ywclf")
 text = "Could go for
 a swing"
 horizontal_alignment = 1

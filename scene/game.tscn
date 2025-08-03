@@ -140,23 +140,22 @@ script = ExtResource("1_p1ry8")
 player = NodePath("../player")
 ambient_footstep_sfx_player = NodePath("../Constant/ambient_footsteps")
 
-[node name="Label" type="Label" parent="staircase_level_manager"]
-offset_left = -139.0
-offset_top = -77.0
-offset_right = -44.0
-offset_bottom = -54.0
-text = "Sample Text"
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
 
-[node name="HungerHUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
-offset_left = 87.0
-offset_top = 71.0
-offset_right = 87.0
-offset_bottom = 71.0
-player = NodePath("../player")
+[node name="HungerHUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
+offset_left = 236.0
+offset_top = 158.0
+offset_right = 236.0
+offset_bottom = 158.0
+scale = Vector2(0.5, 0.5)
+player = NodePath("../../player")
 
-[node name="DesperationHUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
-offset_left = -144.0
-offset_top = 68.0
-offset_right = -144.0
-offset_bottom = 68.0
-player = NodePath("../player")
+[node name="DesperationHUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
+z_index = 2000
+offset_left = 150.0
+offset_top = 158.0
+offset_right = 150.0
+offset_bottom = 158.0
+scale = Vector2(0.5, 0.5)
+player = NodePath("../../player")

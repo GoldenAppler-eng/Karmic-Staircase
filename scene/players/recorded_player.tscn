@@ -398,7 +398,6 @@ script = ExtResource("13_pq381")
 stat_data_component = NodePath("../stat_data_component")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="PathRefreshTimer" type="Timer" parent="."]
@@ -467,10 +466,10 @@ shape = SubResource("CircleShape2D_isn2n")
 
 [node name="speech_text" parent="." instance=ExtResource("14_tt30e")]
 unique_name_in_owner = true
-offset_left = -44.0
-offset_top = -40.0
-offset_right = -44.0
-offset_bottom = -40.0
+offset_left = -27.0
+offset_top = -35.0
+offset_right = -27.0
+offset_bottom = -35.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true

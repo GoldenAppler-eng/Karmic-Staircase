@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://uw4m24pq2ena"]
+[gd_scene load_steps=13 format=3 uid="uid://uw4m24pq2ena"]
 
 [ext_resource type="Script" uid="uid://cllrjayydeik" path="res://script/Cake.gd" id="1_bpxnu"]
 [ext_resource type="Resource" uid="uid://fry6ncngyn0d" path="res://resource/Cake.tres" id="2_526gx"]
 [ext_resource type="Texture2D" uid="uid://cdo2d44r34e3a" path="res://sprite/cake-Sheet.png" id="3_kob85"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="5_f41j1"]
 [ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="5_r8mnr"]
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="6_028pv"]
 [ext_resource type="AudioStream" uid="uid://bktpjtml2jeca" path="res://audio/taking_soft.wav" id="6_r8mnr"]
 [ext_resource type="AudioStream" uid="uid://tf5nh02o0qok" path="res://audio/cake_eating.wav" id="7_ysww7"]
 
@@ -41,17 +42,24 @@ unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_wpivv")
 
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_r8mnr")]
-tooltip = "Floor cake
-Yum"
+tooltip = "Floor cake.
+Yum!"
 tip = NodePath("tip")
+
+[node name="Panel" type="Panel" parent="tool_tip_activation_component"]
+offset_left = -34.0
+offset_top = -39.0
+offset_right = 32.0
+offset_bottom = -7.0
 
 [node name="tip" type="Label" parent="tool_tip_activation_component"]
 offset_left = -49.0
-offset_top = -31.0
+offset_top = -36.0
 offset_right = 52.0
-offset_bottom = -8.0
-text = "Floor cake
-Yum"
+offset_bottom = -7.0
+theme = ExtResource("6_028pv")
+text = "Floor cake.
+Yum!"
 horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]

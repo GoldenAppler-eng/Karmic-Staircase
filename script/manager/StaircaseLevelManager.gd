@@ -22,8 +22,6 @@ var current_level : int:
 		
 		current_level = value
 
-@onready var label: Label = $Label
-
 @export var level_list : Array[Level] = []
 
 var rotation_tracker_component : RotationTrackerComponent
@@ -43,7 +41,6 @@ func _on_burnout() -> void:
 
 func _physics_process(delta: float) -> void:
 	current_level = rotation_tracker_component.psuedo_vertical_coordinate / 2
-	label.text = str(current_level)
 
 func load_next_level(level_to_load : int) -> void:
 	var previous_level : int = level_to_load - 1

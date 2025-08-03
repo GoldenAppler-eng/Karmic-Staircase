@@ -14,15 +14,15 @@ const ENDING_TEXT_DICTIONARY : Dictionary = {
 }
 
 const ENDING_COLOR_DICTIONARY : Dictionary = {
-	"LUST" : "#ff0000",
-	"ENVY" : "#000000",
-	"GLUTTONY" : "#000000",
-	"WRATH" : "#000000",
-	"GREED": "#000000",
-	"SLOTH" : "#000000",
-	"PRIDE" : "#000000",
-	"LOST" : "#000000",
-	"GOOD" : "#000000"
+	"LUST" : "#d95763",
+	"ENVY" : "#37846e",
+	"GLUTTONY" : "#d9a066",
+	"WRATH" : "#ac3232",
+	"GREED": "#6abe30",
+	"SLOTH" : "#696a6a",
+	"PRIDE" : "#9300cc",
+	"LOST" : "#9badb7",
+	"GOOD" : "#fbf236"
 }
 
 var current_game : GameManager
@@ -91,7 +91,7 @@ func get_ending_description() -> String:
 	
 	return ENDING_TEXT_DICTIONARY[ending]
 	
-func get_ending_result() -> String:
+func get_ending_result() -> String:	
 	if _all_levels_passed:
 		if _player_has_killed:
 			return "WRATH"

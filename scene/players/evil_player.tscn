@@ -387,7 +387,6 @@ autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
-debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="PathRefreshTimer" type="Timer" parent="."]
 wait_time = 0.6
@@ -451,10 +450,10 @@ shape = SubResource("CircleShape2D_isn2n")
 
 [node name="speech_text" parent="." instance=ExtResource("23_jmx0l")]
 unique_name_in_owner = true
-offset_left = -44.0
-offset_top = -40.0
-offset_right = -44.0
-offset_bottom = -40.0
+offset_left = -30.0
+offset_top = -34.0
+offset_right = -30.0
+offset_bottom = -34.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true
