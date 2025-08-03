@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=51 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="3_p4hug"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://d308sc06xvbuc" path="res://script/state/brain_state/HuntState.gd" id="19_tt30e"]
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="21_6hp1k"]
 [ext_resource type="PackedScene" uid="uid://djox8a46od6wh" path="res://scene/component/damager_component.tscn" id="21_isn2n"]
+[ext_resource type="Script" uid="uid://q6jyxefwbj84" path="res://script/state/brain_state/CalmState.gd" id="22_11mpr"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_xc1lj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
@@ -42,8 +43,8 @@ radius = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4hug"]
 size = Vector2(18, 29)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_llrc2"]
-radius = 12.0416
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_11mpr"]
+height = 38.0
 
 [sub_resource type="Animation" id="Animation_kk4ol"]
 length = 0.001
@@ -423,11 +424,11 @@ script = ExtResource("16_7uqe1")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 
-[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("find_weapon_state", "run_state", "hunt_state")]
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state")]
 script = ExtResource("17_2ycxl")
-find_weapon_state = NodePath("../find_weapon_state")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
+calm_state = NodePath("../calm_state")
 
 [node name="run_state" type="Node" parent="ai_brain/brain_state_machine"]
 script = ExtResource("18_xcl4y")
@@ -435,6 +436,11 @@ script = ExtResource("18_xcl4y")
 [node name="hunt_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("chase_player_state")]
 script = ExtResource("19_tt30e")
 chase_player_state = NodePath("../chase_player_state")
+
+[node name="calm_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("find_weapon_state", "run_state")]
+script = ExtResource("22_11mpr")
+find_weapon_state = NodePath("../find_weapon_state")
+run_state = NodePath("../run_state")
 
 [node name="interacter_component" parent="." instance=ExtResource("13_xcl4y")]
 unique_name_in_owner = true
@@ -479,7 +485,7 @@ position = Vector2(20, 2)
 collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
-shape = SubResource("CircleShape2D_llrc2")
+shape = SubResource("CapsuleShape2D_11mpr")
 
 [node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("anim_player", "movement_component", "pickup_item_component", "stat_data_component", "flippables")]
 unique_name_in_owner = true

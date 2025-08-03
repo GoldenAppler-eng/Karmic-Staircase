@@ -1,9 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://dh4w6wbocgxad"]
+[gd_scene load_steps=5 format=3 uid="uid://dh4w6wbocgxad"]
 
 [ext_resource type="Script" uid="uid://cx8y6mnftimw5" path="res://script/component/PickupItemComponent.gd" id="1_43eoj"]
+[ext_resource type="AudioStream" uid="uid://cdd8rsm2vbrj3" path="res://audio/empty_pocket.wav" id="2_37g4t"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kovy5"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d45xb"]
+particle_flag_disable_z = true
+angle_min = -161.1
+angle_max = 94.7
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 35.0
+gravity = Vector3(0, 98, 0)
+anim_offset_max = 1.0
 
 [node name="pickup_item_component" type="Node2D"]
 script = ExtResource("1_43eoj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 centered = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_kovy5")
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_d45xb")
+
+[node name="drop_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_37g4t")
+bus = &"Sfx"

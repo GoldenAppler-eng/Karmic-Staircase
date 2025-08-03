@@ -1,16 +1,18 @@
 extends BrainState
 
-const DESIRED_ATTACK_RANGE : float = 20
+const DESIRED_ATTACK_RANGE : float = 10
 
-@export var find_weapon_state : BrainState
 @export var run_state : BrainState
 @export var hunt_state : BrainState
+@export var calm_state : BrainState
 
 func extra_init() -> void:
 	pass
 
 func enter() -> void:
 	brain._wants_movement = true
+	brain._wants_sprint = true
+	
 	brain.find_target_player()
 	
 	speech_text.say("Get over here")
@@ -18,14 +20,12 @@ func enter() -> void:
 func exit() -> void:
 	brain._wants_movement = false
 	brain._wants_attack = false
+	brain._wants_sprint = false
 
 func process_physics(delta : float) -> BrainState:
 	if pickup_item_component.is_not_holding_item():
-		if level.board_pile.boards_left > 0:
-			return find_weapon_state
-			
-		return run_state
-		
+		return calm_state
+
 	if not brain.target_player:
 		return hunt_state
 	

@@ -6,16 +6,24 @@ const AGGRESIVE_DESPERATION_THRESHOLD : float = 80
 @export var find_weapon_state : BrainState
 @export var hunt_state : BrainState
 
+var _finished : bool = false
+
 func extra_init() -> void:
 	pass
 
 func enter() -> void:
+	_finished = false
 	speech_text.say("Argghhhhh")
+	
+	get_tree().create_timer(0.5).timeout.connect(mark_finished)
 	
 func exit() -> void:
 	pass
 
 func process_physics(delta : float) -> BrainState:
+	if not _finished:
+		return null
+	
 	if not stat_data_component.data.desperation >= AGGRESIVE_DESPERATION_THRESHOLD:
 		return run_state
 	
@@ -30,3 +38,5 @@ func process_physics(delta : float) -> BrainState:
 
 	return null
 	
+func mark_finished() -> void:
+	_finished = true

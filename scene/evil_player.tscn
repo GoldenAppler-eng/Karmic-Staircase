@@ -41,8 +41,8 @@ radius = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4hug"]
 size = Vector2(18, 29)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_llrc2"]
-radius = 12.0416
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dti7d"]
+height = 36.0
 
 [sub_resource type="Animation" id="Animation_kk4ol"]
 length = 0.001
@@ -411,11 +411,11 @@ script = ExtResource("18_tyno4")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 
-[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("find_weapon_state", "run_state", "hunt_state")]
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state")]
 script = ExtResource("19_hbida")
-find_weapon_state = NodePath("../find_weapon_state")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
+calm_state = NodePath("../find_weapon_state")
 
 [node name="run_state" type="Node" parent="ai_brain/brain_state_machine"]
 script = ExtResource("20_3gqpw")
@@ -467,7 +467,7 @@ position = Vector2(20, 2)
 collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
-shape = SubResource("CircleShape2D_llrc2")
+shape = SubResource("CapsuleShape2D_dti7d")
 
 [node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("anim_player", "movement_component", "pickup_item_component", "stat_data_component", "flippables")]
 unique_name_in_owner = true

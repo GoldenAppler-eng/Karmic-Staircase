@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://djox8a46od6wh"]
+[gd_scene load_steps=4 format=3 uid="uid://djox8a46od6wh"]
 
 [ext_resource type="Script" uid="uid://bs42y3ogdmysu" path="res://script/component/DamagerComponent.gd" id="1_7dya4"]
+[ext_resource type="AudioStream" uid="uid://c2if1fobokb42" path="res://audio/hit_break.wav" id="2_0ahoj"]
+[ext_resource type="AudioStream" uid="uid://d2w6dqcbq2u14" path="res://audio/swinging.wav" id="3_hoqvg"]
 
 [node name="damager_component" type="Area2D"]
 collision_layer = 0
 collision_mask = 32
 monitorable = false
 script = ExtResource("1_7dya4")
+
+[node name="hit_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_0ahoj")
+bus = &"Sfx"
+
+[node name="swing_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hoqvg")
+volume_db = -15.0
+pitch_scale = 1.5
+bus = &"Sfx"

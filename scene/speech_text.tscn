@@ -19,7 +19,7 @@ text = "Sample text"
 horizontal_alignment = 1
 
 [node name="SpeechEndTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="SpeechEndTimer" to="." method="_on_speech_end_timer_timeout"]

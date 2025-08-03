@@ -2,6 +2,8 @@ class_name PickupItemComponent
 extends Node2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var drop_sfx: AudioStreamPlayer2D = $drop_sfx
+@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 
 var current_item : PickupableItemData
 var item_user : Node2D
@@ -28,8 +30,13 @@ func pickup_item(item : PickupableItemData) -> void:
 
 func drop_item() -> void:
 	remove_item()
+	
+	drop_sfx.play()
 
 func consume_item() -> void:
+	gpu_particles_2d.texture = sprite_2d.texture.duplicate()
+	gpu_particles_2d.restart()
+	
 	remove_item()
 
 func is_not_holding_item() -> bool:

@@ -8,11 +8,14 @@ func extra_init() -> void:
 
 func enter() -> void:
 	brain._wants_movement = true
+	brain._wants_sprint = true
 	brain.set_target_position(level.board_pile.global_position)
 	
 func exit() -> void:
 	brain._wants_movement = false
 	brain._wants_interact = false
+
+	brain._wants_sprint = false
 
 func process_physics(delta : float) -> BrainState:
 	if interacter_component.are_interactables() and interacter_component.get_interactables()[0].owner is BoardPile:

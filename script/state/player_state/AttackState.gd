@@ -26,7 +26,7 @@ func exit() -> void:
 		stat_data_component.change_desperation(ATTACK_HIT_DESPERATION)
 	
 func process_physics(delta : float) -> State:
-	if not _attack_finished:
+	if not _attack_finished and not dealt_damage:
 		return null
 	
 	if hurtbox_component.is_hurt():

@@ -8,15 +8,18 @@ extends Brain
 var recorded_brain_data : Array[BrainFrameData]
 var recorded_item_data : Array[PickupFrameData]
 
-var current_frame = 0
+var current_frame : int = 0
+var extra_seen_players : int = 0
 
 var _stop_play_recording : bool = false
+
+var _freeze : bool = false
 
 func _physics_process(delta: float) -> void:
 	if _stop_play_recording:
 		return
 	
-	if player_vision_component.get_number_of_seen_player() > recorded_brain_data[current_frame].number_of_players_seen:		
+	if player_vision_component.get_number_of_seen_player() > recorded_brain_data[current_frame].number_of_players_seen + extra_seen_players:		
 		_stop_play_recording = true
 		
 		if player_vision_component.any_player_has_weapon():
@@ -29,19 +32,29 @@ func _physics_process(delta: float) -> void:
 		interruption_detection_component.emit_interrupted()
 		
 	if current_frame + 1 >= recorded_brain_data.size():
-		_stop_play_recording = true
-		interruption_detection_component.emit_interrupted()
-				
+		_freeze = true
+		return
+		
 	if _stop_play_recording:
 		return
 	
 	current_frame += 1
 	
+func continue_brain() -> void:
+	_stop_play_recording = false
+	
+func add_seen_player() -> void:	
+	extra_seen_players += 1
+
 func reset_brain() -> void:
 	current_frame = 0
+	_freeze = false
 	_stop_play_recording = false	
 
 func wants_movement() -> bool:
+	if _freeze:
+		return false
+	
 	return recorded_brain_data[current_frame].wants_movement
 
 func wants_sprint() -> bool:

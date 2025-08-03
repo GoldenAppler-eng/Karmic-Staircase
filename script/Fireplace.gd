@@ -20,11 +20,16 @@ var fuel : float:
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
+@onready var burn_sound: AudioStreamPlayer2D = $burn_sound
+
 func _ready() -> void:
 	fuel = MAX_FUEL
 
 func fuel_fire(fuel_amount : float) -> void:
 	fuel = fuel + fuel_amount
+	
+	if fuel_amount > 0:
+		burn_sound.play()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
 	sprite_2d.frame =  min(max_frame, max_frame - float(current_value) / max_value * max_frame)

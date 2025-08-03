@@ -7,8 +7,6 @@ func enter() -> void:
 	pickup_item_component.drop_item()
 	animation_controller.play_animation("dead")
 	
-	print("is dead")
-	
 func exit() -> void:
 	hurtbox_component.revive()	
 	

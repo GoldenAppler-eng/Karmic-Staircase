@@ -16,6 +16,8 @@ const INITIAL_BOARDS_LEFT : int = 5
 @onready var interactable_component: InteractableComponent = %interactable_component
 @onready var tool_tip_activation_component: ToolTipActivationComponent = %tool_tip_activation_component
 
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 var boards_left : int:
 	set(value):
 		boards_left = value
@@ -37,6 +39,8 @@ func interact(interacter : Node2D) -> void:
 		var item : PickupableItemData = board_pickupable_item.duplicate(true)
 		item.use = board_use_function
 		pickup_item_component.pickup_item(item)
+		
+		audio_stream_player_2d.play()
 		
 		if interacter.has_meta(stat_meta_name):
 			var stat_data_component : StatDataComponent = interacter.get_meta(stat_meta_name)

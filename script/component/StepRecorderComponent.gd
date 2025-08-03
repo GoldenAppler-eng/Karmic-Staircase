@@ -3,6 +3,7 @@ extends Node
 
 @export var target_brain : Brain
 @export var target_pickup_item_component : PickupItemComponent
+@export var target_vision_component : PlayerVisionComponent
 
 var recorded_frames : Array[BrainFrameData]
 var recorded_items : Array[PickupFrameData]
@@ -25,6 +26,8 @@ func record_brain() -> BrainFrameData:
 	brain_frame_data.wants_pickup = target_brain.wants_pickup()
 	brain_frame_data.wants_drop = target_brain.wants_drop()
 	brain_frame_data.movement_vector = target_brain.get_movement_vector()
+	
+	brain_frame_data.number_of_players_seen = target_vision_component.get_number_of_seen_player()
 	
 	return brain_frame_data
 

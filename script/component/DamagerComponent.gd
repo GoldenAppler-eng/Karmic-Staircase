@@ -3,7 +3,12 @@ extends Area2D
 
 @export var reach : float = 0.4
 
+@onready var hit_sfx: AudioStreamPlayer2D = $hit_sfx
+@onready var swing_sfx: AudioStreamPlayer2D = $swing_sfx
+
 func deal_damage() -> bool:	
+	swing_sfx.play()
+	
 	var dealt_damage : bool = false
 	
 	var rotation_tracker_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.ROTATIONTRACKER)
@@ -20,9 +25,7 @@ func deal_damage() -> bool:
 			var attacked_vertical_coordinate : float = attacked_rotation_tracker_component.psuedo_vertical_coordinate
 			
 			var vertical_distance : float = abs(attacker_vertical_coordinate - attacked_vertical_coordinate)
-			
-			print(vertical_distance)
-			
+						
 			if vertical_distance > reach:
 				continue
 					
@@ -30,4 +33,7 @@ func deal_damage() -> bool:
 		hurtbox_component.get_hurt()
 		dealt_damage = true
 		
+	if dealt_damage:
+		hit_sfx.play()	
+	
 	return dealt_damage

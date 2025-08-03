@@ -35,8 +35,8 @@ radius = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iuf2t"]
 size = Vector2(11, 17)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jrjdb"]
-radius = 12.0416
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k8m7u"]
+height = 36.0
 
 [sub_resource type="Animation" id="Animation_kk4ol"]
 length = 0.001
@@ -409,11 +409,12 @@ position = Vector2(2, 7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox_component"]
 shape = SubResource("RectangleShape2D_iuf2t")
 
-[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component")]
+[node name="step_recorder_component" type="Node" parent="." node_paths=PackedStringArray("target_brain", "target_pickup_item_component", "target_vision_component")]
 unique_name_in_owner = true
 script = ExtResource("17_4ja17")
 target_brain = NodePath("../input_brain")
 target_pickup_item_component = NodePath("../flippables/pickup_item_component")
+target_vision_component = NodePath("../player_vision_component")
 
 [node name="flippables" type="Node2D" parent="."]
 script = ExtResource("19_kk4ol")
@@ -422,7 +423,7 @@ script = ExtResource("19_kk4ol")
 position = Vector2(20, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="flippables/damager_component"]
-shape = SubResource("CircleShape2D_jrjdb")
+shape = SubResource("CapsuleShape2D_k8m7u")
 
 [node name="pickup_item_component" parent="flippables" instance=ExtResource("14_u7b46")]
 unique_name_in_owner = true
@@ -459,3 +460,7 @@ shape = SubResource("CircleShape2D_wt23p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_activator_component"]
 shape = SubResource("CircleShape2D_k8m7u")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(0, -7)
+current = true

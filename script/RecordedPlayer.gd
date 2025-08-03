@@ -1,6 +1,8 @@
 class_name RecordedPlayer
 extends CharacterBody2D
 
+const DESPERATION_THRESHOLD : float = 50
+
 @export var origin_node : Node2D
 
 @onready var recorded_brain: RecordedBrain = %recorded_brain
@@ -74,9 +76,15 @@ func reset_player() -> void:
 	state_machine.reset_state_machine()
 
 func _on_recording_interrupted() -> void:
-	state_machine.set_brain(ai_brain)
 	brain_state_machine.activate()
-	using_ai = true
+	print(stat_data_component.data.desperation)
+	
+	if stat_data_component.data.desperation >= DESPERATION_THRESHOLD:
+		state_machine.set_brain(ai_brain)
+		using_ai = true
+	else:
+		recorded_brain.continue_brain()
+		recorded_brain.add_seen_player()
 
 func use_recorded_brain() -> void:
 	state_machine.set_brain(recorded_brain)

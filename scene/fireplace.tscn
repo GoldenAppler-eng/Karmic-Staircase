@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://o40os8tevy7i"]
+[gd_scene load_steps=20 format=3 uid="uid://o40os8tevy7i"]
 
 [ext_resource type="Script" uid="uid://blskqk86x2w5m" path="res://script/Fireplace.gd" id="1_q16f2"]
 [ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="2_fdvmc"]
 [ext_resource type="Texture2D" uid="uid://2i64sqku1s51" path="res://sprite/fireplace-Sheet.png" id="2_q16f2"]
 [ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="4_j8u3g"]
+[ext_resource type="AudioStream" uid="uid://cxw7ofm0526pc" path="res://audio/fire(loop).wav" id="5_ngobc"]
+[ext_resource type="AudioStream" uid="uid://cgi0oocikxcq8" path="res://audio/burning.wav" id="6_ybq34"]
 
 [sub_resource type="Gradient" id="Gradient_j8u3g"]
 offsets = PackedFloat32Array(0, 0.825)
@@ -121,5 +123,17 @@ shape = SubResource("RectangleShape2D_ngobc")
 [node name="FuelBurnoutTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="fire_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-6, 14)
+stream = ExtResource("5_ngobc")
+autoplay = true
+max_distance = 150.0
+attenuation = 3.36358
+bus = &"Ambience"
+
+[node name="burn_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ybq34")
+bus = &"Sfx"
 
 [connection signal="timeout" from="FuelBurnoutTimer" to="." method="_on_fuel_burnout_timer_timeout"]
