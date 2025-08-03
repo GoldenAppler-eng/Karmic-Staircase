@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cykngslnbet6v"]
+
+[ext_resource type="Script" uid="uid://dg0badytl6qgb" path="res://script/UI/VolumeController.gd" id="1_awnun"]
+
+[node name="VolumeController" type="HSlider"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_awnun")
+
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

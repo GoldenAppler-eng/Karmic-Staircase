@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=23 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="11_2effu"]
 [ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
 [ext_resource type="Shader" uid="uid://bpbbomy5upy2k" path="res://shader/Vignette.gdshader" id="13_ig73b"]
+[ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
+[ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
+[ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
 shader = ExtResource("12_hsxsa")
@@ -100,8 +103,38 @@ transition_animation_player = NodePath("../Transition/TransitionAnimationPlayer"
 script = ExtResource("4_nm76x")
 screen_shader = NodePath("../ScreenShader")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="ScreenShader" type="CanvasLayer" parent="."]
 visible = false
+
+[node name="Control" type="Control" parent="ScreenShader"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkness" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_invj0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vignette" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_3q1n8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
 
 [node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("initial_menu")]
 layout_mode = 3
@@ -113,7 +146,7 @@ grow_vertical = 2
 script = ExtResource("5_ymi47")
 initial_menu = NodePath("main_menu")
 
-[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "quit_menu")]
+[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "settings_menu", "quit_menu", "revert_menu")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -123,7 +156,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_ietmj")
 idle_menu = NodePath("../idle_menu")
+settings_menu = NodePath("../settings_menu")
 quit_menu = NodePath("../quit_menu")
+revert_menu = NodePath("../revert_menu")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
 layout_mode = 1
@@ -159,7 +194,7 @@ focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 text = "Quit"
 
-[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "main_menu", "quit_menu")]
+[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "main_menu", "quit_menu", "revert_menu")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -170,8 +205,10 @@ grow_vertical = 2
 script = ExtResource("7_q18o2")
 idle_menu = NodePath("../idle_menu")
 restart_menu = NodePath("../restart_menu")
+settings_menu = NodePath("../settings_menu")
 main_menu = NodePath("../main_menu")
 quit_menu = NodePath("../quit_menu")
+revert_menu = NodePath("../revert_menu")
 
 [node name="Panel" type="ColorRect" parent="UI/MenuStateMachine/pause_menu"]
 self_modulate = Color(0.685146, 0.685146, 0.685146, 1)
@@ -241,6 +278,7 @@ pause_menu = NodePath("../pause_menu")
 game_end_menu = NodePath("../game_end_menu")
 
 [node name="game_end_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("restart_menu", "main_menu", "quit_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,28 +341,29 @@ focus_neighbor_bottom = NodePath("../EndRestartButton")
 text = "Quit"
 
 [node name="quit_menu" type="Control" parent="UI/MenuStateMachine"]
+visible = false
 anchors_preset = 0
 script = ExtResource("10_4njw5")
 
 [node name="restart_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu")]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("11_2effu")
 idle_menu = NodePath("../idle_menu")
 
-[node name="ScreenShader" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="ScreenShader"]
-layout_mode = 3
+[node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("14_nm76x")
+revert_menu = NodePath("../revert_menu")
 
-[node name="darkness" type="ColorRect" parent="ScreenShader/Control"]
-material = SubResource("ShaderMaterial_invj0")
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/settings_menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -333,15 +372,57 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="vignette" type="ColorRect" parent="ScreenShader/Control"]
-material = SubResource("ShaderMaterial_3q1n8")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/settings_menu/ColorRect"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 40.0
 grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+
+[node name="Settings" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Master" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Master volume"
+horizontal_alignment = 1
+
+[node name="MasterVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+
+[node name="Ambience" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Ambience volume"
+horizontal_alignment = 1
+
+[node name="AmbienceVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+bus_name = "Ambience"
+
+[node name="Sfx" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Sfx volume"
+horizontal_alignment = 1
+
+[node name="SfxVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+bus_name = "Sfx"
+
+[node name="SettingsBackButton" type="Button" parent="UI/MenuStateMachine/settings_menu/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"
+
+[node name="revert_menu" type="Control" parent="UI/MenuStateMachine"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_ymi47")
 
 [node name="Transition" type="CanvasLayer" parent="."]
 visible = false

@@ -2,8 +2,11 @@ extends Menu
 
 @export var idle_menu : Menu
 @export var restart_menu : Menu
+@export var settings_menu : Menu
 @export var main_menu : Menu
 @export var quit_menu : Menu
+
+@export var revert_menu : RevertMenu
 
 @onready var resume_button: Button = %ResumeButton
 @onready var to_settings_button: Button = %ToSettingsButton
@@ -12,6 +15,7 @@ extends Menu
 @onready var in_quit_game_button: Button = %InQuitGameButton
 
 var _resume : bool = false
+var _go_to_settings : bool = false
 var _restart : bool = false
 var _back_to_main_menu : bool = false
 var _quit_game : bool = false
@@ -31,6 +35,7 @@ func enter() -> void:
 	
 	_resume = false
 	_restart = false
+	_go_to_settings = false
 	_back_to_main_menu = false
 	_quit_game = false
 	
@@ -42,6 +47,10 @@ func exit() -> void:
 func process_frame(delta : float) -> Menu:
 	if _quit_game:
 		return quit_menu
+		
+	if _go_to_settings:
+		revert_menu.set_previous_menu(self)
+		return settings_menu
 		
 	if _restart:
 		return restart_menu
@@ -67,7 +76,7 @@ func _on_resume_button_pressed() -> void:
 	_resume = true
 	
 func _on_settings_button_pressed() -> void:
-	pass
+	_go_to_settings = true
 
 func _on_restart_button_pressed() -> void:
 	_restart = true
