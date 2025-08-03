@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=25 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/player.tscn" id="1_5kiuu"]
 [ext_resource type="Script" uid="uid://bs2oplm10hnhp" path="res://script/manager/StaircaseLevelManager.gd" id="1_p1ry8"]
@@ -75,7 +75,18 @@ hold_offset = Vector2(-5, -5)
 scale = Vector2(1, 1)
 metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ve786"]
+polygon = PackedVector2Array(-34, -90, -33, -9, -27, 9, -4, 21, 22, 18, 38, -1, 39, -93)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0lu6w"]
+polygon = PackedVector2Array(-52, -60, -53, -14, -47, -14, -46, -55, 65, -56, 65, 31, -49, 31, -49, 12, -54, 12, -53, 36, 70, 36, 70, -60)
+
 [node name="game" type="Node2D"]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+color = Color(1, 0.585611, 0.524716, 1)
+blend_mode = 1
 
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
 z_index = 30
@@ -118,6 +129,7 @@ staircase_top = NodePath("../staircase_top_marker")
 board_pile = NodePath("board_pile")
 cake = NodePath("cake")
 fireplace = NodePath("fireplace")
+metadata/_edit_lock_ = true
 
 [node name="board_pile" parent="Level0" instance=ExtResource("6_xlg7c")]
 position = Vector2(141, 22)
@@ -131,6 +143,7 @@ cake_pickupable_item = SubResource("Resource_81276")
 position = Vector2(142, -30)
 
 [node name="Level1" type="Node2D" parent="." node_paths=PackedStringArray("origin_node", "staircase_top", "board_pile", "cake", "fireplace")]
+visible = false
 z_index = 10
 script = ExtResource("8_ll5lq")
 level_data = SubResource("Resource_ll5lq")
@@ -139,6 +152,7 @@ staircase_top = NodePath("../staircase_top_marker")
 board_pile = NodePath("board_pile")
 cake = NodePath("cake")
 fireplace = NodePath("fireplace")
+metadata/_edit_lock_ = true
 
 [node name="board_pile" parent="Level1" instance=ExtResource("6_xlg7c")]
 position = Vector2(141, 22)
@@ -173,10 +187,16 @@ position = Vector2(-55, 11)
 texture = ExtResource("9_yq8tf")
 metadata/_edit_lock_ = true
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="centre_column"]
+occluder = SubResource("OccluderPolygon2D_ve786")
+
 [node name="room" type="Sprite2D" parent="."]
 position = Vector2(91, 2)
 texture = ExtResource("8_17rxn")
 metadata/_edit_lock_ = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="room"]
+occluder = SubResource("OccluderPolygon2D_0lu6w")
 
 [node name="HungerHUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
 offset_left = 87.0

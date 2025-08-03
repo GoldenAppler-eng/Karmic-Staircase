@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://uw4m24pq2ena"]
+[gd_scene load_steps=10 format=3 uid="uid://uw4m24pq2ena"]
 
 [ext_resource type="Script" uid="uid://cllrjayydeik" path="res://script/Cake.gd" id="1_bpxnu"]
 [ext_resource type="Resource" uid="uid://fry6ncngyn0d" path="res://resource/Cake.tres" id="2_526gx"]
@@ -14,6 +14,9 @@ size = Vector2(18, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysww7"]
 size = Vector2(20, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_f41j1"]
+polygon = PackedVector2Array(-9, -5, -9, 5, -5, 7)
 
 [node name="cake" type="RigidBody2D"]
 collision_mask = 0
@@ -49,3 +52,6 @@ horizontal_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
 shape = SubResource("RectangleShape2D_ysww7")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_f41j1")

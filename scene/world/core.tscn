@@ -1,20 +1,20 @@
 [gd_scene load_steps=18 format=3 uid="uid://bdqhiaqxesh60"]
 
-[ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="1_0e6vc"]
-[ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_5usai"]
-[ext_resource type="Script" uid="uid://civ48t4558r4y" path="res://script/game_manager/TransitionManager.gd" id="1_invj0"]
-[ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="1_iy1f3"]
-[ext_resource type="Script" uid="uid://87erus3hwjhy" path="res://script/manager/ScreenShaderManager.gd" id="2_fsey5"]
-[ext_resource type="Script" uid="uid://dvbpefm1nhqvf" path="res://script/state_machine/MenuStateMachine.gd" id="4_ip053"]
-[ext_resource type="Script" uid="uid://pgir7smsk0y0" path="res://script/state/menu_state/MainMenu.gd" id="5_1rq07"]
-[ext_resource type="Script" uid="uid://cti8imj4a4s4c" path="res://script/state/menu_state/PauseMenu.gd" id="6_fk4bv"]
-[ext_resource type="Script" uid="uid://b7flxnxy6lgf4" path="res://script/state/menu_state/IdleMenu.gd" id="6_psnw7"]
-[ext_resource type="Script" uid="uid://cajkj2donjrkh" path="res://script/state/menu_state/QuitMenu.gd" id="8_ij36g"]
-[ext_resource type="Script" uid="uid://peahexdjgm0m" path="res://script/state/menu_state/GameEndMenu.gd" id="8_pikrg"]
-[ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="10_ov8dj"]
+[ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
+[ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
+[ext_resource type="Script" uid="uid://civ48t4558r4y" path="res://script/game_manager/TransitionManager.gd" id="3_3q1n8"]
+[ext_resource type="Script" uid="uid://87erus3hwjhy" path="res://script/manager/ScreenShaderManager.gd" id="4_nm76x"]
+[ext_resource type="Script" uid="uid://dvbpefm1nhqvf" path="res://script/state_machine/MenuStateMachine.gd" id="5_ymi47"]
+[ext_resource type="Script" uid="uid://pgir7smsk0y0" path="res://script/state/menu_state/MainMenu.gd" id="6_ietmj"]
+[ext_resource type="Script" uid="uid://cti8imj4a4s4c" path="res://script/state/menu_state/PauseMenu.gd" id="7_q18o2"]
+[ext_resource type="Script" uid="uid://b7flxnxy6lgf4" path="res://script/state/menu_state/IdleMenu.gd" id="8_6jsmi"]
+[ext_resource type="Script" uid="uid://peahexdjgm0m" path="res://script/state/menu_state/GameEndMenu.gd" id="9_th21j"]
+[ext_resource type="Script" uid="uid://cajkj2donjrkh" path="res://script/state/menu_state/QuitMenu.gd" id="10_4njw5"]
+[ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="11_2effu"]
+[ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
-shader = ExtResource("1_iy1f3")
+shader = ExtResource("12_hsxsa")
 shader_parameter/min_alpha = 0.0
 shader_parameter/max_alpha = 0.7
 
@@ -76,21 +76,21 @@ _data = {
 process_mode = 3
 
 [node name="game_end_manager" type="Node" parent="."]
-script = ExtResource("1_5usai")
+script = ExtResource("1_ibqyb")
 
 [node name="game_loading_manager" type="Node" parent="." node_paths=PackedStringArray("core", "transition_manager", "screen_shader_manager")]
-script = ExtResource("1_0e6vc")
+script = ExtResource("2_ig73b")
 core = NodePath("..")
 transition_manager = NodePath("../transition_manager")
 screen_shader_manager = NodePath("../screen_shader_manager")
 
 [node name="transition_manager" type="Node" parent="." node_paths=PackedStringArray("transition_canvas_layer", "transition_animation_player")]
-script = ExtResource("1_invj0")
+script = ExtResource("3_3q1n8")
 transition_canvas_layer = NodePath("../Transition")
 transition_animation_player = NodePath("../Transition/TransitionAnimationPlayer")
 
 [node name="screen_shader_manager" type="Node" parent="." node_paths=PackedStringArray("screen_shader")]
-script = ExtResource("2_fsey5")
+script = ExtResource("4_nm76x")
 screen_shader = NodePath("../ScreenShader")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -102,7 +102,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_ip053")
+script = ExtResource("5_ymi47")
 initial_menu = NodePath("main_menu")
 
 [node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "quit_menu")]
@@ -113,7 +113,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_1rq07")
+script = ExtResource("6_ietmj")
 idle_menu = NodePath("../idle_menu")
 quit_menu = NodePath("../quit_menu")
 
@@ -159,7 +159,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_fk4bv")
+script = ExtResource("7_q18o2")
 idle_menu = NodePath("../idle_menu")
 restart_menu = NodePath("../restart_menu")
 main_menu = NodePath("../main_menu")
@@ -228,7 +228,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_psnw7")
+script = ExtResource("8_6jsmi")
 pause_menu = NodePath("../pause_menu")
 game_end_menu = NodePath("../game_end_menu")
 
@@ -239,7 +239,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8_pikrg")
+script = ExtResource("9_th21j")
 restart_menu = NodePath("../restart_menu")
 main_menu = NodePath("../main_menu")
 quit_menu = NodePath("../quit_menu")
@@ -296,13 +296,13 @@ text = "Quit"
 
 [node name="quit_menu" type="Control" parent="UI/MenuStateMachine"]
 anchors_preset = 0
-script = ExtResource("8_ij36g")
+script = ExtResource("10_4njw5")
 
 [node name="restart_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("10_ov8dj")
+script = ExtResource("11_2effu")
 idle_menu = NodePath("../idle_menu")
 
 [node name="ScreenShader" type="CanvasLayer" parent="."]
