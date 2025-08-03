@@ -17,6 +17,9 @@ func init() -> void:
 	data.resource_local_to_scene = true
 	
 	hunger_degeneration_timer.timeout.connect(_on_hunger_degeneration_timer_timeout)
+
+func is_starving() -> bool:
+	return data.hunger == 0
 	
 func change_hunger(net_change : float) -> void:
 	data.change_hunger(net_change)

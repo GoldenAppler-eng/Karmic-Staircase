@@ -17,7 +17,7 @@ func exit() -> void:
 	pass	
 	
 func process_physics(delta : float) -> State:
-	if hurtbox_component.is_hurt():
+	if hurtbox_component.is_hurt() or stat_data_component.is_starving():
 		return dead_state
 	
 	if  not pickup_item_component.is_not_holding_item() and pickup_item_component.can_be_used_for_attack() and brain.wants_attack():
