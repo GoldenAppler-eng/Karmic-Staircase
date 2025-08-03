@@ -1,6 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
+signal death(starving : bool, attacked : bool, eaten_cake : bool)
+signal player_has_killed
+
 @export var origin_node : Node2D
 
 @onready var input_brain: Brain = %input_brain
@@ -17,6 +20,10 @@ extends CharacterBody2D
 @onready var animation_controller : AnimationController = %animation_controller
 
 @onready var player_vision_component: PlayerVisionComponent = %player_vision_component
+@onready var damager_component : DamagerComponent = $flippables/damager_component
+
+var has_eaten_cake : bool = false
+var has_burn_board : bool = false
 
 func _ready() -> void:
 	stat_data_component.init()
@@ -42,6 +49,9 @@ func _physics_process(delta: float) -> void:
 
 	rotation_tracker_component.update_psuedo_vertical_coordinate()
 
+	_check_has_kill_count()
+	_check_death()
+
 func get_desperation_level() -> float:
 	return stat_data_component.data.desperation
 
@@ -61,3 +71,17 @@ func get_stats() -> StatData:
 
 func clear_recorded_steps() -> void:
 	step_recorder_component.clear()
+
+func _check_death() -> void:
+	if not stat_data_component.is_dead:
+		return
+	
+	if stat_data_component.data.hunger == 0:
+		death.emit(true, false, has_eaten_cake)
+	
+	if hurtbox_component.is_hurt():
+		death.emit(false, true, has_eaten_cake)
+
+func _check_has_kill_count() -> void:
+	if damager_component.kill_count > 0:
+		player_has_killed.emit()

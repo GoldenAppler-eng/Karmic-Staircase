@@ -73,10 +73,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ymi47"]
 resource_name = "game end"
-length = 2.0
+length = 2.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -84,10 +96,10 @@ tracks/0/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Result:visible
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [0.0, 0.0, 1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -96,7 +108,7 @@ tracks/1/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Description:vi
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 2),
+"times": PackedFloat32Array(0, 1.43333, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0]
@@ -108,10 +120,22 @@ tracks/2/path = NodePath("DialogueSfx:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q18o2"]
@@ -182,11 +206,12 @@ process_mode = 3
 [node name="game_end_manager" type="Node" parent="."]
 script = ExtResource("1_ibqyb")
 
-[node name="game_loading_manager" type="Node" parent="." node_paths=PackedStringArray("core", "transition_manager", "screen_shader_manager")]
+[node name="game_loading_manager" type="Node" parent="." node_paths=PackedStringArray("core", "transition_manager", "screen_shader_manager", "game_end_manager")]
 script = ExtResource("2_ig73b")
 core = NodePath("..")
 transition_manager = NodePath("../transition_manager")
 screen_shader_manager = NodePath("../screen_shader_manager")
+game_end_manager = NodePath("../game_end_manager")
 
 [node name="transition_manager" type="Node" parent="." node_paths=PackedStringArray("transition_canvas_layer", "transition_animation_player")]
 script = ExtResource("3_3q1n8")
@@ -482,7 +507,6 @@ anchors_preset = 0
 script = ExtResource("10_4njw5")
 
 [node name="restart_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

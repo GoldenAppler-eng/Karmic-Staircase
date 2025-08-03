@@ -1,6 +1,8 @@
 class_name Level
 extends Node2D
 
+signal burnout
+
 const recorded_player_prefab : PackedScene = preload("res://scene/players/recorded_player.tscn")
 const evil_player_prefab : PackedScene = preload("res://scene/players/evil_player.tscn")
 
@@ -28,6 +30,8 @@ func init(id : int, p_origin_node : Node2D, p_staircase_top : Node2D, p_evil_pla
 	staircase_top = p_staircase_top
 	evil_player_spawn_location = p_evil_player_spawn_location
 	
+	fireplace.burnout.connect(_on_burnout)
+	
 	disable()
 
 func intialize_first_level_data(player : Player) -> void:
@@ -36,6 +40,9 @@ func intialize_first_level_data(player : Player) -> void:
 	level_data.initial_boards_left = board_pile.boards_left
 	level_data.initial_cake_left = cake.cake_left
 	level_data.initial_fuel_level = fireplace.fuel
+	level_data.initial_boards_used_in_fire = fireplace.boards_put_in_fire
+
+	level_data.initialized = true
 
 func initialize_data(player : Player) -> void:
 	level_data.initial_player_positions.append(player.global_position)
@@ -52,6 +59,8 @@ func save_data(player : Player) -> LevelData:
 	level_data.final_cake_left = cake.cake_left
 	level_data.final_fuel_level = fireplace.fuel
 	
+	level_data.boards_used_in_fire = fireplace.boards_put_in_fire
+	
 	level_data.initial_player_positions.append(level_data.held_initial_player_position)
 	level_data.initial_player_vertical_coordinates.append(level_data.held_initial_vertical_coordinate)
 	level_data.initial_player_stats.append(level_data.held_initial_stat)
@@ -67,6 +76,10 @@ func load_from_data(prev_level_data : LevelData) -> void:
 	level_data.initial_boards_left = prev_level_data.final_boards_left
 	level_data.initial_cake_left = prev_level_data.final_cake_left
 	level_data.initial_fuel_level = prev_level_data.final_fuel_level
+	
+	level_data.initial_boards_used_in_fire = prev_level_data.boards_used_in_fire
+	
+	level_data.initialized = true
 	
 func create_recorded_players() -> void:
 	for index in level_data.initial_player_positions.size():
@@ -113,6 +126,8 @@ func load_data() -> void:
 	cake.cake_left = level_data.initial_cake_left
 	fireplace.fuel = level_data.initial_fuel_level
 
+	fireplace.boards_put_in_fire = level_data.initial_boards_used_in_fire
+
 func reset_recorded_players() -> void:
 	for recorded_player in recorded_players:
 		recorded_player.reset_player()
@@ -124,3 +139,6 @@ func disable() -> void:
 func enable() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 	visible = true
+
+func _on_burnout() -> void:
+	burnout.emit()

@@ -6,6 +6,8 @@ extends Area2D
 @onready var hit_sfx: AudioStreamPlayer2D = $hit_sfx
 @onready var swing_sfx: AudioStreamPlayer2D = $swing_sfx
 
+var kill_count : int = 0
+
 func deal_damage() -> bool:	
 	swing_sfx.play()
 	
@@ -32,6 +34,7 @@ func deal_damage() -> bool:
 		var hurtbox_component : HurtboxComponent = area as HurtboxComponent
 		hurtbox_component.get_hurt()
 		dealt_damage = true
+		kill_count += 1
 		
 	if dealt_damage:
 		hit_sfx.play()	

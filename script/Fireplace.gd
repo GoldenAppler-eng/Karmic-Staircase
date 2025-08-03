@@ -1,6 +1,8 @@
 class_name Fireplace
 extends Node2D
 
+signal burnout
+
 const tooltip_list : Array[String] = [
 	"Its dying",
 	"Its dim",
@@ -17,6 +19,8 @@ const MIN_LIGHT_ENERGY : float = 0
 
 const MIN_FUEL : float = 0
 const MAX_FUEL : float = 100
+
+var boards_put_in_fire : int = 0
 
 var fuel : float:
 	set(value):
@@ -38,6 +42,7 @@ func fuel_fire(fuel_amount : float) -> void:
 	fuel = fuel + fuel_amount
 	
 	if fuel_amount > 0:
+		boards_put_in_fire += 1
 		burn_sound.play()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
@@ -51,3 +56,6 @@ func _update_sprite_animation(current_value : int, max_value : int, max_frame : 
 
 func _on_fuel_burnout_timer_timeout() -> void:
 	fuel = fuel - FUEL_BURNOUT_AMOUNT 
+
+	if fuel == 0:
+		burnout.emit()

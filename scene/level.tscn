@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://chfx6r0x1wepe"]
+[gd_scene load_steps=13 format=3 uid="uid://chfx6r0x1wepe"]
 
 [ext_resource type="Script" uid="uid://c7vkkmg5qpumj" path="res://script/Level.gd" id="1_u2b8d"]
 [ext_resource type="Script" uid="uid://dnbkjrpno7u1e" path="res://script/class/LevelData.gd" id="2_aw33w"]
+[ext_resource type="Script" uid="uid://cheqk5mk7sxqs" path="res://script/class/StatData.gd" id="2_ktmlt"]
 [ext_resource type="PackedScene" uid="uid://3hmeuxy5sim4" path="res://scene/board_pile.tscn" id="3_ktmlt"]
 [ext_resource type="Texture2D" uid="uid://578crqnkf465" path="res://sprite/board.png" id="4_oxop7"]
 [ext_resource type="Script" uid="uid://dpsdxig7vq6hu" path="res://script/class/PickupableItemData.gd" id="5_gunnj"]
@@ -13,6 +14,21 @@
 resource_local_to_scene = true
 script = ExtResource("2_aw33w")
 level_id = 0
+initial_fuel_level = 0.0
+initial_cake_left = 0
+initial_boards_left = 0
+held_initial_player_position = Vector2(0, 0)
+held_initial_vertical_coordinate = 0.0
+initial_player_positions = Array[Vector2]([])
+initial_player_vertical_coordinates = Array[float]([])
+initial_player_stats = Array[ExtResource("2_ktmlt")]([])
+players_recorded_steps = []
+players_recorded_items = []
+final_fuel_level = 0.0
+final_cake_left = 0.0
+final_boards_left = 0.0
+initial_boards_used_in_fire = 0
+boards_used_in_fire = 0
 metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
 
 [sub_resource type="Resource" id="Resource_5g16k"]
@@ -37,13 +53,10 @@ hold_offset = Vector2(-5, -5)
 scale = Vector2(1, 1)
 metadata/_custom_type_script = "uid://dpsdxig7vq6hu"
 
-[node name="Level0" type="Node2D" node_paths=PackedStringArray("origin_node", "staircase_top", "evil_player_spawn_location", "board_pile", "cake", "fireplace")]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("board_pile", "cake", "fireplace")]
 z_index = 10
 script = ExtResource("1_u2b8d")
 level_data = SubResource("Resource_ll5lq")
-origin_node = NodePath("")
-staircase_top = NodePath("")
-evil_player_spawn_location = NodePath("")
 board_pile = NodePath("board_pile")
 cake = NodePath("cake")
 fireplace = NodePath("fireplace")

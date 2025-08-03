@@ -32,9 +32,10 @@ polygon = PackedVector2Array(-34, -90, -33, -9, -27, 9, -4, 21, 18, 12, 28, -2, 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0lu6w"]
 polygon = PackedVector2Array(-52, -60, -53, -14, -47, -14, -46, -55, 65, -56, 65, 31, -49, 31, -49, 12, -54, 12, -53, 36, 70, 36, 70, -60)
 
-[node name="game" type="Node2D"]
+[node name="game" type="Node2D" node_paths=PackedStringArray("player")]
 process_mode = 1
 script = ExtResource("1_ww6yf")
+player = NodePath("player")
 
 [node name="Constant" type="Node2D" parent="."]
 
