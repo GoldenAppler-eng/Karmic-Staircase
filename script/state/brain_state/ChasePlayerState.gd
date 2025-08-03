@@ -13,6 +13,8 @@ func enter() -> void:
 	brain._wants_movement = true
 	brain.find_target_player()
 	
+	speech_text.say("Get over here")
+	
 func exit() -> void:
 	brain._wants_movement = false
 

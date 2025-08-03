@@ -39,6 +39,7 @@ position = Vector2(0.25, 0.5)
 shape = SubResource("RectangleShape2D_hocp4")
 
 [node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("5_i00g7")]
+unique_name_in_owner = true
 tooltip = "These are boards"
 tip = NodePath("tip")
 

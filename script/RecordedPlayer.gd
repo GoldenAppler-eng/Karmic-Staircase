@@ -16,8 +16,6 @@ extends CharacterBody2D
 
 @onready var step_recorder_component: StepRecorderComponent = %step_recorder_component
 
-@onready var speech_text: SpeechText = %speech_text
-
 var initial_position : Vector2
 
 func _ready() -> void:
@@ -34,9 +32,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-	
-	speech_text.set_text(str(rotation_tracker_component.psuedo_vertical_coordinate))
-	
+		
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 	animation_controller.process_physics(delta)

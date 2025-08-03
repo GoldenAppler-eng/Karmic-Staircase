@@ -10,7 +10,7 @@ func extra_init() -> void:
 	pass
 
 func enter() -> void:
-	pass
+	speech_text.say("Argghhhhh")
 	
 func exit() -> void:
 	pass

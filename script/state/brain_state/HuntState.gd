@@ -9,6 +9,8 @@ func enter() -> void:
 	brain._wants_movement = true
 	brain.set_target_position(level.staircase_top.global_position)
 	
+	speech_text.say("Where are you")
+	
 func exit() -> void:
 	brain._wants_movement = false
 

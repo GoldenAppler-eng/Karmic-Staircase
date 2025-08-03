@@ -14,6 +14,7 @@ const INITIAL_BOARDS_LEFT : int = 5
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @onready var interactable_component: InteractableComponent = %interactable_component
+@onready var tool_tip_activation_component: ToolTipActivationComponent = %tool_tip_activation_component
 
 var boards_left : int:
 	set(value):

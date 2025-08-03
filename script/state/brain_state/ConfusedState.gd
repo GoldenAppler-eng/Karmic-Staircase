@@ -8,7 +8,7 @@ func extra_init() -> void:
 	pass
 
 func enter() -> void:
-	pass
+	speech_text.say("What the...")
 	
 func exit() -> void:
 	pass

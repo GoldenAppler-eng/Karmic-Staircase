@@ -3,13 +3,15 @@ extends Node
 
 signal state_changed
 
+@export var speech_text : SpeechText
+
 @export var initial_state : BrainState
 
 var current_state : BrainState
 
-func init(p_brain : AIBrain, p_stat_data_component : StatDataComponent, p_pickup_item_component : PickupItemComponent, p_interacter_component : InteracterComponent, p_player_vision_component : PlayerVisionComponent, p_level : Level) -> void:
+func init(p_brain : AIBrain, p_stat_data_component : StatDataComponent, p_pickup_item_component : PickupItemComponent, p_interacter_component : InteracterComponent, p_player_vision_component : PlayerVisionComponent, p_speech_text : SpeechText, p_level : Level) -> void:
 	for state in get_children():
-		(state as BrainState).init(p_brain, p_stat_data_component, p_pickup_item_component, p_interacter_component, p_player_vision_component, p_level)
+		(state as BrainState).init(p_brain, p_stat_data_component, p_pickup_item_component, p_interacter_component, p_player_vision_component, p_speech_text, p_level)
 
 	change_state(initial_state)
 

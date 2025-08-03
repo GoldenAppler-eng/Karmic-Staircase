@@ -23,3 +23,6 @@ func deactivate() -> void:
 	current_tween = create_tween()
 	current_tween.tween_property(tip, "visible_ratio", 0, TOOLTIP_ACTIVATION_DURATION)
 		
+func set_tooltip(new_tooltip : String) -> void:
+	tooltip = new_tooltip
+	tip.text = tooltip

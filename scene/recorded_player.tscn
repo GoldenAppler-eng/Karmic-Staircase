@@ -399,8 +399,9 @@ script = ExtResource("13_llrc2")
 nav_agent = NodePath("../NavigationAgent2D")
 path_refresh_timer = NodePath("../PathRefreshTimer")
 
-[node name="brain_state_machine" type="Node" parent="ai_brain" node_paths=PackedStringArray("initial_state")]
+[node name="brain_state_machine" type="Node" parent="ai_brain" node_paths=PackedStringArray("speech_text", "initial_state")]
 script = ExtResource("14_wyros")
+speech_text = NodePath("../../speech_text")
 initial_state = NodePath("confused_state")
 
 [node name="confused_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("panic_state")]
@@ -440,10 +441,10 @@ shape = SubResource("CircleShape2D_isn2n")
 
 [node name="speech_text" parent="." instance=ExtResource("14_tt30e")]
 unique_name_in_owner = true
-offset_left = -40.0
-offset_top = -39.0
-offset_right = -40.0
-offset_bottom = -39.0
+offset_left = -44.0
+offset_top = -40.0
+offset_right = -44.0
+offset_bottom = -40.0
 
 [node name="rotation_tracker_component" type="Node" parent="."]
 unique_name_in_owner = true
