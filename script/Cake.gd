@@ -4,7 +4,7 @@ extends Node2D
 const TAKE_CAKE_DESPERATION : float = 5
 const EAT_CAKE_DESPERATION : float = 15
 
-const CAKE_MAX_FRAME : int = 4
+const CAKE_MAX_FRAME : int = 3
 const INITIAL_CAKE_LEFT : int = 4
 
 const CAKE_HUNGER_REFILL : float = 30
@@ -65,4 +65,5 @@ func cake_use_function(user : Node2D) -> void:
 		pickup_item_component.consume_item()
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
-	sprite_2d.frame =  max_frame - float(current_value) / max_value * max_frame
+	sprite_2d.frame =  min(max_frame , max_frame - float(current_value) / max_value * max_frame)
+	

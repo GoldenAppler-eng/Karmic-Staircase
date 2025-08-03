@@ -84,8 +84,8 @@ polygon = PackedVector2Array(-52, -60, -53, -14, -47, -14, -46, -55, 65, -56, 65
 [node name="game" type="Node2D"]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
-color = Color(1, 0.585611, 0.524716, 1)
+color = Color(1, 0.765902, 0.727379, 1)
+energy = 0.31
 blend_mode = 1
 
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]

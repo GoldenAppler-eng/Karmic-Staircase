@@ -4,7 +4,7 @@ extends Node2D
 const TAKE_BOARD_DESPERATION : float = 30
 const BURN_BOARD_DESPERATION : float = -15
 
-const BOARD_MAX_FRAME : int = 5
+const BOARD_MAX_FRAME : int = 4
 
 const BOARD_FUEL_VALUE : float = 50
 const INITIAL_BOARDS_LEFT : int = 5
@@ -79,4 +79,4 @@ func board_use_function(user : Node2D) -> void:
 		return
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
-	sprite_2d.frame =  max_frame - float(current_value) / max_value * max_frame
+	sprite_2d.frame =  min(max_frame, max_frame - float(current_value) / max_value * max_frame)

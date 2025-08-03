@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=20 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -12,11 +12,18 @@
 [ext_resource type="Script" uid="uid://cajkj2donjrkh" path="res://script/state/menu_state/QuitMenu.gd" id="10_4njw5"]
 [ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="11_2effu"]
 [ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
+[ext_resource type="Shader" uid="uid://bpbbomy5upy2k" path="res://shader/Vignette.gdshader" id="13_ig73b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
 shader = ExtResource("12_hsxsa")
 shader_parameter/min_alpha = 0.0
-shader_parameter/max_alpha = 0.7
+shader_parameter/max_alpha = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3q1n8"]
+shader = ExtResource("13_ig73b")
+shader_parameter/alpha = 0.76
+shader_parameter/inner_radius = 0.635
+shader_parameter/outer_radius = 1.275
 
 [sub_resource type="Animation" id="Animation_invj0"]
 length = 0.001
@@ -94,6 +101,7 @@ script = ExtResource("4_nm76x")
 screen_shader = NodePath("../ScreenShader")
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("initial_menu")]
 layout_mode = 3
@@ -306,7 +314,6 @@ script = ExtResource("11_2effu")
 idle_menu = NodePath("../idle_menu")
 
 [node name="ScreenShader" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="ScreenShader"]
 layout_mode = 3
@@ -316,8 +323,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="ScreenShader/Control"]
+[node name="darkness" type="ColorRect" parent="ScreenShader/Control"]
 material = SubResource("ShaderMaterial_invj0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vignette" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_3q1n8")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
