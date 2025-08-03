@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	if player_vision_component.get_number_of_dead_bodies_seen() > 0:
 		_stop_play_recording = true
 		
-		interruption_detection_component.emit(false, false, true)
+		interruption_detection_component.emit_interrupted(false, false, true)
 	
 	if player_vision_component.get_number_of_seen_player() > recorded_brain_data[current_frame].number_of_players_seen + extra_seen_players:		
 		_stop_play_recording = true

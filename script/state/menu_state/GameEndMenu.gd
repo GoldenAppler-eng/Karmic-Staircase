@@ -1,5 +1,7 @@
 extends Menu
 
+@export var game_end_anim_player : AnimationPlayer
+
 @export var restart_menu : Menu
 @export var main_menu : Menu
 @export var quit_menu : Menu
@@ -7,6 +9,9 @@ extends Menu
 @onready var end_restart_button: Button = %EndRestartButton
 @onready var end_main_menu_button: Button = %EndMainMenuButton
 @onready var end_quit_game: Button = %EndQuitGame
+
+@onready var result: RichTextLabel = %Result
+@onready var description: Label = %Description
 
 var _restart : bool = false
 var _back_to_main_menu : bool = false
@@ -20,6 +25,13 @@ func extra_init() -> void:
 func enter() -> void:
 	super()
 	
+	set_game_paused(true)
+	
+	result.text = _get_result_text()
+	description.text = game_end_manager.get_ending_description()
+	
+	game_end_anim_player.play("game end")
+	
 	_restart = false
 	_back_to_main_menu = false
 	_quit_game = false
@@ -28,6 +40,8 @@ func enter() -> void:
 	
 func exit() -> void:
 	super()
+	
+	set_game_paused(false)
 
 func process_frame(delta : float) -> Menu:
 	if _quit_game:
@@ -55,3 +69,9 @@ func _on_main_menu_button_pressed() -> void:
 	
 func _on_quit_button_pressed() -> void:
 	_quit_game = true
+
+func _get_result_text() -> String:
+	var ending : String = game_end_manager.get_ending_result()
+	var color : String = game_end_manager.get_ending_color()
+	
+	return "[color=" + color + "]" + ending

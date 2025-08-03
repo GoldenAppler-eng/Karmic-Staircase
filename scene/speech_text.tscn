@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqttkqoc4j0fr"]
+[gd_scene load_steps=4 format=3 uid="uid://cqttkqoc4j0fr"]
 
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="1_67d1b"]
 [ext_resource type="Script" uid="uid://tnkymnkapuwv" path="res://script/SpeechText.gd" id="1_uemjf"]
+[ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="2_7x2nn"]
 
 [node name="speech_text" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_67d1b")
 script = ExtResource("1_uemjf")
 
 [node name="Label" type="Label" parent="."]
@@ -21,5 +24,11 @@ horizontal_alignment = 1
 [node name="SpeechEndTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="dialogue_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7x2nn")
+volume_db = 5.0
+max_distance = 50.0
+bus = &"Sfx"
 
 [connection signal="timeout" from="SpeechEndTimer" to="." method="_on_speech_end_timer_timeout"]

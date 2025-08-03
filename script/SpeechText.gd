@@ -1,10 +1,11 @@
 class_name SpeechText
 extends Control
 
-const SPEECH_TWEEN_DURATION : float = 0.2
+const SPEECH_TWEEN_DURATION : float = 0.3
 
 @onready var label: Label = $Label
 @onready var speech_end_timer: Timer = $SpeechEndTimer
+@onready var dialogue_sfx: AudioStreamPlayer2D = $dialogue_sfx
 
 var current_tween : Tween
 
@@ -23,6 +24,9 @@ func say(text : String) -> void:
 	
 	current_tween = create_tween()
 	current_tween.tween_property(label, "visible_ratio", 1, SPEECH_TWEEN_DURATION)
+	dialogue_sfx.play()
+	
+	current_tween.tween_callback(dialogue_sfx.stop)
 	
 	speech_end_timer.start()
 

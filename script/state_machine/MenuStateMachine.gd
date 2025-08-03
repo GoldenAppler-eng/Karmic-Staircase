@@ -19,8 +19,8 @@ func _ready() -> void:
 	
 	change_menu(initial_menu)
 	
-	#create_sfx_children()
-	#install_sfx(self)
+	create_sfx_children()
+	install_sfx(self)
 
 func _process(delta : float) -> void:
 	var next_menu : Menu = current_menu.process_frame(delta)
@@ -43,7 +43,7 @@ func _input(event: InputEvent) -> void:
 func create_sfx_children() -> void:
 	for sfx : String in sfx_player_dict.keys():
 		var stream_player : AudioStreamPlayer = sfx_player_dict[sfx]
-		stream_player.stream = load("res://audio/sfx/" + sfx + ".wav")
+		stream_player.stream = load("res://audio/menu/" + sfx + ".wav")
 
 		stream_player.bus = "Sfx"
 		add_child(stream_player)
@@ -53,9 +53,17 @@ func install_sfx(node : Node) -> void:
 		if i is Button:
 			var button : Button = i as Button
 			
+			button.mouse_entered.connect( ui_sfx_play.bind("ui_hover") )
 			button.focus_entered.connect( ui_sfx_play.bind("ui_hover") )			
 			button.pressed.connect( ui_sfx_play.bind("ui_pressed") )
 		
+		if i is HSlider:
+			var h_slider : HSlider = i as HSlider
+			
+			h_slider.mouse_entered.connect(ui_sfx_play.bind("ui_hover"))
+			h_slider.focus_entered.connect(ui_sfx_play.bind("ui_hover"))
+			h_slider.drag_started.connect(ui_sfx_play.bind("ui_pressed"))
+
 		install_sfx(i)
 
 func ui_sfx_play(sfx : String) -> void:

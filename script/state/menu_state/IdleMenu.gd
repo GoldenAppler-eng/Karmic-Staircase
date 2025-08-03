@@ -13,6 +13,9 @@ func process_frame(delta : float) -> Menu:
 	return null
 	
 func process_physics(delta : float) -> Menu:
+	if game_end_manager.get_ended():
+		return game_end_menu
+	
 	return null
 
 func process_input(event : InputEvent) -> Menu:
