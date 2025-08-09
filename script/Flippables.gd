@@ -1,5 +1,8 @@
 class_name Flippables
 extends Node2D
 
-func set_flip_h(flipped : bool) -> void:
-	scale.x = -1 if flipped else 1
+signal flipped(value : bool)
+
+func set_flip_h(flip : bool) -> void:
+	scale.x = -1 if flip else 1
+	flipped.emit(flip)

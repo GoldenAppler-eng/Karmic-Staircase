@@ -12,6 +12,7 @@ extends Menu
 
 @onready var result: RichTextLabel = %Result
 @onready var description: Label = %Description
+@onready var endings_found_label: Label = %EndingsFoundLabel
 
 var _restart : bool = false
 var _back_to_main_menu : bool = false
@@ -37,6 +38,8 @@ func enter() -> void:
 	_quit_game = false
 	
 	end_restart_button.grab_focus()
+	
+	endings_found_label.text = "Endings Found: " + str(game_end_manager.endings_found) + "/" + str(game_end_manager.TOTAL_ENDINGS)
 	
 func exit() -> void:
 	super()

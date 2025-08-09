@@ -1,6 +1,7 @@
 class_name AnimationController
 extends Node
 
+signal animation_played(anim_name : StringName)
 signal animation_finished(anim_name : StringName)
 
 @export var anim_player : AnimationPlayer
@@ -21,21 +22,25 @@ func play_animation(anim_name : StringName) -> void:
 	match anim_name:
 		"idle":
 			if pickup_item_component.is_not_holding_item():
-				anim_player.play("idle")
+				call_anim_play("idle")
 			else:
-				anim_player.play("idle_hold")
+				call_anim_play("idle_hold")
 		"move":
 			if pickup_item_component.is_not_holding_item():
-				anim_player.play("walk")
+				call_anim_play("walk")
 			else:
-				anim_player.play("walk_hold")
+				call_anim_play("walk_hold")
 		"sprint":
 			if pickup_item_component.is_not_holding_item():
-				anim_player.play("sprint")
+				call_anim_play("sprint")
 			else:
-				anim_player.play("sprint_hold")
+				call_anim_play("sprint_hold")
 		_:
-			anim_player.play(anim_name)
+			call_anim_play(anim_name)
+
+func call_anim_play(anim_name : StringName) -> void:
+	anim_player.play(anim_name)
+	animation_played.emit(anim_name)
 
 func _on_animation_player_finished(anim_name : StringName) -> void:
 	animation_finished.emit(anim_name)

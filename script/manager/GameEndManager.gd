@@ -1,6 +1,8 @@
 class_name GameEndManager
 extends Node
 
+const TOTAL_ENDINGS : int = 10
+
 const ENDING_TEXT_DICTIONARY : Dictionary = {
 	"LUST" : "Following your passion to its natural limit, it consumed you",
 	"ENVY" : "No solace is found in knowing you were not the last",
@@ -39,6 +41,8 @@ var _burnout : bool = false
 var _has_burn_board : bool = false
 var _all_boards_burnt : bool = false
 var _stolen : bool = false
+
+var endings_found : int = 0
 
 func set_game(game : GameManager) -> void:
 	current_game = game

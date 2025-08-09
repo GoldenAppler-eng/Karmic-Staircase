@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=26 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/players/player.tscn" id="1_5kiuu"]
 [ext_resource type="AudioStream" uid="uid://b4so8tomtpylw" path="res://audio/footsteps.wav" id="1_jhlss"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://csb6mtlftuisj" path="res://scene/water_dripping.tscn" id="2_jrd6n"]
 [ext_resource type="Texture2D" uid="uid://d2ypp8xig7ohc" path="res://sprite/center_column_occluder.png" id="3_i6gbm"]
 [ext_resource type="Texture2D" uid="uid://so5sxf56le20" path="res://sprite/room_occluder.png" id="4_ux4dc"]
+[ext_resource type="Shader" uid="uid://cxfc8j0uk4w5d" path="res://shader/Xray.gdshader" id="8_0lu6w"]
 [ext_resource type="Texture2D" uid="uid://bjr0vl3awhamp" path="res://sprite/room.png" id="8_17rxn"]
 [ext_resource type="Texture2D" uid="uid://bwiif3lm1mh17" path="res://sprite/spiral_staircase.png" id="8_yq8tf"]
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
@@ -15,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
 [ext_resource type="PackedScene" uid="uid://dyu1r4m2jya2a" path="res://scene/HUD/desperation_hud.tscn" id="15_0lu6w"]
 [ext_resource type="Script" uid="uid://cyvnca1t0msnu" path="res://script/HUD/FloorCounterHUD.gd" id="15_i6gbm"]
+[ext_resource type="PackedScene" uid="uid://bra1gh301wal2" path="res://scene/players/xray_player.tscn" id="17_i6gbm"]
+[ext_resource type="Script" uid="uid://bmyy6bkrou0l5" path="res://script/Subviewport.gd" id="17_ux4dc"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jrd6n"]
 polygon = PackedVector2Array(5, 48, 5, 54, 15, 54, 15, 48)
@@ -33,6 +36,15 @@ polygon = PackedVector2Array(-34, -90, -33, -9, -27, 9, -4, 21, 18, 12, 28, -2, 
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0lu6w"]
 polygon = PackedVector2Array(-52, -60, -53, -14, -47, -14, -46, -55, 65, -56, 65, 31, -49, 31, -49, 12, -54, 12, -53, 36, 70, 36, 70, -60)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i6gbm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6gbm"]
+resource_local_to_scene = true
+shader = ExtResource("8_0lu6w")
+shader_parameter/player_viewport = SubResource("ViewportTexture_i6gbm")
+shader_parameter/tint = Color(0.866328, 0.957632, 0.988133, 1)
 
 [node name="game" type="Node2D" node_paths=PackedStringArray("player")]
 process_mode = 1
@@ -86,6 +98,7 @@ position = Vector2(-41, -59)
 position = Vector2(-76.527, -45.311)
 
 [node name="background_collision" type="StaticBody2D" parent="Constant"]
+visible = false
 z_index = 100
 collision_mask = 0
 
@@ -93,6 +106,7 @@ collision_mask = 0
 polygon = PackedVector2Array(-15, -86, -15, -68, 11, -53, 30, -25, 31, -23, 39, -18, 44, -18, 44, -28, 156, -28, 156, 48, 42, 49, 42, 14, 37, 14, 32, 19, 26, 34, 8, 54, -13, 68, -49, 76, -61, 77, -83, 73, -114, 59, -137, 35, -143, -1, -124, -32, -94, -52, -79, -72, -52, -78, -16, -68, -16, -86, -157, -85, -157, 93, 163, 94, 163, -86)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Constant"]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_ve786")
 
 [node name="spiral_staircase" type="Sprite2D" parent="Constant"]
@@ -120,6 +134,7 @@ occluder = SubResource("OccluderPolygon2D_0lu6w")
 z_index = 200
 
 [node name="center_column_occluder" type="Sprite2D" parent="Constant/foreground"]
+material = SubResource("ShaderMaterial_i6gbm")
 position = Vector2(-55, 11)
 texture = ExtResource("3_i6gbm")
 
@@ -135,7 +150,6 @@ position = Vector2(-53, -60)
 origin_node = NodePath("../Constant/origin")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(3, 4)
 
 [node name="staircase_level_manager" type="Node" parent="." node_paths=PackedStringArray("player", "ambient_footstep_sfx_player")]
 script = ExtResource("1_p1ry8")
@@ -179,3 +193,15 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 player = NodePath("../../../../player")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+script = ExtResource("17_ux4dc")
+
+[node name="xray_player" parent="SubViewport" node_paths=PackedStringArray("follow_player") instance=ExtResource("17_i6gbm")]
+position = Vector2(107, 30)
+follow_player = NodePath("../../player")
