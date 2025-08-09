@@ -159,7 +159,7 @@ ambient_footstep_sfx_player = NodePath("../Constant/ambient_footsteps")
 [node name="HUD" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="Control" type="MarginContainer" parent="HUD"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -167,12 +167,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
 layout_mode = 2
 
-[node name="FloorCounterHUD" type="Label" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("staircase_level_manager")]
+[node name="FloorCounterHUD" type="Label" parent="HUD/MarginContainer/HBoxContainer" node_paths=PackedStringArray("staircase_level_manager")]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 8
@@ -181,14 +181,14 @@ text = "Floor: 1/7"
 script = ExtResource("15_i6gbm")
 staircase_level_manager = NodePath("../../../../staircase_level_manager")
 
-[node name="DesperationHUD" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
+[node name="DesperationHUD" parent="HUD/MarginContainer/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
 z_index = 2000
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 player = NodePath("../../../../player")
 
-[node name="HungerHUD" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
+[node name="HungerHUD" parent="HUD/MarginContainer/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8

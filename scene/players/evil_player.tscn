@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://brno1uhibtnx"]
+[gd_scene load_steps=53 format=3 uid="uid://brno1uhibtnx"]
 
 [ext_resource type="Script" uid="uid://d35unl7e2i5gi" path="res://script/EvilPlayer.gd" id="1_c3ptj"]
 [ext_resource type="Resource" uid="uid://g5ww72lwrh1" path="res://resource/Board.tres" id="2_dti7d"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_0d2it"]
 [ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="33_cedyb"]
 [ext_resource type="AudioStream" uid="uid://bp8bofjf867m7" path="res://audio/eerie.wav" id="34_cx4nn"]
+[ext_resource type="PackedScene" uid="uid://ba7xpfm2o2ah6" path="res://scene/HUD/player_statistics_hud.tscn" id="35_b4vyw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
@@ -528,3 +529,10 @@ stream = ExtResource("34_cx4nn")
 autoplay = true
 max_distance = 300.0
 bus = &"Sfx"
+
+[node name="PlayerStatisticsHUD" parent="." instance=ExtResource("35_b4vyw")]
+unique_name_in_owner = true
+offset_left = -12.0
+offset_top = 18.0
+offset_right = 14.0
+offset_bottom = 22.0

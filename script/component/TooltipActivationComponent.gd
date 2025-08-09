@@ -1,6 +1,9 @@
 class_name ToolTipActivationComponent
 extends Area2D
 
+signal tooltip_activated
+signal tooltip_deactivated
+
 const TOOLTIP_ACTIVATION_DURATION : float = 0.5
 const SCARY_THEME : Theme = preload("res://scary_theme.tres")
 
@@ -27,6 +30,8 @@ func activate() -> void:
 	panel.visible = true
 	
 	current_tween.tween_callback(show_up_sfx.stop)
+	
+	tooltip_activated.emit()
 
 func deactivate() -> void:
 	current_tween.kill()
@@ -36,6 +41,7 @@ func deactivate() -> void:
 	current_tween.tween_property(tip, "visible_ratio", 0, TOOLTIP_ACTIVATION_DURATION)
 	
 	current_tween.tween_callback(hide_panel)
+	current_tween.tween_callback(tooltip_deactivated.emit)
 	
 func set_tooltip(new_tooltip : String) -> void:
 	tooltip = new_tooltip

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://byxipsvhnnyec"]
+[gd_scene load_steps=54 format=3 uid="uid://byxipsvhnnyec"]
 
 [ext_resource type="Script" uid="uid://dcpacboqmumvr" path="res://script/RecordedPlayer.gd" id="1_vx2og"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="3_p4hug"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://brg57lxnv6idx" path="res://script/state/brain_state/DeadState.gd" id="23_2ewax"]
 [ext_resource type="PackedScene" uid="uid://lxue4cgo42vb" path="res://scene/component/player_vision_component.tscn" id="32_xc1lj"]
 [ext_resource type="AudioStream" uid="uid://dst4b84thvr42" path="res://audio/footstep_1.wav" id="35_r66tl"]
+[ext_resource type="PackedScene" uid="uid://ba7xpfm2o2ah6" path="res://scene/HUD/player_statistics_hud.tscn" id="36_rfn66"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_isn2n"]
 height = 22.0
@@ -539,3 +540,11 @@ position = Vector2(0, 13)
 stream = ExtResource("35_r66tl")
 max_distance = 50.0
 bus = &"Sfx"
+
+[node name="PlayerStatisticsHUD" parent="." instance=ExtResource("36_rfn66")]
+unique_name_in_owner = true
+z_index = 0
+offset_left = -12.0
+offset_top = 18.0
+offset_right = 14.0
+offset_bottom = 22.0

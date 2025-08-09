@@ -23,6 +23,8 @@ const DESPERATION_THRESHOLD : float = 50
 
 @onready var interruption_detection_component: InterruptionDetectionComponent = %interruption_detection_component
 
+@onready var player_statistics_hud: PlayerStatisticsHUD = %PlayerStatisticsHUD
+
 var level : Level
 
 var initial_position : Vector2
@@ -45,6 +47,8 @@ func _ready() -> void:
 	
 	brain_state_machine.init(ai_brain, stat_data_component, pickup_item_component, interacter_component, player_vision_component, level)
 	state_machine.init(recorded_brain, animation_controller, movement_component, interacter_component, pickup_item_component, stat_data_component, hurtbox_component)
+
+	player_statistics_hud.init(stat_data_component)
 
 	interruption_detection_component.interrupted.connect(_on_recording_interrupted)
 	
