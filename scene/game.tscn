@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=21 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/players/player.tscn" id="1_5kiuu"]
 [ext_resource type="AudioStream" uid="uid://b4so8tomtpylw" path="res://audio/footsteps.wav" id="1_jhlss"]
@@ -11,8 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://bjr0vl3awhamp" path="res://sprite/room.png" id="8_17rxn"]
 [ext_resource type="Texture2D" uid="uid://bwiif3lm1mh17" path="res://sprite/spiral_staircase.png" id="8_yq8tf"]
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="14_0lu6w"]
 [ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
 [ext_resource type="PackedScene" uid="uid://dyu1r4m2jya2a" path="res://scene/HUD/desperation_hud.tscn" id="15_0lu6w"]
+[ext_resource type="Script" uid="uid://cyvnca1t0msnu" path="res://script/HUD/FloorCounterHUD.gd" id="15_i6gbm"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jrd6n"]
 polygon = PackedVector2Array(5, 48, 5, 54, 15, 54, 15, 48)
@@ -140,22 +142,40 @@ script = ExtResource("1_p1ry8")
 player = NodePath("../player")
 ambient_footstep_sfx_player = NodePath("../Constant/ambient_footsteps")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="HungerHUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
-offset_left = 236.0
-offset_top = 158.0
-offset_right = 236.0
-offset_bottom = 158.0
-scale = Vector2(0.5, 0.5)
-player = NodePath("../../player")
+[node name="Control" type="MarginContainer" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="DesperationHUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control"]
+layout_mode = 2
+
+[node name="FloorCounterHUD" type="Label" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("staircase_level_manager")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme = ExtResource("14_0lu6w")
+text = "Floor: 1/7"
+script = ExtResource("15_i6gbm")
+staircase_level_manager = NodePath("../../../../staircase_level_manager")
+
+[node name="DesperationHUD" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("15_0lu6w")]
 z_index = 2000
-offset_left = 150.0
-offset_top = 158.0
-offset_right = 150.0
-offset_bottom = 158.0
-scale = Vector2(0.5, 0.5)
-player = NodePath("../../player")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+player = NodePath("../../../../player")
+
+[node name="HungerHUD" parent="HUD/Control/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("14_ve786")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+player = NodePath("../../../../player")

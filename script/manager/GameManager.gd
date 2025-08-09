@@ -3,7 +3,7 @@ extends Node2D
 
 signal game_ended(all_levels_passed : bool, player_starved : bool, player_killed : bool, all_cake_eaten : bool, player_has_killed : bool, has_eaten_cake : bool, burnout : bool, all_boards_put_in_fire : bool, has_burn_board : bool, stolen_from_past : bool)
 
-const NUMBER_OF_LEVELS : int = 2
+const NUMBER_OF_LEVELS : int = 7
 
 const level_prefab : PackedScene = preload("res://scene/level.tscn")
 
@@ -16,7 +16,7 @@ const level_prefab : PackedScene = preload("res://scene/level.tscn")
 @onready var staircase_top_marker: Node2D = $Constant/staircase_top_marker
 @onready var evil_spawn_location: Node2D = $Constant/evil_spawn_location
 
-@onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var canvas_layer: CanvasLayer = $HUD
 
 var level_counter : int = 0
 

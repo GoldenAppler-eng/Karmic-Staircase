@@ -472,7 +472,7 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 0.168627)
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+[node name="Buttons" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -480,26 +480,42 @@ anchor_bottom = 1.0
 offset_top = -101.0
 offset_right = 93.0
 grow_vertical = 0
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/main_menu/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/main_menu/Buttons"]
 layout_mode = 2
 
-[node name="StartGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
+[node name="StartGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitGameButton")
-focus_neighbor_bottom = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../TutorialButton")
 text = "Start game"
 
-[node name="SettingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
+[node name="TutorialButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartGameButton")
+focus_neighbor_bottom = NodePath("../EndingsButton")
+text = "Tutorial
+"
+
+[node name="EndingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../TutorialButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
+text = "Endings"
+
+[node name="SettingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../EndingsButton")
 focus_neighbor_bottom = NodePath("../QuitGameButton")
 text = "Settings"
 
-[node name="QuitGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/MarginContainer2/VBoxContainer"]
+[node name="QuitGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
@@ -637,7 +653,7 @@ size_flags_horizontal = 4
 
 [node name="GameOver" type="Label" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Game Over"
+text = "What did I do to deserve this?"
 label_settings = SubResource("LabelSettings_q18o2")
 horizontal_alignment = 1
 

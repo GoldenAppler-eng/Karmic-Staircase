@@ -24,6 +24,8 @@ var current_level : int:
 
 @export var level_list : Array[Level] = []
 
+var number_of_levels : int = 0
+
 var rotation_tracker_component : RotationTrackerComponent
 
 func init() -> void:	
@@ -35,6 +37,8 @@ func init() -> void:
 func add_level(level : Level) -> void:
 	level_list.append(level)
 	level.burnout.connect(_on_burnout)
+	
+	number_of_levels += 1
 	
 func _on_burnout() -> void:
 	burnout.emit()
