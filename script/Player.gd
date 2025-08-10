@@ -1,8 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-signal death(starving : bool, attacked : bool, eaten_cake : bool)
-signal player_has_killed
+signal death
 
 @export var origin_node : Node2D
 
@@ -21,9 +20,6 @@ signal player_has_killed
 
 @onready var player_vision_component: PlayerVisionComponent = %player_vision_component
 @onready var damager_component : DamagerComponent = $flippables/damager_component
-
-var has_eaten_cake : bool = false
-var has_burn_board : bool = false
 
 func _ready() -> void:
 	stat_data_component.init()
@@ -77,11 +73,13 @@ func _check_death() -> void:
 		return
 	
 	if stat_data_component.data.hunger == 0:
-		death.emit(true, false, has_eaten_cake)
+		GlobalFlags.starved = true
+		death.emit()
 	
 	if hurtbox_component.is_hurt():
-		death.emit(false, true, has_eaten_cake)
+		GlobalFlags.killed_by_player = true
+		death.emit()
 
 func _check_has_kill_count() -> void:
 	if damager_component.kill_count > 0:
-		player_has_killed.emit()
+		GlobalFlags.player_has_killed = true

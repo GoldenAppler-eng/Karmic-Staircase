@@ -75,7 +75,7 @@ func cake_use_function(user : Node2D) -> void:
 		eat_sfx.play()
 		
 		if user is Player:
-			user.has_eaten_cake = true
+			GlobalFlags.has_eaten_cake = true
 
 func _update_sprite_animation(current_value : int, max_value : int, max_frame : int) -> void:
 	sprite_2d.frame =  min(max_frame - 1, max_frame - float(current_value) / max_value * max_frame)

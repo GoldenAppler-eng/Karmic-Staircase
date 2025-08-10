@@ -3,9 +3,6 @@ extends Node
 
 signal level_changed(current_level : int)
 signal all_levels_passed
-signal all_boards_put_in_fire
-signal all_cake_eaten
-signal stolen_from_past
 
 signal burnout
 
@@ -41,6 +38,7 @@ func add_level(level : Level) -> void:
 	number_of_levels += 1
 	
 func _on_burnout() -> void:
+	GlobalFlags.burnout = true
 	burnout.emit()
 
 func _physics_process(delta: float) -> void:
@@ -50,7 +48,9 @@ func load_next_level(level_to_load : int) -> void:
 	var previous_level : int = level_to_load - 1
 	
 	if level_list.size() == level_to_load:
+		GlobalFlags.all_levels_passed = true
 		all_levels_passed.emit()
+		
 		return
 		
 	var saved_data : LevelData = level_list[previous_level].save_data(player)
@@ -95,15 +95,19 @@ func change_level(previous_level : int, new_level : int) -> void:
 
 func check_for_all_cake_eaten(level : int) -> void:
 	if level_list[level].level_data.final_cake_left > 0:
+		GlobalFlags.all_cake_eaten = false
+		
 		return
 
-	all_cake_eaten.emit()
+	GlobalFlags.all_cake_eaten = true
 
 func check_for_all_boards_put_in_fire(level : int) -> void:
 	if level_list[level].level_data.boards_used_in_fire > 5:
+		GlobalFlags.all_boards_burnt = false
+		
 		return
 
-	all_boards_put_in_fire.emit()
+	GlobalFlags.all_boards_burnt = true
 
 func check_for_missing(level : int, saved_data : LevelData) -> void:
 	if not level_list[level].level_data.initialized:
@@ -111,8 +115,5 @@ func check_for_missing(level : int, saved_data : LevelData) -> void:
 	
 	var level_data : LevelData = level_list[level].level_data
 	
-	if not level_data.initial_boards_left == saved_data.final_boards_left:
-		stolen_from_past.emit()
-	
-	if not level_data.initial_cake_left == saved_data.final_cake_left:
-		stolen_from_past.emit()
+	if not (level_data.initial_boards_left == saved_data.final_boards_left and level_data.initial_cake_left == saved_data.final_cake_left):
+		GlobalFlags.stolen = true

@@ -78,7 +78,7 @@ func board_use_function(user : Node2D) -> void:
 		fireplace.fuel_fire(BOARD_FUEL_VALUE)
 		
 		if user is Player:
-			(user as Player).has_burn_board = true
+			GlobalFlags.has_burn_board = true
 		
 		if user.has_meta(stat_meta_name):
 			var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)

@@ -28,8 +28,10 @@ func enter() -> void:
 	
 	set_game_paused(true)
 	
-	result.text = _get_result_text()
-	description.text = game_end_manager.get_ending_description()
+	var ending : int = game_end_manager.get_ending_result()
+	
+	result.text = _get_result_text(ending)
+	description.text = game_end_manager.get_ending_description(ending)
 	
 	game_end_anim_player.play("game end")
 	
@@ -39,7 +41,7 @@ func enter() -> void:
 	
 	end_restart_button.grab_focus()
 	
-	endings_found_label.text = "Endings Found: " + str(game_end_manager.endings_found) + "/" + str(game_end_manager.TOTAL_ENDINGS)
+	endings_found_label.text = "Endings Found: " + str(game_end_manager.get_number_of_endings_found()) + "/" + str(game_end_manager.TOTAL_ENDINGS)
 	
 func exit() -> void:
 	super()
@@ -73,8 +75,8 @@ func _on_main_menu_button_pressed() -> void:
 func _on_quit_button_pressed() -> void:
 	_quit_game = true
 
-func _get_result_text() -> String:
-	var ending : String = game_end_manager.get_ending_result()
-	var color : String = game_end_manager.get_ending_color()
+func _get_result_text(ending : int) -> String:
+	var ending_text : String = game_end_manager.get_ending_name(ending)
+	var color : String = game_end_manager.get_ending_color(ending)
 	
-	return "[color=" + color + "]" + ending
+	return "[color=" + color + "]" + ending_text

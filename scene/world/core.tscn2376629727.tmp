@@ -1,0 +1,873 @@
+[gd_scene load_steps=39 format=3 uid="uid://bdqhiaqxesh60"]
+
+[ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
+[ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
+[ext_resource type="Script" uid="uid://civ48t4558r4y" path="res://script/game_manager/TransitionManager.gd" id="3_3q1n8"]
+[ext_resource type="Script" uid="uid://87erus3hwjhy" path="res://script/manager/ScreenShaderManager.gd" id="4_nm76x"]
+[ext_resource type="Script" uid="uid://dvbpefm1nhqvf" path="res://script/state_machine/MenuStateMachine.gd" id="5_ymi47"]
+[ext_resource type="Script" uid="uid://pgir7smsk0y0" path="res://script/state/menu_state/MainMenu.gd" id="6_ietmj"]
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="7_6jsmi"]
+[ext_resource type="Script" uid="uid://cti8imj4a4s4c" path="res://script/state/menu_state/PauseMenu.gd" id="7_q18o2"]
+[ext_resource type="Script" uid="uid://b7flxnxy6lgf4" path="res://script/state/menu_state/IdleMenu.gd" id="8_6jsmi"]
+[ext_resource type="Script" uid="uid://peahexdjgm0m" path="res://script/state/menu_state/GameEndMenu.gd" id="9_th21j"]
+[ext_resource type="Script" uid="uid://cajkj2donjrkh" path="res://script/state/menu_state/QuitMenu.gd" id="10_4njw5"]
+[ext_resource type="Texture2D" uid="uid://cjijola12rt8a" path="res://sprite/main_menu.png" id="10_th21j"]
+[ext_resource type="Script" uid="uid://nynnlyub5hhf" path="res://script/state/menu_state/RestartMenu.gd" id="11_2effu"]
+[ext_resource type="Texture2D" uid="uid://ctds0idm0kkbm" path="res://sprite/title.png" id="11_4njw5"]
+[ext_resource type="AudioStream" uid="uid://6kpkfmu5hk7f" path="res://audio/door_closing.wav" id="12_4njw5"]
+[ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
+[ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="12_ietmj"]
+[ext_resource type="Shader" uid="uid://bpbbomy5upy2k" path="res://shader/Vignette.gdshader" id="13_ig73b"]
+[ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
+[ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
+[ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
+shader = ExtResource("12_hsxsa")
+shader_parameter/min_alpha = 0.0
+shader_parameter/max_alpha = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3q1n8"]
+shader = ExtResource("13_ig73b")
+shader_parameter/alpha = 0.76
+shader_parameter/inner_radius = 0.635
+shader_parameter/outer_radius = 1.275
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2effu"]
+shader = ExtResource("13_ig73b")
+shader_parameter/alpha = 0.18
+shader_parameter/inner_radius = 0.47
+shader_parameter/outer_radius = 1.225
+
+[sub_resource type="Animation" id="Animation_2effu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_menu_vignette:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title_texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Label:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_th21j"]
+resource_name = "message"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 5, 9, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5.7, 9, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4njw5"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_menu_vignette:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("title_texture:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hsxsa"]
+_data = {
+&"RESET": SubResource("Animation_2effu"),
+&"message": SubResource("Animation_th21j"),
+&"start": SubResource("Animation_4njw5")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jsmi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q18o2"]
+font_size = 15
+
+[sub_resource type="Animation" id="Animation_ietmj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Result:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Description:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DialogueSfx:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ymi47"]
+resource_name = "game end"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Result:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect/MarginContainer/VBoxContainer/Description:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.43333, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DialogueSfx:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q18o2"]
+_data = {
+&"RESET": SubResource("Animation_ietmj"),
+&"game end": SubResource("Animation_ymi47")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_th21j"]
+
+[sub_resource type="Animation" id="Animation_invj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iy1f3"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fsey5"]
+resource_name = "fade_out"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fsey5"]
+_data = {
+&"RESET": SubResource("Animation_invj0"),
+&"fade_in": SubResource("Animation_iy1f3"),
+&"fade_out": SubResource("Animation_fsey5")
+}
+
+[node name="core" type="Node"]
+process_mode = 3
+
+[node name="game_end_manager" type="Node" parent="."]
+script = ExtResource("1_ibqyb")
+
+[node name="game_loading_manager" type="Node" parent="." node_paths=PackedStringArray("core", "transition_manager", "screen_shader_manager", "game_end_manager")]
+script = ExtResource("2_ig73b")
+core = NodePath("..")
+transition_manager = NodePath("../transition_manager")
+screen_shader_manager = NodePath("../screen_shader_manager")
+game_end_manager = NodePath("../game_end_manager")
+
+[node name="transition_manager" type="Node" parent="." node_paths=PackedStringArray("transition_canvas_layer", "transition_animation_player")]
+script = ExtResource("3_3q1n8")
+transition_canvas_layer = NodePath("../Transition")
+transition_animation_player = NodePath("../Transition/TransitionAnimationPlayer")
+
+[node name="screen_shader_manager" type="Node" parent="." node_paths=PackedStringArray("screen_shader")]
+script = ExtResource("4_nm76x")
+screen_shader = NodePath("../ScreenShader")
+
+[node name="ScreenShader" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="ScreenShader"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkness" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_invj0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vignette" type="ColorRect" parent="ScreenShader/Control"]
+material = SubResource("ShaderMaterial_3q1n8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="MenuStateMachine" type="Control" parent="UI" node_paths=PackedStringArray("game_loading_manager", "game_end_manager", "initial_menu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_6jsmi")
+script = ExtResource("5_ymi47")
+game_loading_manager = NodePath("../../game_loading_manager")
+game_end_manager = NodePath("../../game_end_manager")
+initial_menu = NodePath("main_menu")
+
+[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "door_sfx", "idle_menu", "settings_menu", "quit_menu", "revert_menu")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_ietmj")
+main_menu_animation = NodePath("MainMenuAnimationPlayer")
+door_sfx = NodePath("OpenDoorSfx")
+idle_menu = NodePath("../idle_menu")
+settings_menu = NodePath("../settings_menu")
+quit_menu = NodePath("../quit_menu")
+revert_menu = NodePath("../revert_menu")
+
+[node name="menu_texture" type="TextureRect" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("10_th21j")
+
+[node name="title_texture" type="TextureRect" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_4njw5")
+
+[node name="main_menu_vignette" type="ColorRect" parent="UI/MenuStateMachine/main_menu"]
+material = SubResource("ShaderMaterial_2effu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuAnimationPlayer" type="AnimationPlayer" parent="UI/MenuStateMachine/main_menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_hsxsa")
+}
+autoplay = "RESET"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 165
+theme_override_constants/margin_bottom = 85
+
+[node name="Label" type="Label" parent="UI/MenuStateMachine/main_menu/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "DO YOU
+TRUST
+YOURSELF ?"
+horizontal_alignment = 1
+
+[node name="OpenDoorSfx" type="AudioStreamPlayer" parent="UI/MenuStateMachine/main_menu"]
+stream = ExtResource("12_4njw5")
+volume_db = 20.0
+bus = &"Sfx"
+
+[node name="Panel" type="ColorRect" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.168627)
+
+[node name="Buttons" type="MarginContainer" parent="UI/MenuStateMachine/main_menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -101.0
+offset_right = 93.0
+grow_vertical = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/main_menu/Buttons"]
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitGameButton")
+focus_neighbor_bottom = NodePath("../TutorialButton")
+text = "Start game"
+
+[node name="TutorialButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartGameButton")
+focus_neighbor_bottom = NodePath("../EndingsButton")
+text = "Tutorial
+"
+
+[node name="EndingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../TutorialButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
+text = "Endings"
+
+[node name="SettingsButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../EndingsButton")
+focus_neighbor_bottom = NodePath("../QuitGameButton")
+text = "Settings"
+
+[node name="QuitGameButton" type="Button" parent="UI/MenuStateMachine/main_menu/Buttons/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../StartGameButton")
+text = "Quit"
+
+[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "main_menu", "quit_menu", "revert_menu")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_q18o2")
+idle_menu = NodePath("../idle_menu")
+restart_menu = NodePath("../restart_menu")
+settings_menu = NodePath("../settings_menu")
+main_menu = NodePath("../main_menu")
+quit_menu = NodePath("../quit_menu")
+revert_menu = NodePath("../revert_menu")
+
+[node name="Panel" type="ColorRect" parent="UI/MenuStateMachine/pause_menu"]
+self_modulate = Color(0.685146, 0.685146, 0.685146, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/pause_menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_6jsmi")
+horizontal_alignment = 1
+
+[node name="separator" type="Control" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ResumeButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../MainMenuButton")
+focus_neighbor_bottom = NodePath("../ToSettingsButton")
+text = "Back to game"
+
+[node name="ToSettingsButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="InTutorialButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="InEndingButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Endings"
+
+[node name="RestartButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Go back upstairs"
+
+[node name="MainMenuButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to main menu"
+
+[node name="InQuitGameButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="idle_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("pause_menu", "game_end_menu")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_6jsmi")
+pause_menu = NodePath("../pause_menu")
+game_end_menu = NodePath("../game_end_menu")
+
+[node name="game_end_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("game_end_anim_player", "restart_menu", "main_menu", "quit_menu")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_th21j")
+game_end_anim_player = NodePath("GameEndAnimationPlayer")
+restart_menu = NodePath("../restart_menu")
+main_menu = NodePath("../main_menu")
+quit_menu = NodePath("../quit_menu")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/game_end_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/game_end_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GameOver" type="Label" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "What did I do to deserve this?"
+label_settings = SubResource("LabelSettings_q18o2")
+horizontal_alignment = 1
+
+[node name="Result" type="RichTextLabel" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+bbcode_enabled = true
+text = "Lust"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Description "
+autowrap_mode = 3
+
+[node name="seperator" type="Control" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EndRestartButton" type="Button" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../EndQuitGame")
+focus_neighbor_bottom = NodePath("../EndMainMenuButton")
+text = "Go back upstairs"
+
+[node name="EndMainMenuButton" type="Button" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../EndRestartButton")
+focus_neighbor_bottom = NodePath("../EndQuitGame")
+text = "Back to main menu"
+
+[node name="EndQuitGame" type="Button" parent="UI/MenuStateMachine/game_end_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../EndMainMenuButton")
+focus_neighbor_bottom = NodePath("../EndRestartButton")
+text = "Quit"
+
+[node name="EndingsFoundLabel" type="Label" parent="UI/MenuStateMachine/game_end_menu/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Endings Found: 0/10"
+
+[node name="GameEndAnimationPlayer" type="AnimationPlayer" parent="UI/MenuStateMachine/game_end_menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_q18o2")
+}
+
+[node name="DialogueSfx" type="AudioStreamPlayer" parent="UI/MenuStateMachine/game_end_menu"]
+stream = ExtResource("12_ietmj")
+volume_db = 5.0
+
+[node name="quit_menu" type="Control" parent="UI/MenuStateMachine"]
+visible = false
+anchors_preset = 0
+script = ExtResource("10_4njw5")
+
+[node name="restart_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_2effu")
+idle_menu = NodePath("../idle_menu")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/restart_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_nm76x")
+revert_menu = NodePath("../revert_menu")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/settings_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/settings_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Settings" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_th21j")
+horizontal_alignment = 1
+
+[node name="seperator" type="Control" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Master" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master volume"
+horizontal_alignment = 1
+
+[node name="MasterVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+
+[node name="Ambience" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Ambience volume"
+horizontal_alignment = 1
+
+[node name="AmbienceVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+bus_name = "Ambience"
+
+[node name="Sfx" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sfx volume"
+horizontal_alignment = 1
+
+[node name="SfxVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer" instance=ExtResource("15_ietmj")]
+layout_mode = 2
+bus_name = "Sfx"
+
+[node name="SettingsBackButton" type="Button" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"
+
+[node name="revert_menu" type="Control" parent="UI/MenuStateMachine"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_ymi47")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/revert_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Transition" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="Transition"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Transition/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TransitionAnimationPlayer" type="AnimationPlayer" parent="Transition"]
+libraries = {
+&"": SubResource("AnimationLibrary_fsey5")
+}
