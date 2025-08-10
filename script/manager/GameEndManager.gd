@@ -74,7 +74,9 @@ func get_ending_name(ending : int) -> String:
 func get_ending_result() -> int:	
 	var ending : int = ENDINGS.LOST
 	
-	if GlobalFlags.all_levels_passed:
+	if GlobalFlags.moksha:
+		ending = ENDINGS.MOKSHA
+	elif GlobalFlags.all_levels_passed:
 		if GlobalFlags.player_has_killed:
 			ending = ENDINGS.WRATH
 		elif GlobalFlags.stolen:

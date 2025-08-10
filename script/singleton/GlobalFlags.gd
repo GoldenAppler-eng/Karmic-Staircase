@@ -1,5 +1,6 @@
 extends Node
 
+var moksha : bool = false
 var all_levels_passed : bool = false
 var starved : bool = false
 var killed_by_player : bool = false
@@ -12,6 +13,7 @@ var all_boards_burnt : bool = false
 var stolen : bool = false
 
 func reset_all_flags() -> void:
+	moksha = false
 	all_levels_passed = false
 	starved = false
 	killed_by_player = false

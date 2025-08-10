@@ -4,6 +4,7 @@ extends Node
 signal level_changed(current_level : int)
 signal all_levels_passed
 
+signal obtained_moksha
 signal burnout
 
 const EVIL_SPAWN_DESPERATION_THRESHOLD : float = 90
@@ -43,6 +44,10 @@ func _on_burnout() -> void:
 
 func _physics_process(delta: float) -> void:
 	current_level = rotation_tracker_component.psuedo_vertical_coordinate / 2
+	
+	if current_level < 0:
+		GlobalFlags.moksha = true
+		obtained_moksha.emit()
 
 func load_next_level(level_to_load : int) -> void:
 	var previous_level : int = level_to_load - 1

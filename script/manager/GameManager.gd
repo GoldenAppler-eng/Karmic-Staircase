@@ -27,6 +27,7 @@ func _ready() -> void:
 	
 	staircase_level_manager.all_levels_passed.connect(signal_game_end)
 	staircase_level_manager.burnout.connect(signal_game_end)
+	staircase_level_manager.obtained_moksha.connect(signal_game_end)
 	player.death.connect(signal_game_end)
 	
 func create_levels() -> void:
