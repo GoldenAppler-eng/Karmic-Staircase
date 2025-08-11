@@ -106,9 +106,17 @@ func create_recorded_players() -> void:
 		
 		recorded_players.append(recorded_player)
 
-func create_evil_player() -> void:
+func clear_evil_player() -> void:
 	if current_evil_player:
 		current_evil_player.queue_free()
+	
+	current_evil_player = null
+
+func create_evil_player() -> void:
+	clear_evil_player()
+	
+	if not level_data.initial_boards_left > 0:
+		return
 	
 	var evil_player : EvilPlayer = evil_player_prefab.instantiate()
 	evil_player.origin_node = origin_node

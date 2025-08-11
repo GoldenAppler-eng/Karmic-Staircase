@@ -7,8 +7,6 @@ signal all_levels_passed
 signal obtained_moksha
 signal burnout
 
-const EVIL_SPAWN_DESPERATION_THRESHOLD : float = 90
-
 @export var player : Player
 @export var ambient_footstep_sfx_player : AudioStreamPlayer2D
 
@@ -69,7 +67,7 @@ func load_next_level(level_to_load : int) -> void:
 	
 	level_list[previous_level].create_recorded_players()
 	
-	if player.get_desperation_level() > EVIL_SPAWN_DESPERATION_THRESHOLD:
+	if player.get_desperation_level() > GlobalConstants.EVIL_SPAWN_DESPERATION_THRESHOLD:
 		level_list[level_to_load].create_evil_player()
 	
 	check_for_all_cake_eaten(previous_level)
@@ -86,6 +84,7 @@ func load_previous_level(level_to_load : int) -> void:
 	level_list[level_to_load].load_data()
 	level_list[level_to_load].hold_data(player)
 	level_list[level_to_load].reset_recorded_players()
+	level_list[level_to_load].clear_evil_player()
 	
 	level_list[level_to_load].enable()
 	level_list[next_level].disable()

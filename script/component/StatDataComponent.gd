@@ -1,6 +1,9 @@
 class_name StatDataComponent
 extends Node
 
+signal desperation_changed(net_change : float)
+signal hunger_changed(net_change : float)
+
 const INITIAL_HUNGER_DEGENERATION_WAIT_TIME : float = 2
 const DEFAULT_HUNGER_DEGENERATION_AMOUNT : float = 1
 
@@ -25,9 +28,11 @@ func is_starving() -> bool:
 	
 func change_hunger(net_change : float) -> void:
 	data.change_hunger(net_change)
+	hunger_changed.emit(net_change)
 
 func change_desperation(net_change : float) -> void:
 	data.change_desperation(net_change)
+	desperation_changed.emit(net_change)
 
 func set_hunger_degeneration_amount(amount : float = DEFAULT_HUNGER_DEGENERATION_AMOUNT) -> void:
 	hunger_degeneration_amount = amount

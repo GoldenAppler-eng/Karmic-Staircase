@@ -39,7 +39,7 @@ func enter() -> void:
 	_back_to_main_menu = false
 	_quit_game = false
 	
-	end_restart_button.grab_focus()
+	get_tree().create_timer(3.5).timeout.connect(end_restart_button.grab_focus)
 	
 	endings_found_label.text = "Endings Found: " + str(game_end_manager.get_number_of_endings_found()) + "/" + str(game_end_manager.TOTAL_ENDINGS)
 	

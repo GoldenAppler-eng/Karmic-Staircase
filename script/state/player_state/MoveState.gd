@@ -1,7 +1,5 @@
 extends State
 
-const MOVE_HUNGER_DEGENERATION : float = 5
-
 @export var idle_state : State
 @export var attack_state : State
 @export var sprint_state : State
@@ -15,7 +13,7 @@ func extra_init() -> void:
 	
 func enter() -> void:
 	animation_controller.play_animation("move")
-	stat_data_component.set_hunger_degeneration_amount(MOVE_HUNGER_DEGENERATION)
+	stat_data_component.set_hunger_degeneration_amount(GlobalConstants.MOVE_HUNGER_COST)
 	
 func exit() -> void:
 	movement_component.stop_movement()	

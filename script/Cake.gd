@@ -1,13 +1,8 @@
 class_name Cake
 extends Node2D
 
-const TAKE_CAKE_DESPERATION : float = 5
-const EAT_CAKE_DESPERATION : float = 15
-
 const CAKE_MAX_FRAME : int = 4
 const INITIAL_CAKE_LEFT : int = 4
-
-const CAKE_HUNGER_REFILL : float = 30
 
 @export var cake_pickupable_item : PickupableItemData
 
@@ -44,7 +39,7 @@ func interact(interacter : Node2D) -> void:
 		
 		if interacter.has_meta(stat_meta_name):
 			var stat_data_component : StatDataComponent = interacter.get_meta(stat_meta_name)
-			stat_data_component.change_desperation(TAKE_CAKE_DESPERATION)
+			stat_data_component.change_desperation(GlobalConstants.TAKE_CAKE_DESPERATION_COST)
 		
 		cake_left = cake_left - 1
 
@@ -65,8 +60,8 @@ func cake_use_function(user : Node2D) -> void:
 	if user.has_meta(stat_meta_name):
 		var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)
 		
-		stat_data_component.change_hunger(CAKE_HUNGER_REFILL)
-		stat_data_component.change_desperation(EAT_CAKE_DESPERATION)
+		stat_data_component.change_hunger(GlobalConstants.CAKE_HUNGER_REFILL)
+		stat_data_component.change_desperation(GlobalConstants.EAT_CAKE_DESPERATION_COST)
 		
 	if user.has_meta(pickup_meta_name):
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)

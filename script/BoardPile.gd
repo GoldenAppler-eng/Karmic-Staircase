@@ -1,12 +1,8 @@
 class_name BoardPile
 extends Node2D
 
-const TAKE_BOARD_DESPERATION : float = 30
-const BURN_BOARD_DESPERATION : float = -15
-
 const BOARD_MAX_FRAME : int = 5
 
-const BOARD_FUEL_VALUE : float = 50
 const INITIAL_BOARDS_LEFT : int = 5
 
 @export var board_pickupable_item : PickupableItemData
@@ -45,7 +41,7 @@ func interact(interacter : Node2D) -> void:
 		
 		if interacter.has_meta(stat_meta_name):
 			var stat_data_component : StatDataComponent = interacter.get_meta(stat_meta_name)
-			stat_data_component.change_desperation(TAKE_BOARD_DESPERATION)
+			stat_data_component.change_desperation(GlobalConstants.TAKE_BOARD_DESPERATION_COST)
 		
 		boards_left = boards_left - 1
 		
@@ -75,14 +71,14 @@ func board_use_function(user : Node2D) -> void:
 			continue
 		
 		var fireplace : Fireplace = interactable_component.owner as Fireplace
-		fireplace.fuel_fire(BOARD_FUEL_VALUE)
+		fireplace.fuel_fire(GlobalConstants.BOARD_FUEL_VALUE)
 		
 		if user is Player:
 			GlobalFlags.has_burn_board = true
 		
 		if user.has_meta(stat_meta_name):
 			var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)
-			stat_data_component.change_desperation(BURN_BOARD_DESPERATION)
+			stat_data_component.change_desperation(GlobalConstants.BURN_BOARD_DESPERATION_COST)
 		
 		var pickup_item_component : PickupItemComponent = user.get_meta(pickup_meta_name)
 		pickup_item_component.remove_item()

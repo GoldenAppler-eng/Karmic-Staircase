@@ -12,9 +12,10 @@ func extra_init() -> void:
 	
 func enter() -> void:
 	animation_controller.play_animation("idle")
+	stat_data_component.set_hunger_degeneration_amount(GlobalConstants.IDLE_HUNGER_COST)
 	
 func exit() -> void:
-	pass	
+	stat_data_component.set_hunger_degeneration_amount()	
 	
 func process_physics(delta : float) -> State:
 	if hurtbox_component.is_hurt() or stat_data_component.is_starving():

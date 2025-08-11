@@ -1,7 +1,5 @@
 extends State
 
-const DROP_ITEM_DESPERATION : float = 10
-
 @export var idle_state : State
 @export var move_state : State
 
@@ -17,7 +15,7 @@ func enter() -> void:
 	get_tree().create_timer(0.5).timeout.connect(mark_drop_finished, CONNECT_ONE_SHOT)
 	
 func exit() -> void:
-	stat_data_component.change_desperation(DROP_ITEM_DESPERATION)
+	stat_data_component.change_desperation(GlobalConstants.DROP_ITEM_DESPERATION_COST)
 	
 func process_physics(delta : float) -> State:
 	if not _drop_finished:

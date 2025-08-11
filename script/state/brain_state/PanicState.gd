@@ -1,7 +1,5 @@
 extends BrainState
 
-const AGGRESIVE_DESPERATION_THRESHOLD : float = 80
-
 @export var run_state : BrainState
 @export var find_weapon_state : BrainState
 @export var hunt_state : BrainState
@@ -24,7 +22,7 @@ func process_physics(delta : float) -> BrainState:
 	if not _finished:
 		return null
 	
-	if not stat_data_component.data.desperation >= AGGRESIVE_DESPERATION_THRESHOLD:
+	if not stat_data_component.data.desperation >= GlobalConstants.FIND_WEAPON_DESPERATION_THRESHOLD:
 		return run_state
 	
 	if pickup_item_component.is_not_holding_item():

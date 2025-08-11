@@ -1,7 +1,5 @@
 extends BrainState
 
-const DESPERATION_THRESHOLD : float = 50
-
 @export var panic_state : BrainState
 
 var _finished : bool = false
@@ -22,7 +20,7 @@ func process_physics(delta : float) -> BrainState:
 	if not _finished:
 		return null
 	
-	if stat_data_component.data.desperation >= DESPERATION_THRESHOLD:
+	if stat_data_component.data.desperation >= GlobalConstants.PANIC_DESPERATION_THRESHOLD:
 		return panic_state
 	
 	return null

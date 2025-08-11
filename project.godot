@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Karmic Cycle"
+config/name="Karmic Staircase"
 run/main_scene="uid://bdqhiaqxesh60"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
