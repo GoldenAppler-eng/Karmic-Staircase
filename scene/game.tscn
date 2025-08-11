@@ -171,14 +171,19 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="SlidingTextBox" type="MarginContainer" parent="HUD/MarginContainer"]
+[node name="SlidingTextBox" type="MarginContainer" parent="HUD/MarginContainer" node_paths=PackedStringArray("player")]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("14_0lu6w")
 script = ExtResource("14_jrd6n")
+player = NodePath("../../../player")
 horizontal_text_alignment = 2
 vertical_text_alignment = 2
+fade_out_last_wait_time = 2.0
+fade_out_duration = 0.5
+enter_in_duration = 0.8
+enter_in_transition_type = 1
 metadata/_custom_type_script = "uid://de5ltvkys2rps"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]

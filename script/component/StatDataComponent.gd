@@ -28,6 +28,7 @@ func is_starving() -> bool:
 	
 func change_hunger(net_change : float) -> void:
 	data.change_hunger(net_change)
+		
 	hunger_changed.emit(net_change)
 
 func change_desperation(net_change : float) -> void:

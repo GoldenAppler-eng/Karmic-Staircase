@@ -58,7 +58,7 @@ func cake_use_function(user : Node2D) -> void:
 	var pickup_meta_name : StringName = GlobalConstants.get_component_name(GlobalConstants.COMPONENT.PICKUPITEM)
 
 	if user.has_meta(stat_meta_name):
-		var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name)
+		var stat_data_component : StatDataComponent = user.get_meta(stat_meta_name) as StatDataComponent
 		
 		stat_data_component.change_hunger(GlobalConstants.CAKE_HUNGER_REFILL)
 		stat_data_component.change_desperation(GlobalConstants.EAT_CAKE_DESPERATION_COST)
