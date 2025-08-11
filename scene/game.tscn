@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8kgiptw27hnk"]
+[gd_scene load_steps=27 format=3 uid="uid://c8kgiptw27hnk"]
 
 [ext_resource type="PackedScene" uid="uid://cdmckyq563mja" path="res://scene/players/player.tscn" id="1_5kiuu"]
 [ext_resource type="AudioStream" uid="uid://b4so8tomtpylw" path="res://audio/footsteps.wav" id="1_jhlss"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bwiif3lm1mh17" path="res://sprite/spiral_staircase.png" id="8_yq8tf"]
 [ext_resource type="Texture2D" uid="uid://cfrlwfaum460c" path="res://sprite/center_column.png" id="9_yq8tf"]
 [ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="14_0lu6w"]
+[ext_resource type="Script" uid="uid://cj4soutrhar4o" path="res://script/HUD/ActionCostHUD.gd" id="14_jrd6n"]
 [ext_resource type="PackedScene" uid="uid://d0o7x3il6yic5" path="res://scene/HUD/hunger_hud.tscn" id="14_ve786"]
 [ext_resource type="PackedScene" uid="uid://dyu1r4m2jya2a" path="res://scene/HUD/desperation_hud.tscn" id="15_0lu6w"]
 [ext_resource type="Script" uid="uid://cyvnca1t0msnu" path="res://script/HUD/FloorCounterHUD.gd" id="15_i6gbm"]
@@ -166,8 +167,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
+
+[node name="SlidingTextBox" type="MarginContainer" parent="HUD/MarginContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("14_0lu6w")
+script = ExtResource("14_jrd6n")
+horizontal_text_alignment = 2
+vertical_text_alignment = 2
+metadata/_custom_type_script = "uid://de5ltvkys2rps"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
 layout_mode = 2

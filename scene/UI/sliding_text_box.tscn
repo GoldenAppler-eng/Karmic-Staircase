@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4c3hkj3nydcv"]
+
+[ext_resource type="Script" uid="uid://de5ltvkys2rps" path="res://script/UI/SlidingTextBox.gd" id="1_d0poh"]
+
+[node name="SlidingTextBox" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d0poh")
