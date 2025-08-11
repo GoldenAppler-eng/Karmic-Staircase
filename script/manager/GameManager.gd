@@ -44,5 +44,7 @@ func create_level(id : int) -> void:
 	staircase_level_manager.add_level(level)
 	
 func signal_game_end() -> void:
+	await get_tree().create_timer(0.5).timeout
+	
 	game_ended.emit()
 	hud.hide()
