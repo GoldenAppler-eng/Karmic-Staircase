@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=40 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
 [ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
 [ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
+[ext_resource type="Script" uid="uid://bb757cd321vio" path="res://script/state/menu_state/EndingsMenu.gd" id="22_2effu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
 shader = ExtResource("12_hsxsa")
@@ -392,7 +393,7 @@ game_loading_manager = NodePath("../../game_loading_manager")
 game_end_manager = NodePath("../../game_end_manager")
 initial_menu = NodePath("main_menu")
 
-[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "door_sfx", "idle_menu", "settings_menu", "quit_menu", "revert_menu")]
+[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "door_sfx", "idle_menu", "settings_menu", "quit_menu", "endings_menu", "revert_menu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -405,6 +406,7 @@ door_sfx = NodePath("OpenDoorSfx")
 idle_menu = NodePath("../idle_menu")
 settings_menu = NodePath("../settings_menu")
 quit_menu = NodePath("../quit_menu")
+endings_menu = NodePath("../endings_menu")
 revert_menu = NodePath("../revert_menu")
 
 [node name="menu_texture" type="TextureRect" parent="UI/MenuStateMachine/main_menu"]
@@ -619,6 +621,7 @@ pause_menu = NodePath("../pause_menu")
 game_end_menu = NodePath("../game_end_menu")
 
 [node name="game_end_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("game_end_anim_player", "restart_menu", "main_menu", "quit_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -846,6 +849,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="endings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("22_2effu")
+revert_menu = NodePath("../revert_menu")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/endings_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/endings_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="EndingsBackButton" type="Button" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back"
 
 [node name="Transition" type="CanvasLayer" parent="."]
 visible = false

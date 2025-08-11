@@ -6,19 +6,23 @@ extends Menu
 @export var idle_menu : Menu
 @export var settings_menu : Menu
 @export var quit_menu : Menu
+@export var endings_menu : Menu
 
 @export var revert_menu : RevertMenu
 
 @onready var start_game_button: Button = %StartGameButton
+@onready var endings_button: Button = %EndingsButton
 @onready var settings_button: Button = %SettingsButton
 @onready var quit_game_button: Button = %QuitGameButton
 
 var _start_game : bool = false
+var _go_to_endings : bool = false
 var _go_to_settings : bool = false
 var _quit_game : bool = false
 
 func extra_init() -> void:
 	start_game_button.pressed.connect( _on_start_button_pressed )
+	endings_button.pressed.connect( _on_endings_button_pressed )
 	settings_button.pressed.connect( _on_settings_button_pressed )
 	quit_game_button.pressed.connect( _on_quit_button_pressed )
 
@@ -33,8 +37,10 @@ func enter() -> void:
 	game_loading_manager.kill_game()
 	
 	_start_game = false
+	_go_to_endings = false
 	_go_to_settings = false
 	_quit_game = false
+	
 	start_game_button.grab_focus()
 	
 	main_menu_animation.play("start")
@@ -47,7 +53,12 @@ func process_frame(delta : float) -> Menu:
 		game_loading_manager.load_game()
 		door_sfx.play()
 		return idle_menu
+	
+	if _go_to_endings:
+		revert_menu.set_previous_menu(self)
 		
+		return endings_menu
+	
 	if _go_to_settings:
 		revert_menu.set_previous_menu(self)
 		
@@ -66,6 +77,9 @@ func process_input(event : InputEvent) -> Menu:
 
 func _on_start_button_pressed() -> void:
 	_start_game = true
+
+func _on_endings_button_pressed() -> void:
+	_go_to_endings = true
 	
 func _on_settings_button_pressed() -> void:
 	_go_to_settings = true
