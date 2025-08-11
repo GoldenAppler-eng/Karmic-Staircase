@@ -420,12 +420,13 @@ run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 dead_state = NodePath("../dead_state")
 
-[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state", "dead_state", "eerie_sfx_player")]
+[node name="chase_player_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("run_state", "hunt_state", "calm_state", "dead_state", "damager_component", "eerie_sfx_player")]
 script = ExtResource("19_hbida")
 run_state = NodePath("../run_state")
 hunt_state = NodePath("../hunt_state")
 calm_state = NodePath("../find_weapon_state")
 dead_state = NodePath("../dead_state")
+damager_component = NodePath("../../../flippables/damager_component")
 eerie_sfx_player = NodePath("../../../eerie_sfx")
 
 [node name="run_state" type="Node" parent="ai_brain/brain_state_machine" node_paths=PackedStringArray("dead_state")]

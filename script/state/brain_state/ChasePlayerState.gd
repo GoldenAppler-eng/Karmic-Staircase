@@ -1,12 +1,12 @@
 extends BrainState
 
-const DESIRED_ATTACK_RANGE : float = 10
-
 @export var run_state : BrainState
 @export var hunt_state : BrainState
 @export var calm_state : BrainState
 
 @export var dead_state : BrainState
+
+@export var damager_component : DamagerComponent
 
 @export var eerie_sfx_player : AudioStreamPlayer2D
 
@@ -41,10 +41,7 @@ func process_physics(delta : float) -> BrainState:
 	
 	brain.find_target_player()
 	
-	if (brain.owner as Node2D).global_position.distance_to(brain.target_player.global_position) < DESIRED_ATTACK_RANGE:
-		brain._wants_attack = true
-	else:
-		brain._wants_attack = false
-	
+	brain._wants_attack = damager_component.has_hurtbox_in_range()
+		
 	return null
 	
