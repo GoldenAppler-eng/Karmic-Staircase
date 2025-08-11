@@ -21,7 +21,7 @@ func enter() -> void:
 func exit() -> void:
 	if dealt_damage:
 		pickup_item_component.consume_item()	
-		stat_data_component.change_desperation(GlobalConstants.ATTACK_HIT_DESPERATION)
+		stat_data_component.change_desperation(GlobalConstants.ATTACK_HIT_DESPERATION_COST)
 	
 func process_physics(delta : float) -> State:
 	if not _attack_finished and not dealt_damage:
