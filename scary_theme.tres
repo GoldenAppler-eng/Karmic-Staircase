@@ -1,10 +1,14 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://i8eh517uqjrl"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://i8eh517uqjrl"]
 
 [ext_resource type="FontFile" uid="uid://dmf4evdbiunk6" path="res://font/DePixelSchmal.ttf" id="1_av0qp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qc3nd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_av0qp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olhfc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e8wvm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j0l3o"]
 
@@ -16,8 +20,10 @@ Button/colors/font_hover_pressed_color = Color(0.342207, 0.342207, 0.342207, 1)
 Button/colors/font_pressed_color = Color(0.341176, 0.341176, 0.341176, 1)
 Button/font_sizes/font_size = 10
 Button/fonts/font = ExtResource("1_av0qp")
+Button/styles/disabled = SubResource("StyleBoxEmpty_qc3nd")
 Button/styles/focus = SubResource("StyleBoxEmpty_av0qp")
 Button/styles/hover = SubResource("StyleBoxEmpty_olhfc")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_e8wvm")
 Button/styles/normal = SubResource("StyleBoxEmpty_j0l3o")
 Button/styles/pressed = SubResource("StyleBoxEmpty_n4160")
 Label/font_sizes/font_size = 10

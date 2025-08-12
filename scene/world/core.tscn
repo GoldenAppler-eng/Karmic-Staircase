@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
 [ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
 [ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
+[ext_resource type="LabelSettings" uid="uid://qfg2ildbrcxg" path="res://scene/MenuLabelSettings.tres" id="20_hsxsa"]
 [ext_resource type="Script" uid="uid://bb757cd321vio" path="res://script/state/menu_state/EndingsMenu.gd" id="22_2effu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
@@ -268,8 +269,6 @@ _data = {
 &"RESET": SubResource("Animation_ietmj"),
 &"game end": SubResource("Animation_ymi47")
 }
-
-[sub_resource type="LabelSettings" id="LabelSettings_th21j"]
 
 [sub_resource type="Animation" id="Animation_invj0"]
 length = 0.001
@@ -523,8 +522,7 @@ focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 text = "Quit"
 
-[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "main_menu", "quit_menu", "revert_menu")]
-visible = false
+[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "endings_menu", "main_menu", "quit_menu", "revert_menu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -535,6 +533,7 @@ script = ExtResource("7_q18o2")
 idle_menu = NodePath("../idle_menu")
 restart_menu = NodePath("../restart_menu")
 settings_menu = NodePath("../settings_menu")
+endings_menu = NodePath("../endings_menu")
 main_menu = NodePath("../main_menu")
 quit_menu = NodePath("../quit_menu")
 revert_menu = NodePath("../revert_menu")
@@ -590,6 +589,7 @@ layout_mode = 2
 text = "Tutorial"
 
 [node name="InEndingButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Endings"
 
@@ -793,7 +793,7 @@ layout_mode = 2
 [node name="Settings" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
-label_settings = SubResource("LabelSettings_th21j")
+label_settings = ExtResource("20_hsxsa")
 horizontal_alignment = 1
 
 [node name="seperator" type="Control" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
@@ -851,6 +851,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="endings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -876,12 +877,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
+
+[node name="EndingsButtonContainer" type="VBoxContainer" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EndingsLabel" type="Label" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingsButtonContainer"]
+layout_mode = 2
+text = "Endings"
+label_settings = ExtResource("20_hsxsa")
+horizontal_alignment = 1
+
+[node name="EndingExplanationContainer" type="MarginContainer" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingExplanationContainer"]
+layout_mode = 2
+
+[node name="EndingName" type="RichTextLabel" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingExplanationContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "LUST"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="EndingDescription" type="Label" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingExplanationContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "dsdadsadsdadsadssdadsa dsdsdsds dsd sdsds dsd sds dsd sd"
+autowrap_mode = 3
+
+[node name="HSeperator" type="HSeparator" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingExplanationContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EndingReason" type="Label" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer/EndingExplanationContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "sdadadsadsad"
+autowrap_mode = 3
 
 [node name="EndingsBackButton" type="Button" parent="UI/MenuStateMachine/endings_menu/ColorRect/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Back"
 

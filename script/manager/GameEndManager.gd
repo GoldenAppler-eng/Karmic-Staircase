@@ -18,6 +18,19 @@ const ENDING_TEXT_DICTIONARY : Dictionary = {
 	ENDINGS.MOKSHA : "Realizing your faults, you escape the infinity of the karmic staircase"
 }
 
+const ENDING_REASON_DICTIONARY : Dictionary = {
+	ENDINGS.LUST : "Run out of fuel after burning all the boards in the fireplace",
+	ENDINGS.ENVY : "Be defeated by another version of you",
+	ENDINGS.GLUTTONY: "Die of starvation after eating the entire cake",
+	ENDINGS.WRATH : "Get to the bottom of the staircase after defeating a past version of yourself",
+	ENDINGS.GREED: "Get to the bottom of the staircase after taking an item from the room in the past",
+	ENDINGS.SLOTH : "Run out of fuel without burning any boards in the fireplace",
+	ENDINGS.PRIDE : "Die of starvation without eating a single piece of cake",
+	ENDINGS.LOST : "Die or run out of fuel without doing anything special",
+	ENDINGS.GOOD : "Get to the bottom of the staircase without doing anything special",
+	ENDINGS.MOKSHA : "Go upstairs out of the basement at last"
+}
+
 const ENDING_COLOR_DICTIONARY : Dictionary = {
 	ENDINGS.LUST : "#d95763",
 	ENDINGS.ENVY : "#37846e",
@@ -64,7 +77,10 @@ func _on_game_ended() -> void:
 	
 func get_ending_color(ending : int) -> String:
 	return ENDING_COLOR_DICTIONARY[ending]
-	
+
+func get_ending_reason(ending : int) -> String:
+	return ENDING_REASON_DICTIONARY[ending]
+
 func get_ending_description(ending : int) -> String:
 	return ENDING_TEXT_DICTIONARY[ending]
 
@@ -110,3 +126,14 @@ func get_number_of_endings_found() -> int:
 			number_of_endings_found += 1
 	
 	return number_of_endings_found
+
+func get_endings_found_indices() -> Array[int]:
+	var found_indices : Array[int] = []
+	
+	for ending in endings_found.keys():
+		var found : bool = endings_found[ending]
+		
+		if found:
+			found_indices.append(ending)
+	
+	return found_indices
