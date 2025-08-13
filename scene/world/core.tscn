@@ -524,6 +524,7 @@ focus_neighbor_bottom = NodePath("../StartGameButton")
 text = "Quit"
 
 [node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "endings_menu", "main_menu", "quit_menu", "revert_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -757,6 +758,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

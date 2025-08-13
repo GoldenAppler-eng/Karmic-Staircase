@@ -120,7 +120,7 @@ func remove_first() -> void:
 	
 	last.text = placeholder_label.text
 	placeholder_label.text = ""
-	last_filled_index -= 1
+	last_filled_index = max(last_filled_index - 1, 0)
 
 func _initialize_vbox() -> void:	
 	vboxcontainer = VBoxContainer.new()
