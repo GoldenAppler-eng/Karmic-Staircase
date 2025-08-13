@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=41 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
 [ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
 [ext_resource type="LabelSettings" uid="uid://qfg2ildbrcxg" path="res://scene/MenuLabelSettings.tres" id="20_hsxsa"]
+[ext_resource type="Script" uid="uid://dsgc4kq36sp6o" path="res://script/UI/ResolutionSelector.gd" id="21_bot1t"]
 [ext_resource type="Script" uid="uid://bb757cd321vio" path="res://script/state/menu_state/EndingsMenu.gd" id="22_2effu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
@@ -756,7 +757,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -799,6 +799,16 @@ horizontal_alignment = 1
 [node name="seperator" type="Control" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Resolution" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resolution"
+horizontal_alignment = 1
+
+[node name="ResolutionSelector" type="OptionButton" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+script = ExtResource("21_bot1t")
 
 [node name="Master" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -959,3 +969,5 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_fsey5")
 }
+
+[connection signal="item_selected" from="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer/ResolutionSelector" to="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer/ResolutionSelector" method="_on_item_selected"]
