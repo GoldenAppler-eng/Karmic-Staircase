@@ -1,7 +1,6 @@
 extends Menu
 
 @export var main_menu_animation : AnimationPlayer
-@export var door_sfx : AudioStreamPlayer
 
 @export var idle_menu : Menu
 @export var settings_menu : Menu
@@ -26,8 +25,6 @@ func extra_init() -> void:
 	settings_button.pressed.connect( _on_settings_button_pressed )
 	quit_game_button.pressed.connect( _on_quit_button_pressed )
 
-	main_menu_animation.animation_finished.connect(_on_animation_finished)
-
 func enter() -> void:
 	super()	
 	
@@ -50,8 +47,7 @@ func exit() -> void:
 
 func process_frame(delta : float) -> Menu:
 	if _start_game:
-		game_loading_manager.load_game()
-		door_sfx.play()
+		game_loading_manager.load_menu_game()
 		return idle_menu
 	
 	if _go_to_endings:
@@ -86,7 +82,3 @@ func _on_settings_button_pressed() -> void:
 	
 func _on_quit_button_pressed() -> void:
 	_quit_game = true
-
-func _on_animation_finished(anim_name : String) -> void:
-	if anim_name == "start":
-		main_menu_animation.play("message")

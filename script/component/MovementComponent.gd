@@ -36,7 +36,7 @@ func init(p_actor : CharacterBody2D, p_stat_data_component : StatDataComponent) 
 	speed *= SPEED_MULTIPLIER
 
 	stat_data_component = p_stat_data_component
-	
+
 	footstep_ready_timer.timeout.connect(_on_footstep_ready_timer_timeout)
 
 func move(delta : float, movement_vector : Vector2) -> void:
@@ -44,6 +44,7 @@ func move(delta : float, movement_vector : Vector2) -> void:
 	var actual_speed : float =  speed * delta
 	
 	if _is_sprinting: actual_speed *= sprint_multiplier
+	
 	if stat_data_component.data.hunger < HUNGER_THRESHOLD: 
 		actual_speed *= 1 - SPEED_PER_HUNGER_MULTIPLIER * 10 * (1 - stat_data_component.data.hunger/stat_data_component.data.MAX_HUNGER) + HUNGER_SPEED_MULTIPLIER_OFFSET
 	

@@ -1,0 +1,202 @@
+[gd_scene load_steps=15 format=3 uid="uid://bd2ysrqbb2msi"]
+
+[ext_resource type="Script" uid="uid://c3jcna1gxctls" path="res://script/manager/MenuGameManager.gd" id="1_qpau7"]
+[ext_resource type="Texture2D" uid="uid://cjijola12rt8a" path="res://sprite/main_menu.png" id="2_p26tl"]
+[ext_resource type="Texture2D" uid="uid://o1rofo0b5jm3" path="res://sprite/main_menu_room-Sheet.png" id="3_yubar"]
+[ext_resource type="Texture2D" uid="uid://cbt6aveansk1n" path="res://sprite/mirror_mask1.png" id="4_43te0"]
+[ext_resource type="PackedScene" uid="uid://eekixfmp2k8h" path="res://scene/players/reflection_player.tscn" id="5_16v4q"]
+[ext_resource type="PackedScene" uid="uid://bq526rxaohvcw" path="res://scene/players/menu_player.tscn" id="6_x50fb"]
+[ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="7_8hdih"]
+[ext_resource type="Theme" uid="uid://i8eh517uqjrl" path="res://scary_theme.tres" id="8_ut2sg"]
+[ext_resource type="PackedScene" uid="uid://d2d5xyn513fyj" path="res://scene/door.tscn" id="9_1l0o5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tno2q"]
+light_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02gxb"]
+size = Vector2(68, 18.5)
+
+[sub_resource type="Animation" id="Animation_p26tl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("menu_player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, 108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("menu_player/menu_input_brain:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("menu_player/AnimationPlayer:current_animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+
+[sub_resource type="Animation" id="Animation_qpau7"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("menu_player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-19, 108), Vector2(19, 108)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("menu_player/menu_input_brain:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("menu_player/AnimationPlayer:current_animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"walk", &"idle"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yubar"]
+_data = {
+&"RESET": SubResource("Animation_p26tl"),
+&"start": SubResource("Animation_qpau7")
+}
+
+[node name="MenuGame" type="Node2D"]
+script = ExtResource("1_qpau7")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_p26tl")
+centered = false
+
+[node name="Room" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 48)
+texture = ExtResource("3_yubar")
+centered = false
+vframes = 2
+
+[node name="ReflectionRoom" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_tno2q")
+position = Vector2(0, 26)
+texture = ExtResource("3_yubar")
+centered = false
+vframes = 2
+
+[node name="MirrorMask" type="PointLight2D" parent="."]
+blend_mode = 2
+texture = ExtResource("4_43te0")
+offset = Vector2(160, 90)
+
+[node name="ReflectionPlayer" parent="." node_paths=PackedStringArray("follow_player", "mirror_axis_y") instance=ExtResource("5_16v4q")]
+position = Vector2(0.79, 0)
+follow_player = NodePath("../menu_player")
+mirror_axis_y = NodePath("../MirrorAxisY")
+
+[node name="MirrorAxisY" type="Marker2D" parent="."]
+position = Vector2(110, 96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-17, 95, 320, 95, 320, 132, 0, 132, 0, 96, -17, 96, -17, 145, 330, 145, 329, 48, -17, 48)
+
+[node name="menu_player" parent="." instance=ExtResource("6_x50fb")]
+position = Vector2(19, 108)
+
+[node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("7_8hdih")]
+position = Vector2(144, 83)
+monitoring = false
+tooltip = "Do you trust yourself?"
+tip = NodePath("tip")
+
+[node name="Panel" type="Panel" parent="tool_tip_activation_component"]
+offset_left = -58.0
+offset_top = -24.0
+offset_right = 68.0
+offset_bottom = -7.0
+theme = ExtResource("8_ut2sg")
+
+[node name="tip" type="Label" parent="tool_tip_activation_component"]
+offset_left = -55.0
+offset_top = -22.0
+offset_right = 67.0
+offset_bottom = -9.0
+text = "Do you trust yourself?"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
+shape = SubResource("RectangleShape2D_02gxb")
+
+[node name="Door" parent="." instance=ExtResource("9_1l0o5")]
+unique_name_in_owner = true
+position = Vector2(244, 70)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yubar")
+}
+autoplay = "start"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SkipMessage" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Press Enter to skip sequence"
+
+[editable path="menu_player"]

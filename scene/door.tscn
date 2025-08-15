@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2d5xyn513fyj"]
+
+[ext_resource type="Script" uid="uid://b5x442hckh7t6" path="res://script/Door.gd" id="1_y5pye"]
+[ext_resource type="PackedScene" uid="uid://dpbcmxljcfh3v" path="res://scene/component/tool_tip_activation_component.tscn" id="2_i7qj5"]
+[ext_resource type="PackedScene" uid="uid://i0vl1yuuv1jt" path="res://scene/component/interactable_component.tscn" id="3_psa10"]
+[ext_resource type="AudioStream" uid="uid://6kpkfmu5hk7f" path="res://audio/door_closing.wav" id="4_2tyue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tyue"]
+size = Vector2(23, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xt1h0"]
+size = Vector2(23, 35)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_y5pye")
+
+[node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("2_i7qj5")]
+position = Vector2(12, 18)
+monitoring = false
+tooltip = "Enter the
+Karmic Staircase?"
+tip = NodePath("tip")
+
+[node name="Panel" type="Panel" parent="tool_tip_activation_component"]
+offset_left = -49.0
+offset_top = -40.0
+offset_right = 54.0
+offset_bottom = -9.0
+
+[node name="tip" type="Label" parent="tool_tip_activation_component"]
+offset_left = -46.0
+offset_top = -39.0
+offset_right = 50.0
+offset_bottom = -10.0
+text = "Enter the 
+Karmic Staircase?"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
+shape = SubResource("RectangleShape2D_2tyue")
+
+[node name="interactable_component" parent="." instance=ExtResource("3_psa10")]
+unique_name_in_owner = true
+position = Vector2(12, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_component"]
+shape = SubResource("RectangleShape2D_xt1h0")
+
+[node name="OpenDoorSfx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_2tyue")
+volume_db = 20.0
+bus = &"Sfx"

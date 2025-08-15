@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bra1gh301wal2"]
+[gd_scene load_steps=17 format=3 uid="uid://eekixfmp2k8h"]
 
-[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="1_0aivh"]
-[ext_resource type="Script" uid="uid://uxcnm1tuj7qw" path="res://script/player/XrayPlayer.gd" id="1_1vtp3"]
-[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="4_7q5s8"]
+[ext_resource type="Script" uid="uid://c3gbqjkyi6n8l" path="res://script/player/ReflectionPlayer.gd" id="1_d2t0q"]
+[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="2_80cou"]
+[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="3_80cou"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j4jqp"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_80cou"]
+light_mode = 2
 
 [sub_resource type="Animation" id="Animation_kk4ol"]
 length = 0.001
@@ -201,19 +202,19 @@ _data = {
 &"walk_hold": SubResource("Animation_qucqc")
 }
 
-[node name="xray_player" type="CharacterBody2D"]
-script = ExtResource("1_1vtp3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_j4jqp")
-disabled = true
+[node name="ReflectionPlayer" type="Node2D"]
+material = SubResource("CanvasItemMaterial_80cou")
+script = ExtResource("1_d2t0q")
 
 [node name="flippables" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("1_0aivh")
+use_parent_material = true
+script = ExtResource("3_80cou")
+metadata/_custom_type_script = "uid://dathf1gj3y2oa"
 
 [node name="player_sprite" type="Sprite2D" parent="flippables"]
-texture = ExtResource("4_7q5s8")
+use_parent_material = true
+texture = ExtResource("2_80cou")
 hframes = 7
 vframes = 10
 

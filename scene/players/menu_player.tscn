@@ -1,0 +1,335 @@
+[gd_scene load_steps=33 format=3 uid="uid://bq526rxaohvcw"]
+
+[ext_resource type="Script" uid="uid://41102yyimgsn" path="res://script/player/MenuPlayer.gd" id="1_rk7b3"]
+[ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_p5yoa"]
+[ext_resource type="Script" uid="uid://dhepx2737bxmw" path="res://script/state/player_state/IdleState.gd" id="3_d3h1l"]
+[ext_resource type="Script" uid="uid://ki1u23wwktia" path="res://script/state/player_state/MoveState.gd" id="4_ukpic"]
+[ext_resource type="Script" uid="uid://c3tue7f8ul8dv" path="res://script/state/player_state/SprintState.gd" id="5_dke5k"]
+[ext_resource type="Script" uid="uid://c3vaqpne6gsdr" path="res://script/state/player_state/InteractState.gd" id="7_481rn"]
+[ext_resource type="Script" uid="uid://cr3mfemxoxc5s" path="res://script/brain/MenuInputBrain.gd" id="7_rk7b3"]
+[ext_resource type="Script" uid="uid://cfgsbje7vi3tp" path="res://script/component/MovementComponent.gd" id="11_705sb"]
+[ext_resource type="Script" uid="uid://dinja1swlk48g" path="res://script/component/null/NullStatDataComponent.gd" id="13_5nvoc"]
+[ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="13_qrok8"]
+[ext_resource type="Script" uid="uid://c63yx2qprs0y3" path="res://script/component/null/NullPickupItemComponent.gd" id="14_54eom"]
+[ext_resource type="Script" uid="uid://6axpsu0jitg1" path="res://script/component/null/NullHurtboxComponent.gd" id="15_12buq"]
+[ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="18_fr6vc"]
+[ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="21_wa2at"]
+[ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="22_rtese"]
+[ext_resource type="PackedScene" uid="uid://bp7rg1dk1tc2p" path="res://scene/component/tooltip_activator_component.tscn" id="24_546xc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_kk4ol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3vgh4"]
+resource_name = "attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 8), Vector2i(1, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_8ie14"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 9)]
+}
+
+[sub_resource type="Animation" id="Animation_jrjdb"]
+resource_name = "idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 1.2, 1.4, 2.4, 2.8, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(0, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l1uwf"]
+resource_name = "idle_hold"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_k8m7u"]
+resource_name = "scared"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wt23p"]
+resource_name = "sprint"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_xsw3c"]
+resource_name = "sprint_hold"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_pk8el"]
+resource_name = "use"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 7), Vector2i(0, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_4reak"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 2), Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_qucqc"]
+resource_name = "walk_hold"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flippables/player_sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(1, 5), Vector2i(0, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4reak"]
+_data = {
+&"RESET": SubResource("Animation_kk4ol"),
+&"attack": SubResource("Animation_3vgh4"),
+&"dead": SubResource("Animation_8ie14"),
+&"idle": SubResource("Animation_jrjdb"),
+&"idle_hold": SubResource("Animation_l1uwf"),
+&"scared": SubResource("Animation_k8m7u"),
+&"sprint": SubResource("Animation_wt23p"),
+&"sprint_hold": SubResource("Animation_xsw3c"),
+&"use": SubResource("Animation_pk8el"),
+&"walk": SubResource("Animation_4reak"),
+&"walk_hold": SubResource("Animation_qucqc")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sf66"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k8m7u"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_12buq"]
+
+[node name="menu_player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_rk7b3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 6)
+shape = SubResource("CapsuleShape2D_onrkg")
+
+[node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_p5yoa")]
+unique_name_in_owner = true
+initial_state = NodePath("idle_state")
+
+[node name="idle_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "interact_state")]
+script = ExtResource("3_d3h1l")
+move_state = NodePath("../move_state")
+interact_state = NodePath("../interact_state")
+
+[node name="move_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "sprint_state", "interact_state")]
+script = ExtResource("4_ukpic")
+idle_state = NodePath("../idle_state")
+sprint_state = NodePath("../sprint_state")
+interact_state = NodePath("../interact_state")
+
+[node name="sprint_state" type="Node" parent="state_machine" node_paths=PackedStringArray("move_state", "idle_state", "interact_state")]
+script = ExtResource("5_dke5k")
+move_state = NodePath("../move_state")
+idle_state = NodePath("../idle_state")
+interact_state = NodePath("../interact_state")
+
+[node name="interact_state" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("7_481rn")
+idle_state = NodePath("../idle_state")
+move_state = NodePath("../move_state")
+
+[node name="menu_input_brain" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_rk7b3")
+
+[node name="movement_component" type="Node" parent="." node_paths=PackedStringArray("footstep_ready_timer")]
+unique_name_in_owner = true
+script = ExtResource("11_705sb")
+speed = 5.0
+sprint_multiplier = 2.0
+footstep_ready_timer = NodePath("FootstepReadyTimer")
+metadata/_custom_type_script = "uid://cfgsbje7vi3tp"
+
+[node name="FootstepReadyTimer" type="Timer" parent="movement_component"]
+process_mode = 4
+wait_time = 2000.0
+
+[node name="flippables" type="Node2D" parent="."]
+script = ExtResource("18_fr6vc")
+
+[node name="player_sprite" type="Sprite2D" parent="flippables"]
+texture = ExtResource("21_wa2at")
+hframes = 7
+vframes = 10
+
+[node name="animation_controller" type="Node" parent="." node_paths=PackedStringArray("anim_player", "movement_component", "pickup_item_component", "stat_data_component", "flippables")]
+unique_name_in_owner = true
+script = ExtResource("22_rtese")
+anim_player = NodePath("../AnimationPlayer")
+movement_component = NodePath("../movement_component")
+pickup_item_component = NodePath("../null_pickup_item_component")
+stat_data_component = NodePath("../null_stat_data_component")
+flippables = NodePath("../flippables")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4reak")
+}
+
+[node name="interacter_component" parent="." instance=ExtResource("13_qrok8")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interacter_component"]
+shape = SubResource("CircleShape2D_0sf66")
+
+[node name="tooltip_activator_component" parent="." instance=ExtResource("24_546xc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tooltip_activator_component"]
+shape = SubResource("CircleShape2D_k8m7u")
+
+[node name="null_stat_data_component" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("13_5nvoc")
+
+[node name="null_pickup_item_component" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("14_54eom")
+
+[node name="Sprite2D" type="Sprite2D" parent="null_pickup_item_component"]
+process_mode = 4
+
+[node name="drop_sfx" type="AudioStreamPlayer2D" parent="null_pickup_item_component"]
+process_mode = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="null_pickup_item_component"]
+process_mode = 4
+emitting = false
+
+[node name="null_hurtbox_component" type="Area2D" parent="."]
+unique_name_in_owner = true
+monitoring = false
+monitorable = false
+script = ExtResource("15_12buq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="null_hurtbox_component"]
+shape = SubResource("CircleShape2D_12buq")
+disabled = true
