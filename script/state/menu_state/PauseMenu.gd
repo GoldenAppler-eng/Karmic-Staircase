@@ -3,6 +3,7 @@ extends Menu
 @export var idle_menu : Menu
 @export var restart_menu : Menu
 @export var settings_menu : Menu
+@export var tutorial_menu : Menu
 @export var endings_menu : Menu
 @export var main_menu : Menu
 @export var quit_menu : Menu
@@ -11,6 +12,7 @@ extends Menu
 
 @onready var resume_button: Button = %ResumeButton
 @onready var to_settings_button: Button = %ToSettingsButton
+@onready var in_tutorial_button: Button = %InTutorialButton
 @onready var in_ending_button: Button = %InEndingButton
 @onready var restart_button: Button = %RestartButton
 @onready var main_menu_button: Button = %MainMenuButton
@@ -18,6 +20,7 @@ extends Menu
 
 var _resume : bool = false
 var _go_to_settings : bool = false
+var _go_to_tutorial : bool = false
 var _go_to_endings : bool = false
 var _restart : bool = false
 var _back_to_main_menu : bool = false
@@ -26,6 +29,7 @@ var _quit_game : bool = false
 func extra_init() -> void:
 	resume_button.pressed.connect( _on_resume_button_pressed )
 	to_settings_button.pressed.connect( _on_settings_button_pressed )
+	in_tutorial_button.pressed.connect( _on_tutorial_button_pressed )
 	in_ending_button.pressed.connect( _on_endings_button_pressed )
 	restart_button.pressed.connect( _on_restart_button_pressed )
 	main_menu_button.pressed.connect( _on_main_menu_button_pressed )
@@ -39,6 +43,7 @@ func enter() -> void:
 	
 	_resume = false
 	_restart = false
+	_go_to_tutorial = false
 	_go_to_settings = false
 	_go_to_endings = false
 	_back_to_main_menu = false
@@ -56,6 +61,10 @@ func process_frame(delta : float) -> Menu:
 	if _go_to_settings:
 		revert_menu.set_previous_menu(self)
 		return settings_menu
+	
+	if _go_to_tutorial:
+		revert_menu.set_previous_menu(self)
+		return tutorial_menu
 	
 	if _go_to_endings:
 		revert_menu.set_previous_menu(self)
@@ -87,6 +96,9 @@ func _on_resume_button_pressed() -> void:
 	
 func _on_settings_button_pressed() -> void:
 	_go_to_settings = true
+
+func _on_tutorial_button_pressed() -> void:
+	_go_to_tutorial = true
 
 func _on_endings_button_pressed() -> void:
 	_go_to_endings = true

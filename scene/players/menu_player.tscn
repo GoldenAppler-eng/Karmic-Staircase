@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bq526rxaohvcw"]
+[gd_scene load_steps=34 format=3 uid="uid://bq526rxaohvcw"]
 
 [ext_resource type="Script" uid="uid://41102yyimgsn" path="res://script/player/MenuPlayer.gd" id="1_rk7b3"]
 [ext_resource type="PackedScene" uid="uid://djsf3itc002gl" path="res://scene/state_machine.tscn" id="2_p5yoa"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bdsdvn2l2ejwd" path="res://scene/component/interacter_component.tscn" id="13_qrok8"]
 [ext_resource type="Script" uid="uid://c63yx2qprs0y3" path="res://script/component/null/NullPickupItemComponent.gd" id="14_54eom"]
 [ext_resource type="Script" uid="uid://6axpsu0jitg1" path="res://script/component/null/NullHurtboxComponent.gd" id="15_12buq"]
+[ext_resource type="PackedScene" uid="uid://cqttkqoc4j0fr" path="res://scene/speech_text.tscn" id="17_2gsku"]
 [ext_resource type="Script" uid="uid://dathf1gj3y2oa" path="res://script/Flippables.gd" id="18_fr6vc"]
 [ext_resource type="Texture2D" uid="uid://btu1o80x3wspb" path="res://sprite/player-gridsheet.png" id="21_wa2at"]
 [ext_resource type="Script" uid="uid://r6v4breyygeo" path="res://script/component/AnimationController.gd" id="22_rtese"]
@@ -333,3 +334,9 @@ script = ExtResource("15_12buq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="null_hurtbox_component"]
 shape = SubResource("CircleShape2D_12buq")
 disabled = true
+
+[node name="speech_text" parent="." instance=ExtResource("17_2gsku")]
+offset_left = 9.0
+offset_top = -34.0
+offset_right = 9.0
+offset_bottom = -34.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=53 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -21,9 +21,22 @@
 [ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
 [ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
 [ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
+[ext_resource type="Script" uid="uid://00gm42blcxlg" path="res://scene/world/TutorialMenu.gd" id="19_3bcwl"]
 [ext_resource type="LabelSettings" uid="uid://qfg2ildbrcxg" path="res://resource/MenuLabelSettings.tres" id="20_hsxsa"]
+[ext_resource type="Texture2D" uid="uid://gqm3m6qytt8j" path="res://sprite/tutorial/wasd.png" id="21_ag38t"]
 [ext_resource type="Script" uid="uid://dsgc4kq36sp6o" path="res://script/UI/ResolutionSelector.gd" id="21_bot1t"]
 [ext_resource type="Script" uid="uid://bb757cd321vio" path="res://script/state/menu_state/EndingsMenu.gd" id="22_2effu"]
+[ext_resource type="Texture2D" uid="uid://b4lx3t4g7ds" path="res://sprite/tutorial/shift.png" id="22_vtygj"]
+[ext_resource type="Texture2D" uid="uid://21ovxss1ou7i" path="res://sprite/tutorial/e.png" id="23_5kwk2"]
+[ext_resource type="Texture2D" uid="uid://4qre05dugt7a" path="res://sprite/tutorial/f.png" id="24_gpmpr"]
+[ext_resource type="Texture2D" uid="uid://by0cvd0qev4hy" path="res://sprite/tutorial/eorf.png" id="25_wi3wt"]
+[ext_resource type="Texture2D" uid="uid://dwtgjxae66306" path="res://sprite/tutorial/esc.png" id="26_5kwk2"]
+[ext_resource type="Texture2D" uid="uid://bn6ttbpnegxdc" path="res://sprite/tutorial/space.png" id="26_gpmpr"]
+[ext_resource type="Texture2D" uid="uid://dc8d8sexnf0rg" path="res://sprite/tutorial/hunger.png" id="28_wi3wt"]
+[ext_resource type="LabelSettings" uid="uid://um31j1unhgq7" path="res://resource/TutorialLabelSettings.tres" id="29_do1mh"]
+[ext_resource type="Texture2D" uid="uid://bsw87cjyr3k00" path="res://sprite/tutorial/desperation.png" id="29_dr8f1"]
+[ext_resource type="Texture2D" uid="uid://08m6c27xi2ax" path="res://sprite/tutorial/fuel.png" id="30_do1mh"]
+[ext_resource type="Texture2D" uid="uid://bggfmw6iy12rc" path="res://sprite/tutorial/loop.png" id="31_j31kx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_invj0"]
 shader = ExtResource("12_hsxsa")
@@ -339,7 +352,7 @@ game_loading_manager = NodePath("../../game_loading_manager")
 game_end_manager = NodePath("../../game_end_manager")
 initial_menu = NodePath("main_menu")
 
-[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "idle_menu", "settings_menu", "quit_menu", "endings_menu", "revert_menu")]
+[node name="main_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("main_menu_animation", "idle_menu", "tutorial_menu", "settings_menu", "quit_menu", "endings_menu", "revert_menu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -349,6 +362,7 @@ grow_vertical = 2
 script = ExtResource("6_ietmj")
 main_menu_animation = NodePath("MainMenuAnimationPlayer")
 idle_menu = NodePath("../idle_menu")
+tutorial_menu = NodePath("../tutorial_menu")
 settings_menu = NodePath("../settings_menu")
 quit_menu = NodePath("../quit_menu")
 endings_menu = NodePath("../endings_menu")
@@ -463,7 +477,7 @@ focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../StartGameButton")
 text = "Quit"
 
-[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "endings_menu", "main_menu", "quit_menu", "revert_menu")]
+[node name="pause_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("idle_menu", "restart_menu", "settings_menu", "tutorial_menu", "endings_menu", "main_menu", "quit_menu", "revert_menu")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -475,6 +489,7 @@ script = ExtResource("7_q18o2")
 idle_menu = NodePath("../idle_menu")
 restart_menu = NodePath("../restart_menu")
 settings_menu = NodePath("../settings_menu")
+tutorial_menu = NodePath("../tutorial_menu")
 endings_menu = NodePath("../endings_menu")
 main_menu = NodePath("../main_menu")
 quit_menu = NodePath("../quit_menu")
@@ -527,6 +542,7 @@ layout_mode = 2
 text = "Settings"
 
 [node name="InTutorialButton" type="Button" parent="UI/MenuStateMachine/pause_menu/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Tutorial"
 
@@ -697,6 +713,292 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="tutorial_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu", "page_one", "page_two", "page_three")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_3bcwl")
+revert_menu = NodePath("../revert_menu")
+page_one = NodePath("ColorRect/MarginContainer/VBoxContainer/ControlsTutorial")
+page_two = NodePath("ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial")
+page_three = NodePath("ColorRect/MarginContainer/VBoxContainer/EndingsTutorial")
+
+[node name="ColorRect" type="ColorRect" parent="UI/MenuStateMachine/tutorial_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="TutorialTitle" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Tutorial"
+label_settings = ExtResource("20_hsxsa")
+horizontal_alignment = 1
+
+[node name="ControlsTutorial" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer2"]
+layout_mode = 2
+
+[node name="wasd" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("21_ag38t")
+stretch_mode = 2
+
+[node name="wasd_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Move"
+label_settings = ExtResource("29_do1mh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="e" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("23_5kwk2")
+stretch_mode = 2
+
+[node name="e_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Use picked up item"
+label_settings = ExtResource("29_do1mh")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="f" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("24_gpmpr")
+stretch_mode = 2
+
+[node name="f_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Drop item"
+label_settings = ExtResource("29_do1mh")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="eorf" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("25_wi3wt")
+stretch_mode = 2
+
+[node name="eorf_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Pick up item"
+label_settings = ExtResource("29_do1mh")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3"]
+layout_mode = 2
+
+[node name="space" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("26_gpmpr")
+stretch_mode = 2
+
+[node name="space_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Attack"
+label_settings = ExtResource("29_do1mh")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3"]
+layout_mode = 2
+
+[node name="shift" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("22_vtygj")
+
+[node name="shift_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Sprint"
+label_settings = ExtResource("29_do1mh")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3"]
+layout_mode = 2
+
+[node name="esc" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("26_5kwk2")
+stretch_mode = 2
+
+[node name="esc_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/ControlsTutorial/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Pause"
+label_settings = ExtResource("29_do1mh")
+
+[node name="MechanicsTutorial" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="hunger" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="hunger" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/hunger"]
+layout_mode = 2
+texture = ExtResource("28_wi3wt")
+stretch_mode = 2
+
+[node name="hunger_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/hunger"]
+layout_mode = 2
+text = "Don't let your hunger get too low
+You will slow down until you die"
+label_settings = ExtResource("29_do1mh")
+
+[node name="desperation" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="desperation" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/desperation"]
+layout_mode = 2
+texture = ExtResource("29_dr8f1")
+stretch_mode = 2
+
+[node name="desperation_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/desperation"]
+layout_mode = 2
+text = "Don't let your desperation get too high 
+Your other selves will be crueler if they have high desperation"
+label_settings = ExtResource("29_do1mh")
+
+[node name="fuel" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="fuel" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/fuel"]
+layout_mode = 2
+texture = ExtResource("30_do1mh")
+stretch_mode = 2
+
+[node name="fuel_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/fuel"]
+layout_mode = 2
+text = "Don't let the fuel of the fireplace burn out
+You will die"
+label_settings = ExtResource("29_do1mh")
+
+[node name="loop" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer"]
+layout_mode = 2
+
+[node name="loop" type="TextureRect" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/loop"]
+layout_mode = 2
+texture = ExtResource("31_j31kx")
+stretch_mode = 2
+
+[node name="loop_label" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/MechanicsTutorial/VBoxContainer/loop"]
+layout_mode = 2
+text = "Walking back up a floor, you can see your past self
+Use this power carefully"
+label_settings = ExtResource("29_do1mh")
+
+[node name="EndingsTutorial" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/EndingsTutorial"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="Find" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/EndingsTutorial/VBoxContainer"]
+layout_mode = 2
+text = "Find All 10 Endings"
+horizontal_alignment = 1
+
+[node name="HowTo" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/EndingsTutorial/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "The ending you get will be based on your actions, including:
+- how you died
+- interactions with your past self
+- amount of resources you used"
+label_settings = ExtResource("29_do1mh")
+autowrap_mode = 2
+
+[node name="Check" type="Label" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/EndingsTutorial/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "You can check the endings you have obtained and the actions that led to them in the ENDINGS menu"
+label_settings = ExtResource("29_do1mh")
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TutorialBackButton" type="Button" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+text = "Back"
+
+[node name="PreviousButton" type="Button" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Previous"
+
+[node name="vertical_seperator" type="Control" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="UI/MenuStateMachine/tutorial_menu/ColorRect/MarginContainer/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Next"
 
 [node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
 visible = false
