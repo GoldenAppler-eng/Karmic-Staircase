@@ -30,6 +30,7 @@ func change_state(next_state : BrainState) -> void:
 	current_state.enter()
 
 func reset_state_machine() -> void:
+	speech_text.hide_speech_box()
 	change_state(initial_state)
 
 func activate() -> void:

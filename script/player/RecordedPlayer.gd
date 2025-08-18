@@ -76,6 +76,7 @@ func set_recorded_brain_data(step_data : Array[BrainFrameData], item_data : Arra
 	recorded_brain.recorded_item_data = item_data
 
 func reset_player() -> void:
+	visible = true
 	global_position = initial_position
 	rotation_tracker_component.psuedo_vertical_coordinate = initial_vertical_coordinate
 	stat_data_component.data = initial_stats.duplicate()

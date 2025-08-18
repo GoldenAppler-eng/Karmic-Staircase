@@ -38,6 +38,10 @@ func _physics_process(delta: float) -> void:
 		
 	if current_frame + 1 >= recorded_brain_data.size():
 		_freeze = true
+		
+		(owner as Node2D).visible = false
+		owner.process_mode = Node.PROCESS_MODE_DISABLED
+		
 		return
 		
 	if _stop_play_recording:

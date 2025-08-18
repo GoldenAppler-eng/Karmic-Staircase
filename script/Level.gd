@@ -125,9 +125,10 @@ func create_evil_player() -> void:
 	add_child(evil_player)
 	
 	current_evil_player = evil_player
+	current_evil_player.process_mode = Node.PROCESS_MODE_INHERIT
 	
-	evil_player.global_position = evil_player_spawn_location.global_position
-	evil_player.set_vertical_coordinate(level_data.level_id * 2 + EVIL_PLAYER_INITIAL_VERTICAL_COORDINATE)
+	current_evil_player.global_position = evil_player_spawn_location.global_position
+	current_evil_player.set_vertical_coordinate(level_data.level_id * 2 + EVIL_PLAYER_INITIAL_VERTICAL_COORDINATE)
 
 func load_data() -> void:
 	board_pile.boards_left = level_data.initial_boards_left
@@ -138,6 +139,7 @@ func load_data() -> void:
 
 func reset_recorded_players() -> void:
 	for recorded_player in recorded_players:
+		recorded_player.process_mode = Node.PROCESS_MODE_INHERIT
 		recorded_player.reset_player()
 
 func disable() -> void:

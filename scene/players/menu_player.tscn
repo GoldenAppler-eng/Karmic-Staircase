@@ -336,7 +336,7 @@ shape = SubResource("CircleShape2D_12buq")
 disabled = true
 
 [node name="speech_text" parent="." instance=ExtResource("17_2gsku")]
-offset_left = 9.0
-offset_top = -34.0
-offset_right = 9.0
-offset_bottom = -34.0
+offset_left = -14.0
+offset_top = -35.0
+offset_right = -14.0
+offset_bottom = -35.0

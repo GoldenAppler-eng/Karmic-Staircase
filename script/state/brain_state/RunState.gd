@@ -10,7 +10,7 @@ func enter() -> void:
 	brain._wants_sprint = true
 	brain.set_target_position(level.staircase_top.global_position)
 	
-	speech_text.say("Get away from me")
+	speech_text.say("Get away from me!")
 	
 func exit() -> void:
 	brain._wants_movement = false
@@ -19,6 +19,12 @@ func exit() -> void:
 func process_physics(delta : float) -> BrainState:
 	if stat_data_component.is_dead:
 		return dead_state
+	
+	if brain.is_close_to_target():
+		(owner as Node2D).visible = false
+		owner.process_mode = Node.PROCESS_MODE_DISABLED
+		
+		return null
 	
 	return null
 	

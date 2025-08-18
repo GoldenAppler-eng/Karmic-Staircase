@@ -1,6 +1,8 @@
 class_name AIBrain
 extends Brain
 
+const CLOSE_DISTANCE : float = 1
+
 @export var nav_agent : NavigationAgent2D
 @export var path_refresh_timer : Timer
 
@@ -55,6 +57,12 @@ func get_movement_vector() -> Vector2:
 	var direction : Vector2 = nav_agent.get_next_path_position() - (owner as Node2D).global_position
 	
 	return direction.normalized()
+
+func is_close_to_target() -> bool:
+	if target_position.distance_to((owner as Node2D).global_position) < CLOSE_DISTANCE:
+		return true
+	
+	return false
 
 func _on_path_refresh_timeout() -> void:
 	nav_agent.target_position = target_position
