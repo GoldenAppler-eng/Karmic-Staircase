@@ -30,14 +30,16 @@ func _physics_process(delta: float) -> void:
 	
 	speech_end_timer.wait_time = SPEECH_TEXT_WAIT_TIME / 3 if text_queue.size() > 1 else SPEECH_TEXT_WAIT_TIME
 	
-	if _text_time_finished:
-		show_text(text_queue.front())
+	#if _text_time_finished:
+		#show_text(text_queue.front())
 
 func set_text(text : String) -> void:
 	label.text = text
 
 func say(text : String) -> void:
 	text_queue.append(text)
+	
+	show_text(text)
 
 func show_text(text : String) -> void:
 	if current_tween:
