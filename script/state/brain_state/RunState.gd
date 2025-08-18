@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Get away from me!",
+	"Stay back!",
+	"Please don't hurt me!",
+	"Upstairs! Upstairs!",
+	"You don't have to do this!"
+]
+
 @export var dead_state : BrainState
 
 func extra_init() -> void:
@@ -10,7 +18,7 @@ func enter() -> void:
 	brain._wants_sprint = true
 	brain.set_target_position(level.staircase_top.global_position)
 	
-	speech_text.say("Get away from me!")
+	speech_text.say(dialogue_options.pick_random())
 	
 func exit() -> void:
 	brain._wants_movement = false

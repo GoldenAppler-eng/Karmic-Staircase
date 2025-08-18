@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Where are you?",
+	"Come out...come out...",
+	"Please don't hide.",
+	"Here? There?",
+	"Where would I hide?"
+]
+
 @export var chase_player_state : BrainState
 @export var dead_state : BrainState
 
@@ -14,7 +22,7 @@ func enter() -> void:
 	
 	brain.set_target_position(level.staircase_top.global_position)
 	
-	speech_text.say("Where are you")
+	speech_text.say(dialogue_options.pick_random())
 	
 func exit() -> void:
 	brain._wants_movement = false

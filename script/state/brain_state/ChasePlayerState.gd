@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Get over here!",
+	"It's you or me!",
+	"Please don't run!",
+	"ARRGGGHHH!!",
+	"Please don't make me do this!"
+]
+
 @export var run_state : BrainState
 @export var hunt_state : BrainState
 @export var calm_state : BrainState
@@ -19,7 +27,7 @@ func enter() -> void:
 	
 	brain.find_target_player()
 	
-	speech_text.say("Get over here")
+	speech_text.say(dialogue_options.pick_random())
 	
 	if eerie_sfx_player:
 		eerie_sfx_player.play()

@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Safe at last...",
+	"Finally...",
+	"*Pant* *Pant*",
+	"Is...is it done?",
+	"Hello...any one there?"
+]
+
 @export var find_weapon_state : BrainState
 @export var run_state : BrainState
 @export var dead_state : BrainState
@@ -10,6 +18,8 @@ func extra_init() -> void:
 func enter() -> void:
 	brain._wants_movement = true
 	brain._wants_sprint = false
+	
+	speech_text.say(dialogue_options.pick_random())
 	
 	if level.cake.cake_left > 0:
 		brain.set_target_position(level.cake.global_position)

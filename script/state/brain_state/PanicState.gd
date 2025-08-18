@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Noooo!",
+	"Ahhhh!",
+	"No...NO!",
+	"Don't!",
+	"Can't! Can't!"
+]
+
 @export var run_state : BrainState
 @export var find_weapon_state : BrainState
 @export var hunt_state : BrainState
@@ -11,7 +19,7 @@ func extra_init() -> void:
 
 func enter() -> void:
 	_finished = false
-	speech_text.say("Argghhhhh")
+	speech_text.say(dialogue_options.pick_random())
 	
 	get_tree().create_timer(0.5).timeout.connect(mark_finished)
 	

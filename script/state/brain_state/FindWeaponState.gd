@@ -1,5 +1,11 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"Got to find it!",
+	"Please...Please...Please",
+	"Need a weapon! Quick!"
+]
+
 @export var run_state : BrainState
 @export var hunt_state : BrainState
 @export var dead_state : BrainState
@@ -11,6 +17,8 @@ func enter() -> void:
 	brain._wants_movement = true
 	brain._wants_sprint = true
 	brain.set_target_position(level.board_pile.global_position)
+	
+	speech_text.say(dialogue_options.pick_random())
 	
 func exit() -> void:
 	brain._wants_movement = false

@@ -1,5 +1,13 @@
 extends BrainState
 
+var dialogue_options : Array[String] = [
+	"What the...?",
+	"Is that...?",
+	"Who are you?",
+	"This isn't possible.",
+	"Wait...what?"
+]
+
 @export var panic_state : BrainState
 
 var _finished : bool = false
@@ -9,7 +17,7 @@ func extra_init() -> void:
 
 func enter() -> void:
 	_finished = false
-	speech_text.say("What the...")
+	speech_text.say(dialogue_options.pick_random())
 	
 	get_tree().create_timer(0.5).timeout.connect(mark_finished)
 	
