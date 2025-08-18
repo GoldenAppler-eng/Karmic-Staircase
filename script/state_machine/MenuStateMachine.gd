@@ -46,6 +46,7 @@ func create_sfx_children() -> void:
 		stream_player.stream = load("res://audio/menu/" + sfx + ".wav")
 
 		stream_player.bus = "Sfx"
+		stream_player.volume_db = -5.0
 		add_child(stream_player)
 
 func install_sfx(node : Node) -> void:

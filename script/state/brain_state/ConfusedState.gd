@@ -19,7 +19,7 @@ func enter() -> void:
 	_finished = false
 	speech_text.say(dialogue_options.pick_random())
 	
-	get_tree().create_timer(0.5).timeout.connect(mark_finished)
+	get_tree().create_timer(1).timeout.connect(mark_finished)
 	
 func exit() -> void:
 	pass

@@ -53,6 +53,8 @@ func show_text(text : String) -> void:
 	label.visible_ratio = 0
 	panel.visible = true
 	
+	visible = true
+	
 	current_tween = create_tween()
 	current_tween.tween_property(label, "visible_ratio", 1, SPEECH_TWEEN_DURATION)
 	dialogue_sfx.play()
@@ -71,3 +73,5 @@ func hide_speech_box() -> void:
 	set_text("")
 	label.visible_ratio = 0
 	panel.visible = false
+	
+	visible = false

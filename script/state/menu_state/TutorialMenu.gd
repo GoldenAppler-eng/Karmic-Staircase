@@ -29,8 +29,12 @@ func enter() -> void:
 	
 	_show_page(_current_page)
 	
+	set_game_paused(true)
+	
 func exit() -> void:
 	super()
+	
+	set_game_paused(false)
 
 func process_frame(delta : float) -> Menu:
 	if _back:

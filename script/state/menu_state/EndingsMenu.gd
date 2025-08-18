@@ -30,8 +30,12 @@ func enter() -> void:
 	_view_ending_page(_viewing_ending)
 	_check_endings_unlocked()
 	
+	set_game_paused(true)
+	
 func exit() -> void:
 	super()
+	
+	set_game_paused(false)
 
 func process_frame(delta : float) -> Menu:
 	if _back and _viewing_ending:
