@@ -169,7 +169,5 @@ func load_obtained_endings() -> void:
 		save_file.close()
 		
 		endings_found = saved_endings_found.duplicate(true)
-		
-		print(endings_found)
-		
+				
 		return

@@ -13,7 +13,8 @@ config_version=5
 config/name="Karmic Staircase"
 run/main_scene="uid://bdqhiaqxesh60"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://b2pjk2eae4mb2"
+config/windows_native_icon="res://sprite/window/icon.ico"
 
 [autoload]
 
