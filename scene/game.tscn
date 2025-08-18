@@ -115,6 +115,7 @@ metadata/_edit_lock_ = true
 
 [node name="centre_column" type="Sprite2D" parent="Constant"]
 z_index = 30
+z_as_relative = false
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_jrd6n")
 position = Vector2(-55, 20)
@@ -136,9 +137,9 @@ position = Vector2(91, 2)
 texture = ExtResource("4_ux4dc")
 
 [node name="Levels" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="player" parent="." node_paths=PackedStringArray("origin_node") instance=ExtResource("1_5kiuu")]
-z_index = 30
 position = Vector2(-53, -60)
 origin_node = NodePath("../Constant/origin")
 
