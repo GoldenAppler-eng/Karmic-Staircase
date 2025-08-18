@@ -1,6 +1,8 @@
 class_name GameEndManager
 extends Node
 
+const SAVE_FILE_NAME : String = "ObtainedEndings.save"
+
 const TOTAL_ENDINGS : int = 10
 
 enum ENDINGS { LUST, ENVY, GLUTTONY, WRATH, GREED, SLOTH, PRIDE, LOST, GOOD, MOKSHA }
@@ -51,8 +53,10 @@ var _game_ended : bool = false
 var endings_found : Dictionary = {}
 
 func _init() -> void:
-	for ending in ENDINGS:
+	for ending in ENDINGS.values():
 		endings_found[ending] = false
+		
+	load_obtained_endings()
 
 func set_game(game : GameManager) -> void:
 	current_game = game
@@ -74,7 +78,7 @@ func kill_game() -> void:
 
 func _on_game_ended() -> void:
 	_game_ended = true
-	
+
 func get_ending_color(ending : int) -> String:
 	return ENDING_COLOR_DICTIONARY[ending]
 
@@ -111,8 +115,11 @@ func get_ending_result() -> int:
 			ending = ENDINGS.PRIDE
 	elif GlobalFlags.killed_by_player:
 		ending = ENDINGS.ENVY
+	
+	if endings_found.has(ending):
+		endings_found[ending] = true
+		save_obtained_endings()
 
-	endings_found[ending] = true
 	return ending	
 
 func get_ended() -> bool:
@@ -127,8 +134,8 @@ func get_number_of_endings_found() -> int:
 	
 	return number_of_endings_found
 
-func get_endings_found_indices() -> Array[int]:
-	var found_indices : Array[int] = []
+func get_endings_found_indices() -> Array[String]:
+	var found_indices : Array[String] = []
 	
 	for ending in endings_found.keys():
 		var found : bool = endings_found[ending]
@@ -137,3 +144,32 @@ func get_endings_found_indices() -> Array[int]:
 			found_indices.append(ending)
 	
 	return found_indices
+
+func save_obtained_endings() -> void:
+	var save_file : FileAccess = FileAccess.open("user://" + SAVE_FILE_NAME, FileAccess.WRITE)
+	var json_string : String = JSON.stringify(endings_found)
+	
+	save_file.store_line(json_string)
+	save_file.close()
+	
+func load_obtained_endings() -> void:
+	if not FileAccess.file_exists("user://" + SAVE_FILE_NAME):
+		save_obtained_endings()
+		return
+		
+	var save_file : FileAccess = FileAccess.open("user://" + SAVE_FILE_NAME, FileAccess.READ)
+	
+	while save_file.get_position() < save_file.get_length():
+		var json_string : String = save_file.get_line()
+		var json : JSON = JSON.new()
+		
+		json.parse(json_string)
+		
+		var saved_endings_found : Dictionary = json.get_data() as Dictionary
+		save_file.close()
+		
+		endings_found = saved_endings_found.duplicate(true)
+		
+		print(endings_found)
+		
+		return

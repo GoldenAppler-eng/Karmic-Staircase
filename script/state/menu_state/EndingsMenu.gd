@@ -53,7 +53,7 @@ func process_input(event : InputEvent) -> Menu:
 
 func _check_endings_unlocked() -> void:
 	for ending in game_end_manager.get_endings_found_indices():
-		(ending_buttons_dictionary[ending] as Button).disabled = false
+		(ending_buttons_dictionary[int(ending)] as Button).disabled = false
 
 func _initialize_endings_buttons() -> void:
 	for ending in game_end_manager.ENDINGS.values():
