@@ -11,12 +11,16 @@ const SCARY_THEME : Theme = preload("res://scary_theme.tres")
 
 @export var tip: Label
 
-var current_tween : Tween
+@export var use_sfx_bus : bool = true
 
 @onready var show_up_sfx: AudioStreamPlayer2D = $show_up_sfx
 @onready var panel : Panel = $Panel
 
+var current_tween : Tween
+
 func _ready() -> void:
+	show_up_sfx.bus = "Sfx" if use_sfx_bus else "Master" 
+	
 	tip.text = tooltip
 	tip.visible_ratio = 0
 	

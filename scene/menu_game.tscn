@@ -154,20 +154,21 @@ polygon = PackedVector2Array(-17, 95, 320, 95, 320, 132, 0, 132, 0, 96, -17, 96,
 [node name="menu_player" parent="." instance=ExtResource("6_x50fb")]
 position = Vector2(19, 108)
 
-[node name="tool_tip_activation_component" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("7_8hdih")]
+[node name="Mirror_Tooltip" parent="." node_paths=PackedStringArray("tip") instance=ExtResource("7_8hdih")]
 position = Vector2(144, 83)
 monitoring = false
 tooltip = "Do you trust yourself?"
 tip = NodePath("tip")
+use_sfx_bus = false
 
-[node name="Panel" type="Panel" parent="tool_tip_activation_component"]
+[node name="Panel" type="Panel" parent="Mirror_Tooltip"]
 offset_left = -58.0
 offset_top = -24.0
 offset_right = 68.0
 offset_bottom = -7.0
 theme = ExtResource("8_ut2sg")
 
-[node name="tip" type="Label" parent="tool_tip_activation_component"]
+[node name="tip" type="Label" parent="Mirror_Tooltip"]
 offset_left = -55.0
 offset_top = -22.0
 offset_right = 67.0
@@ -175,7 +176,7 @@ offset_bottom = -9.0
 text = "Do you trust yourself?"
 horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="tool_tip_activation_component"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mirror_Tooltip"]
 shape = SubResource("RectangleShape2D_02gxb")
 
 [node name="Door" parent="." instance=ExtResource("9_1l0o5")]

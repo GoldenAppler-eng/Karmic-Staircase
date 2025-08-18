@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=54 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -16,11 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://ctds0idm0kkbm" path="res://sprite/title.png" id="11_4njw5"]
 [ext_resource type="AudioStream" uid="uid://6kpkfmu5hk7f" path="res://audio/door_closing.wav" id="12_4njw5"]
 [ext_resource type="Shader" uid="uid://bpqjbi1kby824" path="res://shader/Darkness.gdshader" id="12_hsxsa"]
-[ext_resource type="AudioStream" uid="uid://d11jdpenlt6bk" path="res://audio/menu/dialogue.wav" id="12_ietmj"]
 [ext_resource type="Shader" uid="uid://bpbbomy5upy2k" path="res://shader/Vignette.gdshader" id="13_ig73b"]
 [ext_resource type="Script" uid="uid://cqx12tge4dhsq" path="res://script/state/menu_state/SettingsMenu.gd" id="14_nm76x"]
 [ext_resource type="PackedScene" uid="uid://cykngslnbet6v" path="res://scene/UI/volume_controller.tscn" id="15_ietmj"]
 [ext_resource type="Script" uid="uid://bcb0hhl0fxo8o" path="res://script/state/menu_state/RevertMenu.gd" id="15_ymi47"]
+[ext_resource type="AudioStream" uid="uid://clpfv8i4q6ghq" path="res://audio/menu/dialogue_2.wav" id="16_j31kx"]
+[ext_resource type="AudioStream" uid="uid://c824kydb0fm7" path="res://audio/eerie_2.wav" id="17_8d0ft"]
 [ext_resource type="Script" uid="uid://00gm42blcxlg" path="res://script/state/menu_state/TutorialMenu.gd" id="19_3bcwl"]
 [ext_resource type="LabelSettings" uid="uid://qfg2ildbrcxg" path="res://resource/MenuLabelSettings.tres" id="20_hsxsa"]
 [ext_resource type="Texture2D" uid="uid://gqm3m6qytt8j" path="res://sprite/tutorial/wasd.png" id="21_ag38t"]
@@ -171,10 +172,22 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EerieSfx:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ymi47"]
 resource_name = "game end"
-length = 2.5
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -206,7 +219,7 @@ tracks/2/path = NodePath("DialogueSfx:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 2.5),
+"times": PackedFloat32Array(0, 0.5, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -222,6 +235,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EerieSfx:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q18o2"]
@@ -686,8 +711,13 @@ libraries = {
 }
 
 [node name="DialogueSfx" type="AudioStreamPlayer" parent="UI/MenuStateMachine/game_end_menu"]
-stream = ExtResource("12_ietmj")
-volume_db = 5.0
+stream = ExtResource("16_j31kx")
+volume_db = -5.0
+bus = &"Sfx"
+
+[node name="EerieSfx" type="AudioStreamPlayer" parent="UI/MenuStateMachine/game_end_menu"]
+stream = ExtResource("17_8d0ft")
+bus = &"Sfx"
 
 [node name="quit_menu" type="Control" parent="UI/MenuStateMachine"]
 visible = false

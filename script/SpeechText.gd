@@ -4,6 +4,8 @@ extends Control
 const SPEECH_TWEEN_DURATION : float = 0.3
 const SPEECH_TEXT_WAIT_TIME : float = 2
 
+@export var use_sfx_bus : bool = true
+
 @onready var speech_end_timer: Timer = %SpeechEndTimer
 @onready var dialogue_sfx: AudioStreamPlayer2D = $dialogue_sfx
 @onready var label: Label = %Label
@@ -18,6 +20,8 @@ var _text_time_finished : bool = true
 func _ready() -> void:
 	label.text = ""
 	panel.visible = false
+	
+	dialogue_sfx.bus = "Sfx" if use_sfx_bus else "Master"
 	
 	speech_end_timer.wait_time = SPEECH_TEXT_WAIT_TIME
 
