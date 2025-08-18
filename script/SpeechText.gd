@@ -2,8 +2,9 @@ class_name SpeechText
 extends Control
 
 const SPEECH_TWEEN_DURATION : float = 0.3
+const SPEECH_TEXT_WAIT_TIME : float = 2
 
-@onready var speech_end_timer: Timer = $SpeechEndTimer
+@onready var speech_end_timer: Timer = %SpeechEndTimer
 @onready var dialogue_sfx: AudioStreamPlayer2D = $dialogue_sfx
 @onready var label: Label = %Label
 @onready var panel : Panel = %Panel
@@ -17,6 +18,8 @@ var _text_time_finished : bool = true
 func _ready() -> void:
 	label.text = ""
 	panel.visible = false
+	
+	speech_end_timer.wait_time = SPEECH_TEXT_WAIT_TIME
 
 func _physics_process(delta: float) -> void:
 	panel.custom_minimum_size.x = label.size.x + 4
@@ -24,7 +27,9 @@ func _physics_process(delta: float) -> void:
 	if text_queue.is_empty():
 		hide_speech_box()
 		return
-		
+	
+	speech_end_timer.wait_time = SPEECH_TEXT_WAIT_TIME / 3 if text_queue.size() > 1 else SPEECH_TEXT_WAIT_TIME
+	
 	if _text_time_finished:
 		show_text(text_queue.front())
 

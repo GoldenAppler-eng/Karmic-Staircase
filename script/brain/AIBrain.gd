@@ -1,7 +1,7 @@
 class_name AIBrain
 extends Brain
 
-const CLOSE_DISTANCE : float = 1
+const CLOSE_DISTANCE : float = 5
 
 @export var nav_agent : NavigationAgent2D
 @export var path_refresh_timer : Timer
