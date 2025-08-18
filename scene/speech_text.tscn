@@ -7,29 +7,27 @@
 [node name="speech_text" type="Control"]
 z_index = 2000
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 theme = ExtResource("1_67d1b")
 script = ExtResource("1_uemjf")
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = -32.0
-offset_top = -3.0
-offset_right = 90.0
-offset_bottom = 15.0
+offset_right = 122.0
+offset_bottom = 18.0
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Panel"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 63.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Sample text"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SpeechEndTimer" type="Timer" parent="."]
 wait_time = 2.0

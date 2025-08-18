@@ -307,6 +307,8 @@ _data = {
 radius = 104.077
 
 [node name="evil_player" type="CharacterBody2D"]
+z_index = 30
+y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_c3ptj")
 starting_weapon = ExtResource("2_dti7d")

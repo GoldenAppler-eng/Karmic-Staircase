@@ -29,6 +29,7 @@ final_cake_left = 0.0
 final_boards_left = 0.0
 initial_boards_used_in_fire = 0
 boards_used_in_fire = 0
+initialized = false
 metadata/_custom_type_script = "uid://dnbkjrpno7u1e"
 
 [sub_resource type="Resource" id="Resource_5g16k"]

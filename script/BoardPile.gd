@@ -50,10 +50,9 @@ func _check_for_empty() -> void:
 		visible = false
 		collision_shape_2d.disabled = true
 		interactable_component.set_enabled(false)
-		
 	else:
 		visible = true
-		collision_shape_2d.disabled = true
+		collision_shape_2d.disabled = false
 		interactable_component.set_enabled(true)
 
 func board_use_function(user : Node2D) -> void:
