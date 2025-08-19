@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bdqhiaqxesh60"]
+[gd_scene load_steps=53 format=3 uid="uid://bdqhiaqxesh60"]
 
 [ext_resource type="Script" uid="uid://dtnwf07uy3cky" path="res://script/manager/GameEndManager.gd" id="1_ibqyb"]
 [ext_resource type="Script" uid="uid://bwjud1jvc05fy" path="res://script/manager/GameLoadingManager.gd" id="2_ig73b"]
@@ -25,7 +25,6 @@
 [ext_resource type="Script" uid="uid://00gm42blcxlg" path="res://script/state/menu_state/TutorialMenu.gd" id="19_3bcwl"]
 [ext_resource type="LabelSettings" uid="uid://qfg2ildbrcxg" path="res://resource/MenuLabelSettings.tres" id="20_hsxsa"]
 [ext_resource type="Texture2D" uid="uid://gqm3m6qytt8j" path="res://sprite/tutorial/wasd.png" id="21_ag38t"]
-[ext_resource type="Script" uid="uid://dsgc4kq36sp6o" path="res://script/UI/ResolutionSelector.gd" id="21_bot1t"]
 [ext_resource type="Script" uid="uid://bb757cd321vio" path="res://script/state/menu_state/EndingsMenu.gd" id="22_2effu"]
 [ext_resource type="Texture2D" uid="uid://b4lx3t4g7ds" path="res://sprite/tutorial/shift.png" id="22_vtygj"]
 [ext_resource type="Texture2D" uid="uid://21ovxss1ou7i" path="res://sprite/tutorial/e.png" id="23_5kwk2"]
@@ -1031,7 +1030,6 @@ size_flags_vertical = 8
 text = "Next"
 
 [node name="settings_menu" type="Control" parent="UI/MenuStateMachine" node_paths=PackedStringArray("revert_menu")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1075,16 +1073,6 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Resolution" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Resolution"
-horizontal_alignment = 1
-
-[node name="ResolutionSelector" type="OptionButton" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-script = ExtResource("21_bot1t")
-
 [node name="Master" type="Label" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Master volume"
@@ -1110,6 +1098,10 @@ horizontal_alignment = 1
 [node name="SfxVolumeController" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer" instance=ExtResource("15_ietmj")]
 layout_mode = 2
 bus_name = "Sfx"
+
+[node name="seperator2" type="Control" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="SettingsBackButton" type="Button" parent="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -1244,5 +1236,3 @@ color = Color(0, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_fsey5")
 }
-
-[connection signal="item_selected" from="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer/ResolutionSelector" to="UI/MenuStateMachine/settings_menu/ColorRect/MarginContainer/VBoxContainer/ResolutionSelector" method="_on_item_selected"]

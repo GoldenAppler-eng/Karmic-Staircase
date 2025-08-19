@@ -14,9 +14,9 @@ func _ready() -> void:
 	for resolution in RESOLUTIONS.keys():
 		add_item(resolution)
 		set_item_metadata(index, RESOLUTIONS[resolution])
-		
-		if RESOLUTIONS[resolution] == DisplayServer.window_get_size():
-			select(index)
+				
+		#if RESOLUTIONS[resolution] == viewport.get_size_2d_override():
+		#	select(index)
 		
 		index += 1
 
@@ -26,6 +26,7 @@ func _ready() -> void:
 		pm.set_item_as_radio_checkable(i, false)
 
 func _on_item_selected(index: int) -> void:
-	var resoultion : Vector2i = get_item_metadata(index)
-	
-	DisplayServer.window_set_size(resoultion)
+	var resolution : Vector2i = get_item_metadata(index)
+		
+	ProjectSettings.set_setting("display/window/size/window_width_override", resolution.x)
+	ProjectSettings.set_setting("display/window/size/window_width_override", resolution.y)

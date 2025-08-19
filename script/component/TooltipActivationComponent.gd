@@ -18,6 +18,8 @@ const SCARY_THEME : Theme = preload("res://scary_theme.tres")
 
 var current_tween : Tween
 
+var _panel_active : bool = false
+
 func _ready() -> void:
 	show_up_sfx.bus = "Sfx" if use_sfx_bus else "Master" 
 	
@@ -28,6 +30,8 @@ func _ready() -> void:
 	hide_panel()
 
 func activate() -> void:
+	_panel_active = true
+	
 	current_tween = create_tween()
 	current_tween.tween_property(tip, "visible_ratio", 1, TOOLTIP_ACTIVATION_DURATION)
 	show_up_sfx.play()
@@ -38,6 +42,8 @@ func activate() -> void:
 	tooltip_activated.emit()
 
 func deactivate() -> void:
+	_panel_active = false
+	
 	current_tween.kill()
 	show_up_sfx.stop()
 	
@@ -52,4 +58,7 @@ func set_tooltip(new_tooltip : String) -> void:
 	tip.text = tooltip
 
 func hide_panel() -> void:
+	if _panel_active:
+		return
+	
 	panel.visible = false
